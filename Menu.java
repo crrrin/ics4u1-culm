@@ -5,22 +5,8 @@
 * @since 2024/06/12
 */
 
-
-
-
 class Menu {
   
-  protected String username;
-
-  /**
-   * Sets the username of the user to the given username
-   * @param username String containing the user's given username
-   */
-  public Menu(String username) {
-    this.username = username;
-    
-  }
-
   /**
    * Creates the main menu for the user to access.
    */
@@ -41,7 +27,7 @@ class Menu {
           break;
   
         case 2: 
-          // stats();
+          // Data.stats();
           break;
   
         case 3: //quit
