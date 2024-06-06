@@ -1,0 +1,7 @@
+every new game run add player
+- reset stats if exist
+- if new player add as new player
+
+every time plyaer data loaded from prev game load data
+
+one save slot: reset if they hit new game
