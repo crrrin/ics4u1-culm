@@ -5,6 +5,6 @@
  * @since 2024/06/12
  */
 
-class Game {
+class Game extends Events {
   
 }
