@@ -10,7 +10,7 @@ class Battle {
   /**
    * Contains information and prompts of a battle
    */
-  public void battleInstance(Player player, String enemyName, int enemyHP){
+  public static void battleInstance(Player player, String enemyName, int enemyHP){
 
     int choice = -1;
     int damage = 0;

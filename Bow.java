@@ -41,11 +41,19 @@ class Bow implements Weapon {
     System.out.println("Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 20% chance to miss."); // TODO ENEMY MISS BASED ON PLAYER WEAPON?
   }
 
+  /** 
+   * Returns the name of the weapon
+   * @return A string with the weapon name
+   */
   @Override
   public String toString() {
     return "Bow";
   }
 
+  /** 
+   * Returns the odds of evasion
+   * @return A double with the odds of evasion
+   */
   @Override
   public double getEvasionOdds(){
     return EVASION_ODDS;

@@ -7,13 +7,13 @@
 
 class Sword implements Weapon {
 
-  protected final int DAMAGE = 7;
+  protected final int DAMAGE = 8;
   protected final double CRIT_ODDS = 0.3;
-  protected final double CRIT_DAMAGE_BONUS = 1.5;
+  protected int critDamage;
   protected final double EVASION_ODDS = 0;
   
   
-
+  
   /**
    * Uses the sword
    */
@@ -27,9 +27,10 @@ class Sword implements Weapon {
     
     if (crit) {
 // TODO make the crit bonus slightly random
+      this.critDamage = (int) Math.round(this.DAMAGE * (Math.random() * 0.5 + 1.5));
       System.out.println("CRITICAL HIT!"); 
 
-      return (int) Math.round(this.DAMAGE + this.DAMAGE * CRIT_DAMAGE_BONUS);
+      return this.critDamage;
     } else {
       return this.DAMAGE;
     }
@@ -41,14 +42,22 @@ class Sword implements Weapon {
    */
   @Override
   public void description() {
-    System.out.println("Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a not-too-special 7 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.");
+    System.out.println("Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a not-too-special 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.");
   }
 
+  /** 
+   * Returns the name of the weapon
+   * @return A string with the weapon name
+   */
   @Override
   public String toString() {
     return "Sword";
   }
-
+  
+  /** 
+   * Returns the odds of evasion
+   * @return A double with the odds of evasion
+   */
   @Override
   public double getEvasionOdds(){
     return EVASION_ODDS;

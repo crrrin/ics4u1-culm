@@ -20,9 +20,9 @@ class Data {
     try {
       databaseWriter = new PrintWriter(new BufferedWriter(new FileWriter("Database.txt")));
       for(int i = 0; i < players.size(); i++) {
-        databaseWriter.println(players.get(i).getUsername() + " " + players.get(i).getHealth() + " " + players.get(i).getEventsPassed() + " " + players.get(i).getMoney() + " " + players.get(i).getWeapon().toString() + " " + players.get(i).getPlaythroughs() + " " + players.get(i).getGamesWon());
-        for(int j = 0; j < players.get(i).getUnusedEvents().size(); j++) {
-          databaseWriter.print(players.get(i).getUnusedEvents().get(j) + " ");
+        databaseWriter.println(players.get(i).getUsername() + " " + players.get(i).getHealth() + " " + players.get(i).getEventsPassed() + " " + players.get(i).getMoney() + " " + players.get(i).getSmallHeals() + " " + players.get(i).getBigHeals() + " " + players.get(i).getWeapon().toString() + " " + players.get(i).getPlaythroughs() + " " + players.get(i).getGamesWon());
+        for(int j = 0; j < players.get(i).getEventNumbers().size(); j++) {
+          databaseWriter.print(players.get(i).getEventNumbers().get(j) + " ");
         }
         if(i != players.size() - 1)
         {
@@ -55,22 +55,30 @@ class Data {
         int health = databaseReader.nextInt();
         int eventsPassed = databaseReader.nextInt();
         int money = databaseReader.nextInt();
+        int smallHeals = databaseReader.nextInt();
+        int bigHeals = databaseReader.nextInt();
         String weaponStr = databaseReader.next();
         int playthroughs = databaseReader.nextInt();
         int gamesWon = databaseReader.nextInt();
         databaseReader.nextLine();
-        ArrayList<String> unusedEvents = new ArrayList<String>(Arrays.asList(databaseReader.nextLine().split(" ")));
+        String[] eventNames = databaseReader.nextLine().split(" ");
+
         Weapon weapon = null;
-        if(weaponStr.equals("Dagger")) {
-          weapon = new Dagger();
+        switch(weaponStr){
+          case "Dagger":
+            weapon = new Dagger();
+          case "Bow":
+            weapon = new Bow();
+          case "Sword":
+            weapon = new Sword();
+        } //TODO if more weapons added
+
+        ArrayList<Integer> eventNumbers = new ArrayList<Integer>();
+        for(int i = 0; i < eventNames.length; i++) {
+          eventNumbers.add(Integer.parseInt(eventNames[i]));
         }
-        else if(weaponStr.equals("Bow")) {
-          weapon = new Bow();
-        }
-        else if(weaponStr.equals("Sword")) {
-          weapon = new Sword();
-        }
-        Player player = new Player(username, health, eventsPassed, money, weapon, playthroughs, gamesWon, unusedEvents);
+        
+        Player player = new Player(username, health, eventsPassed, money, smallHeals, bigHeals, weapon, playthroughs, gamesWon, eventNumbers);
         players.add(player);
       }
     } 
@@ -93,8 +101,13 @@ class Data {
     for (int i = 0; i < players.size(); i++) {
       
       if (players.get(i).equals(player)) {
+        players.get(i).setHealth(player.getHealth());
         players.get(i).setEventsPassed(player.getEventsPassed());
         players.get(i).setMoney(player.getMoney());
+        players.get(i).setSmallHeals(player.getSmallHeals());
+        players.get(i).setBigHeals(player.getBigHeals());
+        players.get(i).setWeapon(player.getWeapon());
+        players.get(i).setEventNumbers(player.getEventNumbers());
         exists = true;
         i = players.size();
       }

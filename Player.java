@@ -1,34 +1,42 @@
+//TODO change event names to numbers
 /**
  * Creates an object Player containing data of a player.
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
  */
-import java.util.ArrayList;
-class Player implements Comparable { //TODO comarable incomplete
+import java.util.*;
+class Player implements Comparable<Player> {
   protected String username;
-  protected int health, eventsPassed, money, playthroughs, gamesWon;
+  protected int health, eventsPassed, money, smallHeals, bigHeals, playthroughs, gamesWon;
   protected Weapon weapon;
   protected final int MAX_HEALTH = 100;
-  protected ArrayList<String> unusedEvents;
-  
+  protected final int TOTAL_EVENTS = 12;
+  protected ArrayList<Integer> eventNumbers;
   /** 
    * Creates a player with the specified information if the player already exists
    * @param username The username of the player
+   * @param health The health points of the player
    * @param eventsPassed The number of events the player has passed
    * @param money The amount of money the player has
+   * @param smallHeals The number of small heals the player has
+   * @param bigHeals The number of big heals the player has
+   * @param weapon The weapon the player has
    * @param playthroughs The number of playthroughs the player has
    * @param gamesWon The number of games the player has won
+   * @param eventNumbers An int array list of events that the player hasn't reached yet
    */
-  public Player(String username, int health, int eventsPassed, int money, Weapon weapon, int playthroughs, int gamesWon, ArrayList<String> unusedEvents){
+  public Player(String username, int health, int eventsPassed, int money, int smallHeals, int bigHeals, Weapon weapon, int playthroughs, int gamesWon, ArrayList<Integer> eventNumbers){
     this.username = username;
     this.health = health;
     this.eventsPassed = eventsPassed;
     this.money = money;
+    this.smallHeals = smallHeals;
+    this.bigHeals = bigHeals;
     this.weapon = weapon;
     this.playthroughs = playthroughs;
     this.gamesWon = gamesWon;
-    this.unusedEvents = unusedEvents;
+    this.eventNumbers = eventNumbers;
   }
   
   /** 
@@ -41,9 +49,11 @@ class Player implements Comparable { //TODO comarable incomplete
     this.eventsPassed = 0;
     this.money = 0;
     this.weapon = null;
+    this.smallHeals = 0;
+    this.bigHeals = 0;
     this.playthroughs = 0;
     this.gamesWon = 0;
-    this.unusedEvents = Events.ALL_EVENTS;
+    this.eventNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
   }
 
   
@@ -68,7 +78,7 @@ class Player implements Comparable { //TODO comarable incomplete
    * @param health the player's health to be set
    */
   public void setHealth(int health) {
-    if (health > MAX_HEALTH){
+    if (health > MAX_HEALTH) {
       this.health = MAX_HEALTH;
     }
     this.health = health;
@@ -139,6 +149,37 @@ class Player implements Comparable { //TODO comarable incomplete
     this.money = money;
   }
 
+  /**
+   * Gets the amount of small heals the player has.
+   * @return The amount of small heals the player has
+   */
+  public int getSmallHeals() {
+    return this.smallHeals;
+  }
+
+  /**
+   * Sets the amount of small heals to the player
+   * @param money The amount of small heals to be set to the player
+   */
+  public void setSmallHeals(int smallHeals) {
+    this.smallHeals = smallHeals;
+  }
+
+  /**
+   * Gets the amount of big heals the player has.
+   * @return The amount of big heals the player has
+   */
+  public int getBigHeals() {
+    return this.bigHeals;
+  }
+
+  /**
+   * Sets the amount of big heals to the player
+   * @param money The amount of big heals to be set to the player
+   */
+  public void setBigHeals(int bigHeals) {
+    this.bigHeals = bigHeals;
+  }
   
   /**
    * Gets the number of games won by the player
@@ -157,19 +198,19 @@ class Player implements Comparable { //TODO comarable incomplete
   }
 
   /**
-   * Gets a list of events already completed by the player
-   * @return A list of events completed by the player
+   * Gets a list of events not yet completed by the player
+   * @return A list of events not yet completed by the player
    */
-  public ArrayList<String> getUnusedEvents() {
-    return this.unusedEvents;
+  public ArrayList<Integer> getEventNumbers() {
+    return this.eventNumbers;
   }
 
   /**
-   * Sets the list of events already completed by the player to a given list
-   * @param usedEvents A list of events completed to be set to the player
+   * Sets the list of events not yet completed by the player to a given list
+   * @param eventNumbers A list of events not completed to be set to the player
    */
-  public void setUnusedEvents(ArrayList<String> unusedEvents) {
-    this.unusedEvents = unusedEvents;
+  public void setEventNumbers(ArrayList<Integer> eventNumbers) {
+    this.eventNumbers = eventNumbers;
   }
 
   /**
@@ -189,7 +230,7 @@ class Player implements Comparable { //TODO comarable incomplete
    * @return Returns an integer of difference of games won; if the player has more games won, returns a positive integer, if the player has less games won, returns a negative integer
    */
   @Override
-  public int compareTo(Object o) {
-    return this.gamesWon - ((Player)o).getGamesWon();
+  public int compareTo(Player player) {
+    return this.gamesWon - player.getGamesWon();
   }
 }

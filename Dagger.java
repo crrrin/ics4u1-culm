@@ -52,11 +52,19 @@ class Dagger implements Weapon {
     System.out.println("Used by assassins and the like, the dagger is a small, simple and agile weapon yet a deadly weapon.\nDeals the lowest damage of the weapons at a measly 5 damage, but has 50% chance to land an extra hit, up to a maximum of 5 extra hits.\nThis is the starter weapon."); // TODO dedscription
   }
 
+  /** 
+   * Returns the name of the weapon
+   * @return A string with the weapon name
+   */
   @Override
   public String toString() {
     return "Dagger";
   }
 
+  /** 
+   * Returns the odds of evasion
+   * @return A double with the odds of evasion
+   */        
   @Override
   public double getEvasionOdds(){
     return EVASION_ODDS;
