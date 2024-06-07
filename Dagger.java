@@ -12,6 +12,7 @@ class Dagger implements Weapon {
   protected final int DAMAGE = 5;
   protected final int MAX_BONUS_STRIKES = 5;
   protected final double MULTIHIT_ODDS = 0.5;
+  protected final double EVASION_ODDS = 0;
   
   /**
    * Uses the dagger
@@ -21,22 +22,23 @@ class Dagger implements Weapon {
 
     int bonusDamageInstances = 0;
     
-    System.out.println("You strike with your dagger. ");
+    System.out.println("You strike with your dagger.");
     
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+
     for (Double i = Math.random(); i < MULTIHIT_ODDS && bonusDamageInstances <= MAX_BONUS_STRIKES; i = Math.random()){
       bonusDamageInstances++;
 
       if (bonusDamageInstances == 1){
-      System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hit!");
+        System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hit!");
+
+        Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
+
       } else if (bonusDamageInstances > 1) {
         System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hits!");
       }
       
-      try {
-        Thread.sleep(350);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
+      Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
     }
     
     return this.DAMAGE + bonusDamageInstances * this.DAMAGE;
@@ -53,5 +55,10 @@ class Dagger implements Weapon {
   @Override
   public String toString() {
     return "Dagger";
+  }
+
+  @Override
+  public double getEvasionOdds(){
+    return EVASION_ODDS;
   }
 }

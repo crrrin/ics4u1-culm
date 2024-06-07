@@ -5,7 +5,7 @@
  * @since 2024/06/12
  */
 import java.util.ArrayList;
-class Player implements Comparable {
+class Player implements Comparable { //TODO comarable incomplete
   protected String username;
   protected int health, eventsPassed, money, playthroughs, gamesWon;
   protected Weapon weapon;
