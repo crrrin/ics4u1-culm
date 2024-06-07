@@ -1,3 +1,5 @@
 interface Weapon {
-  public void use();
+  public int use();
+  public void description();
+  
 }
