@@ -26,8 +26,8 @@ class Sword implements Weapon {
     Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     
     if (crit) {
-
-      System.out.println("CRITICAL HIT!");
+// TODO make the crit bonus slightly random
+      System.out.println("CRITICAL HIT!"); 
 
       return (int) Math.round(this.DAMAGE + this.DAMAGE * CRIT_DAMAGE_BONUS);
     } else {
