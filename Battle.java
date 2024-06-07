@@ -13,6 +13,7 @@ class Battle {
   public void battleInstance(Player player, String enemyName, int enemyHP){
 
     int choice = -1;
+    int damage = 0;
     
     while (enemyHP > 0){
       
@@ -24,6 +25,17 @@ class Battle {
 
       while (choice != 1 && choice != 2){
         choice = Input.intIn();
+      }
+
+      switch(choice){
+        case 1:
+          damage = player.weapon.use();
+          enemyHP -= damage;
+          System.out.println("You dealt " + damage + " damage to the " + enemyName + "!");
+          break;
+        case 2:
+          //TODO healing system rework????
+          break;
       }
 
       
