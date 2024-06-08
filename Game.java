@@ -147,7 +147,14 @@ class Game {
     Data.addPlayer(this.player);
     Data.saveData();
   }
+
+  /*
+  public void inventoryViewer(String[][] player) {
+  
+  }
+  */
 }
+
 
 
 
