@@ -139,7 +139,11 @@ class Game {
 
   public void gameOver() {
     this.player = new Player(this.player.getUsername(), this.player.getPlaythroughs(), this.player.getGamesWon());
-    Data.loadData();
+    
+    if(Data.players.size() == 0) {
+      Data.loadData();
+    }
+
     Data.addPlayer(this.player);
     Data.saveData();
   }
