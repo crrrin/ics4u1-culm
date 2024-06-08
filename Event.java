@@ -1,6 +1,5 @@
 /**
  * This class contains events that will happen during the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -18,7 +17,6 @@ public abstract class Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -27,7 +25,6 @@ class Event1 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event1(Player player) {
@@ -36,7 +33,6 @@ class Event1 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -76,7 +72,6 @@ class Event1 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -85,7 +80,6 @@ class Event2 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event2(Player player) {
@@ -94,7 +88,6 @@ class Event2 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -134,7 +127,6 @@ class Event2 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -143,7 +135,6 @@ class Event3 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event3(Player player) {
@@ -152,7 +143,6 @@ class Event3 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -192,7 +182,6 @@ class Event3 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -201,7 +190,6 @@ class Event4 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event4(Player player) {
@@ -210,7 +198,6 @@ class Event4 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -250,7 +237,6 @@ class Event4 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -259,7 +245,6 @@ class Event5 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event5(Player player) {
@@ -268,7 +253,6 @@ class Event5 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -308,7 +292,6 @@ class Event5 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -326,7 +309,6 @@ class Event6 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -366,7 +348,6 @@ class Event6 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -375,7 +356,6 @@ class Event7 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event7(Player player) {
@@ -384,7 +364,6 @@ class Event7 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -424,7 +403,6 @@ class Event7 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -442,7 +420,6 @@ class Event8 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -482,7 +459,6 @@ class Event8 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -491,7 +467,6 @@ class Event9 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event9(Player player) {
@@ -500,7 +475,6 @@ class Event9 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -540,7 +514,6 @@ class Event9 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -557,7 +530,6 @@ class Event10 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -597,7 +569,6 @@ class Event10 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -606,7 +577,6 @@ class Event11 extends Event {
 
   /**
    * Creates an event for a given player
-   * 
    * @param player The player to be used
    */
   public Event11(Player player) {
@@ -615,7 +585,6 @@ class Event11 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -655,7 +624,6 @@ class Event11 extends Event {
 
 /**
  * This class contains the one of the events of the game
- * 
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/12
@@ -673,7 +641,6 @@ class Event12 extends Event {
 
   /**
    * Executes the event
-   * 
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
