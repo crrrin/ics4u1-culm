@@ -48,11 +48,30 @@ class Player implements Comparable<Player> {
     this.health = this.MAX_HEALTH;
     this.eventsPassed = 0;
     this.money = 0;
-    this.weapon = null;
+    this.weapon = new Sword();
     this.smallHeals = 0;
     this.bigHeals = 0;
     this.playthroughs = 0;
     this.gamesWon = 0;
+    this.eventNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+  }
+
+  /** 
+   * Creates a new player with blank game stats, but with given overall stats
+   * @param username The username of the new player
+   * @param playthroughs The number of games the player has played
+   * @param gamesWon The number of games the player has won
+   */
+  public Player(String username, int playthroughs, int gamesWon) {
+    this.username = username;
+    this.health = this.MAX_HEALTH;
+    this.eventsPassed = 0;
+    this.money = 0;
+    this.weapon = new Sword();
+    this.smallHeals = 0;
+    this.bigHeals = 0;
+    this.playthroughs = playthroughs;
+    this.gamesWon = gamesWon;
     this.eventNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
   }
 

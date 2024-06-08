@@ -11,14 +11,15 @@ import java.util.*;
 class Data {
 
   protected static ArrayList<Player> players = new ArrayList<Player>();
-
+  public static final int LEADERBOARD_SIZE = 10;
+  
   /**
    * Saves data to a text file.
    */
   public static void saveData() {
     PrintWriter databaseWriter = null; //initialize outside of try/catch
     try {
-      databaseWriter = new PrintWriter(new BufferedWriter(new FileWriter("Database.txt")));
+      databaseWriter = new PrintWriter(new BufferedWriter(new FileWriter("Database.txt", false)));
       for(int i = 0; i < players.size(); i++) {
         databaseWriter.println(players.get(i).getUsername() + " " + players.get(i).getHealth() + " " + players.get(i).getEventsPassed() + " " + players.get(i).getMoney() + " " + players.get(i).getSmallHeals() + " " + players.get(i).getBigHeals() + " " + players.get(i).getWeapon().toString() + " " + players.get(i).getPlaythroughs() + " " + players.get(i).getGamesWon());
         for(int j = 0; j < players.get(i).getEventNumbers().size(); j++) {
@@ -78,8 +79,8 @@ class Data {
           eventNumbers.add(Integer.parseInt(eventNames[i]));
         }
         
-        Player player = new Player(username, health, eventsPassed, money, smallHeals, bigHeals, weapon, playthroughs, gamesWon, eventNumbers);
-        players.add(player);
+        Player fromFile = new Player(username, health, eventsPassed, money, smallHeals, bigHeals, weapon, playthroughs, gamesWon, eventNumbers);
+        addPlayer(fromFile);
       }
     } 
     catch (IOException e) {
@@ -118,6 +119,14 @@ class Data {
     }
   }
 
+  public static void leaderboard() {
+    loadData();
+    sortByWins();
+    System.out.println("Leaderboard:");
+    for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE - 1; i++) {
+      System.out.println((i + 1) + ". " + players.get(i).getUsername() + " - " + players.get(i).getGamesWon() + " wins");
+    }
+  }
   /**
    * Sorts the databse by number of wins from greatest to least
    */

@@ -1,2 +1,0 @@
-testplayer 10 0 0 Sword 3 2
-event1 event2
