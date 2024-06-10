@@ -70,17 +70,16 @@ class Game {
     int randomEvent = (int) (Math.round(Math.random() * (this.player.getEventNumbers().size() - 1)) + 1);
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
-    if (leave) {
-      if (this.player.getHealth() == 0) {
-        gameLoss();
-      }
-      else {
-        quitGame();
-      }
-    }
-    else {
+    if (!leave) {
       this.player.getEventNumbers().remove(randomEvent - 1);
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
+      return leave;
+    }
+    if (this.player.getHealth() == 0) {
+      gameLoss();
+    }
+    else {
+      quitGame();
     }
     return leave;
   }
@@ -95,9 +94,7 @@ class Game {
       case 1:
         Input.lore("You come into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
         Battle.battleInstance(this.player, "Dragon", 150, {15, 40});
-        if (this.player.getHealth() == 0) {
-          leave = true;
-        }
+        if (this.player.getHealth() == 0) {}
         else {
           
         }
@@ -160,14 +157,15 @@ class Game {
   }
   
   
-  // public void inventoryViewer() {
-  //   int[][] inventory = {
-  //     {DAGGER_ID, SWORD_ID, BOW_ID}, //weapon
-  //     {MINI_ID, BIG_POT_ID}, //healing 
-  //     {MONEY_COUNT,asd ,asf } //misc
-  //   };
+  public void inventoryViewer() {
+    int[][] inventory = {
+      {DAGGER_ID, SWORD_ID, BOW_ID}, //weapon
+      {MINI_ID, BIG_POT_ID}, //healing
+      {CHARM1_ID, CHARM2_ID, CHARM3_ID}
+      {MONEY_COUNT,  ,asf } //misc
+    };
     
-  // }
+  }
   
 }
 
