@@ -243,8 +243,9 @@ class Event4 extends Event {
         System.out.println("Damien: Looks like I will be eating good tonight");
         Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
         System.out.println();
-        System.out.println("You're not ready to die. You quickly get up from the chair and kick him, sending him into")
-        this.player.setHealth(0); //dies after getting butchered for more food
+        System.out.println("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver");
+        
+        
         break;
 
       case 2:
