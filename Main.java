@@ -37,7 +37,7 @@ class Main {
           }
           else {
             Data.loadData();
-            for(int i = 0; i < Data.players.size(); i++) {
+            for (int i = 0; i < Data.players.size(); i++) {
               if (Data.players.get(i).getUsername().equals(username)) {
                 player = Data.players.get(i);
                 i = Data.players.size();
