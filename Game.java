@@ -161,7 +161,7 @@ class Game {
     int[][] inventory = {
       {DAGGER_ID, SWORD_ID, BOW_ID}, //weapon
       {MINI_ID, BIG_POT_ID}, //healing
-      {CHARM1_ID, CHARM2_ID, CHARM3_ID}
+      {RUNE1_ID, RUNE2_ID, RUNE3_ID}; //runes
       {MONEY_COUNT,  ,asf } //misc
     };
     
