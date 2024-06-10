@@ -31,19 +31,18 @@ class Game {
    * Starts the game
    */
   public void play() {
-    System.out.println("Welcome to the game!");
-    System.out.println("You are a brave knight who has been tasked by the king with xyz."); //TODO finish lore
-    System.out.println("You have been given a sword and $1000.");
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with xyz.\nYou have been given a sword and $1000."); //TODO Finish lore
     this.player.setMoney(1000);
     gameLoop();
     System.out.println("Returning to main menu");
-    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
   }
   
   /**
    * The main game
    */
   public void gameLoop() {
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != SCRIPTED_CYCLE - 1) {
         if(runRandomEvent()) {
@@ -67,7 +66,7 @@ class Game {
    * Executes random events
    */
   public boolean runRandomEvent() {
-    
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     int randomEvent = (int) (Math.round(Math.random() * (this.player.getEventNumbers().size() - 1)) + 1);
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
@@ -91,9 +90,17 @@ class Game {
    */
   public void runSpecialEvent() {
     // immediate boss battle, harder each time, if they win they get random boss drops? + access to a shop where they can buy stuff so money is actually useful
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
       case 1:
         Input.lore("You come into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
+        Battle.battleInstance(this.player, "Dragon", 150, {15, 40});
+        if(this.player.getHealth() == 0) {
+          leave = true;
+        }
+        else {
+          
+        }
         break;
       case 2:
         //run second special event
@@ -108,6 +115,7 @@ class Game {
   }
 
   public void quitGame() {
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     System.out.println("Would you like to save your game? (y/n)");
     String save = "";
     while(!save.equals("y") && !save.equals("n")) {
@@ -126,6 +134,7 @@ class Game {
   }
 
   public void gameWin() {
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     System.out.println("Congratulations! You have won the game!");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     this.player.setGamesWon(this.player.getGamesWon() + 1);
@@ -133,6 +142,7 @@ class Game {
   }
 
   public void gameLoss() {
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     System.out.println("You have lost the game.");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
@@ -148,12 +158,17 @@ class Game {
     Data.addPlayer(this.player);
     Data.saveData();
   }
-
-  /*
-  public void inventoryViewer(String[][] player) {
   
-  }
-  */
+  
+  // public void inventoryViewer() {
+  //   int[][] inventory = {
+  //     {DAGGER_ID, SWORD_ID, BOW_ID}, //weapon
+  //     {MINI_ID, BIG_POT_ID}, //healing 
+  //     {MONEY_COUNT,asd ,asf } //misc
+  //   };
+    
+  // }
+  
 }
 
 

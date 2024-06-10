@@ -43,7 +43,7 @@ class Input {
   }
 
   public static void lore(String prompt) {
-    System.out.println(prompt);
+    System.out.println("\n" + prompt);
     System.out.print("Press enter to continue: ");
     sc.nextLine();
   }

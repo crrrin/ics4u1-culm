@@ -11,7 +11,7 @@ class Battle {
    * Contains information and prompts of a battle
    */
   public static void battleInstance(Player player, String enemyName, int enemyHP) {
-
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     int choice;
     int potChoice = -1;
     int damage = 0;
@@ -82,5 +82,6 @@ class Battle {
           break;
       }
     }
+    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
   }
 }

@@ -218,7 +218,27 @@ class Event4 extends Event {
 
     switch (choice) {
       case 1:
-        Input.lore("You accept his offer and he invites you to sit down at his table. You eat and drink with him and he tell");
+        Input.lore("You accept his offer and he invites you to sit down at his table. He serves you a meat pie.");
+        System.out.println("You: Exquisite. This reminds me of the famous pork pie we have at home.");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("Damien: Thank you good sir! It is a secret recipe.");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("You: You have to tell me how to make it sir.");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("Damien: You would like to know? Well, I am running low on meat.");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("Damien leads you into a room, you left your equipment outside. It smells horrible in there.");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("Damien: Sit down, I will show you the meat I use");
+        Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+        System.out.println();
+        System.out.println("You sit down and Damien gets his cleaver. Instead of going to ");
+        this.player.setHealth(0); //dies after getting butchered for more food
         break;
 
       case 2:
