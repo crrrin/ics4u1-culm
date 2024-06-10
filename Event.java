@@ -244,7 +244,7 @@ class Event4 extends Event {
         Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
         System.out.println();
         System.out.println("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your weapon");
-        
+        //TODO CONTINUE LORE
         
         break;
 

@@ -21,7 +21,6 @@ class Battle {
       System.out.println("You have " + player.getHealth() + " HP left.");
       System.out.println("The " + enemyName + " has " + enemyHP + " HP left.");
       System.out.println("What will you do?");
-
       System.out.print("1. Attack   ");
       System.out.println("2. Heal");
 
