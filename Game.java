@@ -45,16 +45,16 @@ class Game {
     Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != SCRIPTED_CYCLE - 1) {
-        if(runRandomEvent()) {
+        if (runRandomEvent()) {
           return;
         }
       }
-      if(runRandomEvent()) {
+      if (runRandomEvent()) {
         return;
       }
       runSpecialEvent();
     }
-    if(this.player.getHealth() > 0) {
+    if (this.player.getHealth() > 0) {
       gameWin();
     }
     else {
@@ -70,8 +70,8 @@ class Game {
     int randomEvent = (int) (Math.round(Math.random() * (this.player.getEventNumbers().size() - 1)) + 1);
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
-    if(leave) {
-      if(this.player.getHealth() == 0) {
+    if (leave) {
+      if (this.player.getHealth() == 0) {
         gameLoss();
       }
       else {
@@ -95,7 +95,7 @@ class Game {
       case 1:
         Input.lore("You come into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
         Battle.battleInstance(this.player, "Dragon", 150, {15, 40});
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         else {
@@ -118,14 +118,14 @@ class Game {
     Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     System.out.println("Would you like to save your game? (y/n)");
     String save = "";
-    while(!save.equals("y") && !save.equals("n")) {
+    while (!save.equals("y") && !save.equals("n")) {
       save = Input.strIn().toLowerCase();
     }
-    if(save.equals("n")) {
+    if (save.equals("n")) {
       gameOver();
     }
     else {
-      if(Data.players.size() == 0) {
+      if (Data.players.size() == 0) {
         Data.loadData();
       }
       Data.addPlayer(this.player);
@@ -151,7 +151,7 @@ class Game {
   public void gameOver() {
     this.player = new Player(this.player.getUsername(), this.player.getPlaythroughs(), this.player.getGamesWon());
     
-    if(Data.players.size() == 0) {
+    if (Data.players.size() == 0) {
       Data.loadData();
     }
 
