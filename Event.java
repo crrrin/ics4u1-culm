@@ -160,7 +160,7 @@ class Event3 extends Event {
       case 1:
         System.out.println("You got caught by one of the guards! They attack you.");
         Battle.battleInstance(this.player, "villagerGuard", 20); 
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -173,7 +173,7 @@ class Event3 extends Event {
       case 3:
         System.out.println("You continue walking towards your destination. You fainted from your fatigue.");
         this.player.setHealth(this.player.getHealth() - 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -237,7 +237,7 @@ class Event4 extends Event {
         System.out.println("Damien: Sit down, I will show you the meat I use");
         Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
         System.out.println();
-        System.out.println("You sit down and Damien gets his cleaver. Instead of going to ");
+        System.out.println("You sit down and Damien gets his cleaver. Instead of going to his storage, he motions towards you. You begin to realize what meat you just ate. He smiles and chuckles.");
         this.player.setHealth(0); //dies after getting butchered for more food
         break;
 
@@ -291,7 +291,7 @@ class Event5 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -347,7 +347,7 @@ class Event6 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -402,7 +402,7 @@ class Event7 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -458,7 +458,7 @@ class Event8 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -513,7 +513,7 @@ class Event9 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -568,7 +568,7 @@ class Event10 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -623,7 +623,7 @@ class Event11 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -679,7 +679,7 @@ class Event12 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
