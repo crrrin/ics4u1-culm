@@ -10,19 +10,18 @@ class Battle {
   /**
    * Contains information and prompts of a battle
    */
-  public static void battleInstance(Player player, String enemyName, int enemyHP) {
+  public static void battleInstance(Player player, String enemyName, int enemyHP, int[] enemyDamage) {
 
     int choice;
     int potChoice = -1;
     int damage = 0;
-      
-    preChoice:
     
     while (enemyHP > 0) {
       
       System.out.println("You have " + player.getHealth() + " HP left.");
       System.out.println("The " + enemyName + " has " + enemyHP + " HP left.");
       System.out.println("What will you do?");
+      
       System.out.print("1. Attack   ");
       System.out.println("2. Heal");
 
@@ -76,7 +75,7 @@ class Battle {
               break;
               
             case 3:
-              break preChoice;
+              break;
           }
           
           break;
