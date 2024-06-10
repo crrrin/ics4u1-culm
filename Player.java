@@ -98,7 +98,10 @@ class Player implements Comparable<Player> {
    */
   public void setHealth(int health) {
     if (health > MAX_HEALTH) {
-      this.health = MAX_HEALTH;
+      health = MAX_HEALTH;
+    }
+    else if (this.health - health < 0) {
+      health = 0;
     }
     this.health = health;
   }

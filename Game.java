@@ -90,9 +90,10 @@ class Game {
    * Executes scripted events
    */
   public void runSpecialEvent() {
+    // immediate boss battle, harder each time, if they win they get random boss drops? + access to a shop where they can buy stuff so money is actually useful
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
       case 1:
-        //run first special event
+        Input.lore("You come into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
         break;
       case 2:
         //run second special event

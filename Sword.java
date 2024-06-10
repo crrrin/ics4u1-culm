@@ -42,7 +42,7 @@ class Sword implements Weapon {
    */
   @Override
   public void description() {
-    System.out.println("Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a not-too-special 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.");
+    System.out.println("Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a humble 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.");
   }
 
   /** 

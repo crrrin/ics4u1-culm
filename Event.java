@@ -32,7 +32,7 @@ class Event1 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user encounters a bear
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
@@ -48,7 +48,7 @@ class Event1 extends Event {
     switch (choice) {
       case 1:
         Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
@@ -87,14 +87,14 @@ class Event2 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user encounters bandits
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
-    boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    boolean leave = false; //bandits WE SHOULD CHANGE THE JAVADOCS FOR EACH EVENT TO ACTUALLY DESCRIBE THE EVENT
+    System.out.println("You were navigating the rivers but a group of bandits spot you, demanding your money. What do you do?");
+    System.out.println("Select an option:\n1. Fight the bandits\n2. Run away\n3. Give the bandits your money\n4. Quit");
     int choice = -1;
     while (choice > 4 || choice < 1) {
       choice = Input.intIn();
@@ -102,19 +102,20 @@ class Event2 extends Event {
 
     switch (choice) {
       case 1:
-        Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
+        Battle.battleInstance(this.player, "Bandit", 20);
+        if (this.player.getHealth() == 0) {
           leave = true;
         }
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
-        // this.player.setWeapon(null);
+        System.out.println("You cowardly run away, accidently dropping more money than the bandits asked for and losing some dignity.");
+        this.player.setMoney(this.player.getMoney() - 100);
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        System.out.println("You gave the bandits $50. They leave you alone.");
+        this.player.setMoney(this.player.getMoney() - 50);
         break;
 
       case 4:
@@ -142,14 +143,14 @@ class Event3 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user reaches a village
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
-    boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    boolean leave = false; //VILLAGE SCENARIO
+    System.out.println("It is the evening, you are tired. You find a small village and move towards it. What do you do?");
+    System.out.println("Select an option:\n1. Sneak in and scavenge for food\n2. Ask a villager to let you stay the night\n3. Ignore the village and walk away.\n4. Quit");
     int choice = -1;
     while (choice > 4 || choice < 1) {
       choice = Input.intIn();
@@ -157,19 +158,24 @@ class Event3 extends Event {
 
     switch (choice) {
       case 1:
-        Battle.battleInstance(this.player, "Bear", 20);
+        System.out.println("You got caught by one of the guards! They attack you.");
+        Battle.battleInstance(this.player, "villagerGuard", 20); 
         if(this.player.getHealth() == 0) {
           leave = true;
         }
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
+        System.out.println("A friendly villager welcomes you and offers their hospitality. You stay the night there and feel refreshed in the morning.");
         // this.player.setWeapon(null);
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        System.out.println("You continue walking towards your destination. You fainted from your fatigue.");
+        this.player.setHealth(this.player.getHealth() - 20);
+        if(this.player.getHealth() == 0) {
+          leave = true;
+        }
         break;
 
       case 4:
@@ -203,8 +209,8 @@ class Event4 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("You are famished, you find yourself in front of a mysterious, lone house. The homeowner greets you and introduces himself. His name is Damien Bartholomew Burnell-Jones Burthwright. and invites you to have a meal with him. Do you accept?");
+    System.out.println("Select an option:\n1. Accept his offer\n2. Run away\n3. Calmly approach the bear\n4. Quit");
     int choice = -1;
     while (choice > 4 || choice < 1) {
       choice = Input.intIn();
@@ -212,10 +218,7 @@ class Event4 extends Event {
 
     switch (choice) {
       case 1:
-        Battle.battleInstance(this.player, "Bear", 20);
-        if(this.player.getHealth() == 0) {
-          leave = true;
-        }
+        Input.lore("You accept his offer and he invites you to sit down at his table. You eat and drink with him and he tell");
         break;
 
       case 2:
