@@ -34,7 +34,7 @@ class Game {
    * Starts the game
    */
   public void play() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortal potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, 2 basic potions, and $1000."); //TODO Finish lore
     Input.lore(Sword.description());
     this.player.setMoney(1000);
@@ -47,7 +47,7 @@ class Game {
    * The main game
    */
   public void gameLoop() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != SCRIPTED_CYCLE - 1) {
         if (runRandomEvent()) {
@@ -66,7 +66,7 @@ class Game {
    * Executes random events
    */
   public boolean runRandomEvent() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     int randomEvent = (int) (Math.round(Math.random() * (this.player.getEventNumbers().size() - 1)) + 1);
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
@@ -89,7 +89,7 @@ class Game {
    */
   public void runSpecialEvent() {
     // immediate boss battle, harder each time, if they win they get random boss drops? + access to a shop where they can buy stuff so money is actually useful
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     boolean exit = false;
     boolean death;
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
@@ -148,7 +148,7 @@ class Game {
   }
 
   public void quitGame() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     System.out.println("Would you like to save your game? (y/n)");
     String save = "";
     while (!save.equals("y") && !save.equals("n")) {
@@ -167,7 +167,7 @@ class Game {
   }
 
   public void gameWin() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     Input.lore("You did it. You defeated an immortal, and you have avenged the ancient village. Now, you must journey home. You have no immortal potion to show for your efforts, but perhaps that's for the better. You have made the world a safer place, and the king will surely reward you for your efforts.");
     System.out.println("Congratulations! You have won the game!");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
@@ -176,7 +176,7 @@ class Game {
   }
 
   public void gameLoss() {
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     System.out.println("You have lost the game.");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
