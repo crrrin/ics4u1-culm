@@ -28,7 +28,7 @@ class Battle {
       turnCycle++;
       
       System.out.println("You have " + player.getHealth() + " HP left.");
-      System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " has " + enemyHP + " HP left.");
+      System.out.println(enemyNameStartSentence + " has " + enemyHP + " HP left.");
       System.out.println("What will you do?");
       System.out.print("1. Attack   ");
       System.out.println("2. Heal");
@@ -94,20 +94,20 @@ class Battle {
       boolean enemyLandsHit = Math.random() > player.weapon.getEvasionOdds();
       
       if (turnCycle % 4 == 0) {
-        System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " is charging up a powerful attack...");
+        System.out.println(enemyNameStartSentence + " is charging up a powerful attack...");
         enemyAttackIsCharged = true;
       }
         
       else if (enemyLandsHit) { //TODO remove nesting somehow (invert logic?)
         
         if (enemyAttackIsCharged) { //TODO suggest inversion logic
-            System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " unleashes a powerful attack!\nIt deals " + enemyDamage[1] + " damage to you!");
+            System.out.println(enemyNameStartSentence + " unleashes a powerful attack!\nIt deals " + enemyDamage[1] + " damage to you!");
             player.setHealth(player.getHealth() - enemyDamage[1]);
             enemyAttackIsCharged = false;
         }
 
         else {
-          System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " attacks you, and deals " + enemyDamage[0] + " damage to you!");
+          System.out.println(enemyNameStartSentence + " attacks you, and deals " + enemyDamage[0] + " damage to you!");
         }
       }
     }
