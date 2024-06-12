@@ -8,46 +8,48 @@
 class Battle {
 
   /**
-   * Contains information and prompts of a battle
+   * manages battle instances and returns whether or not the game should exit.
+   * @param player The player that is fighting
+   * @param enemy The enemy that is fighting
+   * @return Returns whether or not the game should exit
    */
-  public static void battleInstance(Player player, String enemyName, int enemyHP, int[] enemyDamage) {
+  public static boolean battleInstance(Player player, String enemyName, int enemyHP, int[] enemyDamage) {
 
     int choice;
     int potChoice = -1;
     int damage = 0;
+    int turnCycle = 0;
+    boolean enemyAttackIsCharged = false;
+    boolean healCancel = true;
+    String enemyNameStartSentence = enemyName.substring(0,1).toUpperCase() + enemyName.substring(1);
 
-    while (enemyHP > 0) {
+    while (enemyHP > 0 && player.getHealth() > 0) {
 
+      turnCycle++;
+      
       System.out.println("You have " + player.getHealth() + " HP left.");
-      System.out.println("The " + enemyName + " has " + enemyHP + " HP left.");
+      System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " has " + enemyHP + " HP left.");
       System.out.println("What will you do?");
       System.out.print("1. Attack   ");
       System.out.println("2. Heal");
 
-      choice = -1;
+      choice = Input.intCheck(1, 2);
 
-      while (choice != 1 && choice != 2) {
-        choice = Input.intIn();
-      }
-
+      while (healCancel) {
       switch(choice) {
         case 1:
           damage = player.weapon.use();
           enemyHP -= damage;
-          System.out.println("You dealt " + damage + " damage to the " + enemyName + "!");
+          System.out.println("You dealt " + damage + " damage to " + enemyName + "!");
           break;
 
         case 2:
-          //TODO healing system rework????
+          
           System.out.println("You have " + player.getSmallHeals() + " basic potions left, and have " + player.getBigHeals() + " super potions left.");
           System.out.println("Which potion would you like to use?");
           System.out.println("1. Basic Potion   2. Super Potion   3. Cancel");
 
-          potChoice = -1;
-
-          while (potChoice != 1 && potChoice != 2 && potChoice != 3){
-            potChoice = Input.intIn();
-          }
+          potChoice = Input.intCheck(1, 3);
 
           switch(potChoice) {
 
@@ -59,6 +61,7 @@ class Battle {
               } 
               else {
                 System.out.println("You don't have any basic potions left!");
+                healCancel = true;
               }
               break;
 
@@ -70,15 +73,55 @@ class Battle {
               } 
               else {
                 System.out.println("You don't have any super potions left!");
+                healCancel = true;
               }
               break;
 
             case 3:
+              healCancel = true;
               break;
           }
 
           break;
       }
+      }
+
+      if (enemyHP <= 0){
+              System.out.println("You defeated " + enemyName + "!");
+              return false;
+      } 
+
+      boolean enemyLandsHit = Math.random() > player.weapon.getEvasionOdds();
+      
+      if (turnCycle % 4 == 0) {
+        System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " is charging up a powerful attack...");
+        enemyAttackIsCharged = true;
+      }
+        
+      else if (enemyLandsHit) { //TODO remove nesting somehow (invert logic?)
+        
+        if (enemyAttackIsCharged) { //TODO suggest inversion logic
+            System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " unleashes a powerful attack!\nIt deals " + enemyDamage[1] + " damage to you!");
+            player.setHealth(player.getHealth() - enemyDamage[1]);
+            enemyAttackIsCharged = false;
+        }
+
+        else {
+          System.out.println(enemyName.substring(0,1).toUpperCase() + enemyName.substring(1) + " attacks you, and deals " + enemyDamage[0] + " damage to you!");
+        }
+      }
     }
+    
+    if (player.getHealth() == 0){
+      System.out.println("You died!");
+      return true;
+    } 
+      
+    else {
+      
+    }
+  
+  }
+
   }
 }

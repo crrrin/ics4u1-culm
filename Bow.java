@@ -8,7 +8,7 @@
 class Bow implements Weapon {
   
   protected final int BASE_DAMAGE = 5;
-  protected final double EVASION_ODDS = 0.2;
+  protected final double EVASION_ODDS = 0.3;
 
   /**
    * Uses the bow
@@ -20,9 +20,9 @@ class Bow implements Weapon {
 
     System.out.println("You draw your bow...");
     
-    Sleep.wait(Sleep.GENERIC_TINY_DELAY_MS);
+    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
     System.out.println(".");
-    Sleep.wait(Sleep.GENERIC_TINY_DELAY_MS);
+    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
     System.out.println("..");
     Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
     System.out.println("...");
@@ -38,7 +38,7 @@ class Bow implements Weapon {
    */
   @Override
   public void description() {
-    System.out.println("Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 20% chance to miss."); // TODO ENEMY MISS BASED ON PLAYER WEAPON?
+    System.out.println("Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 30% chance to miss.");
   }
 
   /** 
