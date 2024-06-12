@@ -19,7 +19,7 @@ class Bow implements Weapon {
 
     int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * 10));
 
-    System.out.println("You draw your bow...");
+    System.out.println("You draw your bow... and fire!");
     
     Sleep.waitShort();
     System.out.println(".");

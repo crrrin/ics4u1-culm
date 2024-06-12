@@ -48,6 +48,7 @@ class Event1 extends Event {
 
       case 2:
         Input.lore("You run away, but trip on a branch as you run away and drop your weapon.");
+        Input.lore("You can now only use your fists. " + Fists.description());
         this.player.setWeapon(new Fists());
         break;
 
@@ -91,7 +92,7 @@ class Event2 extends Event {
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "the Bandit", 35, new int[] {6, 10});
+        leave = Battle.battleInstance(this.player, "the Bandits", 35, new int[] {6, 10});
         break;
 
       case 2:
@@ -356,11 +357,14 @@ class Event7 extends Event {
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        Input.lore("You approach the monks, and they welcome you with open arms. However, they seem overly friendly, and as they lead you into the monastery, you realize that you have been led into a trap! You must now fight them.");
+        leave = Battle.battleInstance(this.player, "the Monks", 40, new int[] {10, 30});
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
+        Input.lore("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description());
+        String 
+        
         // this.player.setWeapon(null);
         break;
 
