@@ -362,8 +362,9 @@ class Event7 extends Event {
         break;
 
       case 2:
-        Input.lore("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description());
-        String 
+        System.out.println("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description() + "\nDo you take the sword? (y/n)");
+        String pickup = "";
+        while (!pickup.toLowerCase().equals("y") && !pickup.toLowerCase().equals("n"))
         
         // this.player.setWeapon(null);
         break;
@@ -404,22 +405,24 @@ class Event8 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("You find an abandoned church, you go inside and find a fountain running with a red liquid."); //TODO POSSIBLE INCREASE MAX HEALTH?
+    System.out.println("Select an option:\n1. Drink a little bit of it\n2. Drink a lot of it\n3. Ignore the fountain\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        System.out.println("You drink a little bit of the liquid, and you feel better.");
+        this.player.setHealth(this.player.getHealth() + 30); //TODO TRY INCREASE MAX HEALTH?
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
+        System.out.println("You drink a lot of the liquid, you feel a little sick.");
+        this.player.setHealth(this.player.getHealth() - 20);
         // this.player.setWeapon(null);
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        System.out.println("You ignore the fountain and walk away.");
         break;
 
       case 4:
@@ -453,7 +456,7 @@ class Event9 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
+    System.out.println("");
     System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
     int choice = Input.intCheck(1, 4);
 

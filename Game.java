@@ -57,7 +57,9 @@ class Game {
       if (runRandomEvent()) {
         return;
       }
-      runSpecialEvent();
+      if (runSpecialEvent()) {
+        return;
+      }
     }
     gameWin();
   }
@@ -75,6 +77,7 @@ class Game {
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
       return leave;
     }
+    
     if (this.player.getHealth() == 0) {
       gameLoss();
     }
@@ -87,44 +90,36 @@ class Game {
   /**
    * Executes scripted events
    */
-  public void runSpecialEvent() {
-    // immediate boss battle, harder each time, if they win they get random boss drops? + access to a shop where they can buy stuff so money is actually useful
+  public boolean runSpecialEvent() {
     Sleep.waitLong();
-    boolean exit = false;
     boolean death;
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
       case 1:
         Input.lore("You walk into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
         death = Battle.battleInstance(this.player, "the Dragon", 150, new int[] {15, 40});
         if (death) { //TODO I THINK THE ELSE STATEMENT CAN JUST BE REMOVED IF LOSING AUTO QUITS
-          exit = true; 
           gameLoss();
+          return death;
         }
-        else {
-          Input.lore("By defeating the dragon, you have saved the shopkeeper's life! The shopkeeper is thankful, and is willing to sell you his items right now, despite the trauma he has just experienced.");
-        }
+        Input.lore("By defeating the dragon, you have saved the shopkeeper's life! The shopkeeper is thankful, and is willing to sell you his items right now, despite the trauma he has just experienced.");
         break;
       case 2:
         Input.lore("You wander into a town at night... but nobody is outside. You notice people inside their houses as you walk past them. But things seem off. These people are hiding behind furniture, and they seem terrified. As you enter the town square, you see why. There are 5 fully armed soldiers demolishing the buildings there. They turn around and see you, attacking without hesitation. You have no choice but to fight.");
         death = Battle.battleInstance(this.player, "the Soldiers", 200, new int[] {20, 50});
         if (death) {
-          exit = true;
           gameLoss();
+          return death;
         }
-        else {
-          Input.lore("The town is extremely grateful to you for defeating the rogue soldiers that were terrorizing the town. They allow you to rest in their town overnight. You wake up feeling refreshed the next morning, and head to the town square to visit the shop.");
-        }
+        Input.lore("The town is extremely grateful to you for defeating the rogue soldiers that were terrorizing the town. They allow you to rest in their town overnight. You wake up feeling refreshed the next morning, and head to the town square to visit the shop.");
         break;
       case 3:
         Input.lore("After a long day of travel, you find a cave to sleep in for the night. However, you hear a strange noise coming from deeper inside the cave. You decide to investigate. As you head deeper though, you start to notice an unnatural amount of cobwebs. Eventually, you find a group of people huddled in a corner, and they are cowering in fear. You turn around, and realize that there are dozens of giant spiders behind you! Before you know it, you are surrounded on all sides, and have to fight your way out.");
         death = Battle.battleInstance(this.player, "the Spiders", 300, new int[] {30, 60});
         if (death) {
-          exit = true;
           gameLoss();
+          return death;
         }
-        else {
-          Input.lore("Having defeated the spiders, you tend to the others' wounds and then rest for the night. The next morning, they thank you for your help, and offer to sell you some of their items to help you on your journey.");
-        }
+        Input.lore("Having defeated the spiders, you tend to the others' wounds and then rest for the night. The next morning, they thank you for your help, and offer to sell you some of their items to help you on your journey.");
         break;
       case 4:
         Input.lore("Your long journey appears to finally be at its end. After all the trials you have faced, you have reached the ancient village. However, you are shocked to find that the village is in ruins. In the middle of it all stands none other than Damien Bartholomew Burnell-Jones Burthwright.");
@@ -135,16 +130,17 @@ class Game {
         Input.lore("Damien: The arrogant fools gave me the immortality potion. They thought I would use it to protect them from outsiders. They were wrong.");
         Input.lore("You: They gave YOU the ... wait a second. 'The'? You mean there's only one?");
         Input.lore("Damien: That's right. Now, there is no one left who can create another one. I'm the only immortal person in the world! You, a mere mortal, are no match for me! AND NOW, I SHALL HAVE MY REVENGE! MWAHAHAHAHA");
-        death = Battle.battleInstance(this.player, "Immortal Damien", 500, new int[] {40, 100});
+        death = Battle.battleInstance(this.player, "Immortal Damien", 500, new int[] {40, 95});
         if (death) {
           gameLoss();
         }
-        exit = true;
-        break;
+        return death;
     }
+    boolean exit = false;
     while (!exit) {
       exit = shop();
     }
+    return death;
   }
 
   public void quitGame() {
