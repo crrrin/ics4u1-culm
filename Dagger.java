@@ -13,6 +13,7 @@ class Dagger implements Weapon {
   protected final int MAX_BONUS_STRIKES = 5;
   protected final double MULTIHIT_ODDS = 0.5;
   protected final double EVASION_ODDS = 0;
+  protected final double ENEMY_BONUS_ODDS = 0;
   
   /**
    * Uses the dagger

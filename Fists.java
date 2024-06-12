@@ -9,6 +9,7 @@ class Fists implements Weapon {
 
   protected final int BASE_DAMAGE = 5;
   protected final double EVASION_ODDS = 0.3;
+  protected final double ENEMY_BONUS_ODDS = 0;
 
   /**
    * Uses fists

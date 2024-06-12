@@ -31,9 +31,7 @@ class Data {
         }
       }
     }
-    catch (IOException e) {
-      System.out.println("Error writing file"); // TODO remove later
-    } 
+    catch (IOException e) {} 
     finally {
       if (databaseWriter != null) {
         databaseWriter.close();
