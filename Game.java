@@ -218,7 +218,7 @@ class Game {
 
   public boolean shop() {
     boolean leave = false;
-    String[] shopItems = {"1. Dagger - " + Dagger.description() + ": $" + WEAPON_PRICE, "2. Sword - " + Sword.description() + ": $" + WEAPON_PRICE, "3. Bow - " + Bow.description() + ": $" + WEAPON_PRICE, "4. Small Heal: $" + SMALL_PRICE, "5. Big Heal: $" + BIG_PRICE};
+    String[] shopItems = {"1. Dagger: " + Dagger.description() + "\n$" + WEAPON_PRICE, "2. Sword: " + Sword.description() + "\n$" + WEAPON_PRICE, "3. Bow: " + Bow.description() + "\n$" + WEAPON_PRICE, "4. Small Heal: $" + SMALL_PRICE, "5. Big Heal: $" + BIG_PRICE};
     System.out.println("Welcome to the shop!\n1. View inventory\n2. View shop\n3. Leave");
     int choice = Input.intCheck(1, 3);
     

@@ -34,7 +34,7 @@ class Fists implements Weapon {
    */
   @Override
   public String toString() {
-    return "Bow";
+    return "Fists";
   }
 
   /** 
