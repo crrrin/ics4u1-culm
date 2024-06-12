@@ -54,6 +54,7 @@ class Event1 extends Event {
 
       case 3:
         Input.lore("You approach the bear calmly and it slowly walks away. As you explore the area, you find a super potion on the ground, likely dropped by another traveler.");
+        this.player.setBigHeals(this.player.getBigHeals() + 1);
         break;
 
       case 4:
@@ -357,23 +358,22 @@ class Event7 extends Event {
 
     switch (choice) {
       case 1:
-        Input.lore("You approach the monks, and they welcome you with open arms. As you talk with them, they convince you to forget about your quest and your other worldly concerns, and to become ");
-        leave = Battle.battleInstance(this.player, "the Monks", 40, new int[] {10, 30});
+        Input.lore("You approach the monks, and they welcome you with open arms. As you talk with them, they convince you to forget about your quest and your other worldly concerns, and to become a monk with them instead. You become a monk and live a long and happy life. Eventually, you die of old age.");
+        this.player.setHealth(0);
+        leave = true;
         break;
 
       case 2:
-        System.out.println("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description() + "\nDo you take the sword? (y/n)");
-        String pickup = "";
-        while (!pickup.toLowerCase().equals("y") && !pickup.toLowerCase().equals("n")) {
-          pickup = Input.strIn();
-        }
-        if (pickup.toLowerCase().equals("y")) {
+        System.out.println("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description() + "\nDo you take the sword?\n1. Yes\n2. No");
+        int pickup = Input.intCheck(1, 2);
+        if (pickup == 1) {
           this.player.setWeapon(new Broadsword());
         }
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        Input.lore("You walk around the monastery, and you run into a monk. However, he does not look like the other monks. Quickly, you realize that he is not really a monk, but rather an impostor, trying to blend in. You call him out; furious, he attacks you.");
+        leave = Battle.battleInstance(this.player, "the Impostor", 100, new int[] {3, 5});
         break;
 
       case 4:
@@ -402,30 +402,29 @@ class Event8 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user finds a fountain
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find an abandoned church, you go inside and find a fountain running with a red liquid."); //TODO POSSIBLE INCREASE MAX HEALTH?
-    System.out.println("Select an option:\n1. Drink a little bit of it\n2. Drink a lot of it\n3. Ignore the fountain\n4. Quit");
+    System.out.println("You find an abandoned church, you go inside and find a fountain running with a red liquid. What do you do?\n1. Drink a little bit of it\n2. Drink a lot of it\n3. Ignore the fountain\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        System.out.println("You drink a little bit of the liquid, and you feel better.");
+        Input.lore("You drink a little bit of the liquid, and you feel better.");
         this.player.setHealth(this.player.getHealth() + 30); //TODO TRY INCREASE MAX HEALTH?
         break;
 
       case 2:
-        System.out.println("You drink a lot of the liquid, you feel a little sick.");
+        Input.lore("You drink a lot of the liquid, you feel a little sick.");
         this.player.setHealth(this.player.getHealth() - 20);
-        // this.player.setWeapon(null);
         break;
 
       case 3:
-        System.out.println("You ignore the fountain and walk away.");
+        Input.lore("You ignore the fountain and walk away. You slip on a puddle of the liquid, and injure yourself when you fall. You wish you had drunk some of the liquid now.");
+        this.player.setHealth(this.player.getHealth() - 10);
         break;
 
       case 4:
@@ -453,29 +452,29 @@ class Event9 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user finds a woman in a cave
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find a cave and you enter it. Inside is a mysterious woman.");
-    System.out.println("Select an option:\n1. Call out to her\n2. Sneakily approach her\n3. Attack her\n4. Quit");
+    System.out.println("You find a cave and you enter it. Inside is a mysterious woman. What do you do?\n1. Call out to her\n2. Sneakily approach her\n3. Attack her\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        System.out.println("You call out to her, but she doesn't respond.");
-        System.out.println("You begin to approach her, repeatedly calling out to her");
+        Input.lore("You call out to her, but she doesn't respond.\nYou begin to approach her, repeatedly calling out to her. She doesn't move or respond.\nYou begin to feel something bad in your gut.\nYou feel a sharp pain in your stomach.\nYou collapse to the ground, fainting.");
+        this.player.setHealth(this.player.getHealth() - 40);
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
-        // this.player.setWeapon(null);
+        Input.lore("You slowly walk towards her. She doesn't move.\nAs you inch towards her, you hear a deafening noise in your ears. You get scared and run away, dropping some money in the process.");
+        this.player.setMoney(this.player.getMoney() - 100);
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        Input.lore("You ready your weapon and make to attack the woman. As you approach her, she turns around.\nYou freeze, you try to ready your weapon but your hands are frozen.\nShe screams in agony, scaring you.\nYou drop your weapon and run away as fast as possible.");
+        this.player.setWeapon(new Fists());
         break;
 
       case 4:
@@ -503,30 +502,39 @@ class Event10 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user encounters an allied kingdom
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("You find yourself in a castle of an allied kingdom. What do you do?\n1. Visit the restaurant\n2. Go to the tavern\n3. Go to the town square\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        Input.lore("You visit the restaurant and you order some rabbit stew and fresh bread. You eat it and feel full and refreshed.");
+        this.player.setHealth(this.player.getHealth() + 50);
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
-        // this.player.setWeapon(null);
+        Input.lore("You visit the tavern and order a few beers. You get drunk and pass out, losing your weapon.");
+        this.player.setHealth(this.player.getHealth() - 20);
+        this.player.setWeapon(new Fists());
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        Input.lore("You go to the town square. The villagers recognize you as the most famous knight in the land, sent on a dangerous mission.\nThey celebrate your visit and shower you with money and some potions.");
+        this.player.setMoney(this.player.getMoney() + 175);
+        this.player.setSmallHeals(this.player.getSmallHeals() + 1);
+        this.player.setBigHeals(this.player.getBigHeals() + 1);
+        
+        if (this.player.getWeapon().toString().equals("Fists")) {
+          Input.lore("They see you are missing a weapon and give you a new sword forged by their finest blacksmiths");
+          this.player.setWeapon(new Sword());
+        }
         break;
-
+        
       case 4:
         leave = true;
         break;
@@ -552,28 +560,48 @@ class Event11 extends Event {
   }
 
   /**
-   * Executes the event
+   * Executes an event where the user sees a mysterious light
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("It is night time, you see a mysterious light in the distance. What do you do?\n1. Go to the light\n2. Sneak around and investigate\n3. Ignore the light\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        Input.lore("You go to the light. You see a big bonfire and a group of people doing a ritual. They sacrifice a person into the fire. They spot you and run towards you. They are yelling that you are the next to be sacrificed.");
+        leave = Battle.battleInstance(this.player, "the Cult of the Sacrified", 150, new int[] {20, 30});
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
-        // this.player.setWeapon(null);
+        Input.lore("You sneak around the bushes trying to observe. You accidently bump into a mysterious person.");
+        Input.lore("Mysterious person (quiet voice): Shhhh... it's a cult, they're doing a ritual, do not make much noise or sudden movement.");
+        Input.lore("You (quiet voice): What is this? Who are they?");
+        Input.lore("Mysterious person (quiet voice): They are the Cult of the Sacrificed, an ancient cult. They sacrifice people into the fire, which adds years to their leader's life. Their leader has been alive for over a thousand years.");
+        Input.lore("You (quiet voice): So who are you?");
+        Input.lore("Mysterious person (quiet voice): I am here to take down the leader, they sacrificed my entire family. I must take revenge.");
+        Input.lore("You (quiet voice): What are you waiting for then? Let's go!");
+        Input.lore("Mysterious person (quiet voice): Not right now. \nI have this feeling they know we are here, we have to relocate.");
+        Input.lore("You and the mysterious person quietly move on top of a hill, gaining the high ground. The mysterious person hands you an his spare crossbow."); 
+        Input.lore("You and the mysterious person take aim, trying to shoot the leader, however both of you miss and accidently shoot some cult members.\nThe cult members are alarmed and begin to look out for where the bolts are coming from, they quickly spot you."); 
+        Input.lore("Mysterious person: SHOOT! They've spotted us! MOVE! MOVE! MOVE!"); 
+        Input.lore("You panic and drop the crossbow, but there's no time to pick it up. The cult members sprint towards you. You ready yourself to fight."); 
+        leave = Battle.battleInstance(this.player, "the Cult of the Sacrificed", 90, new int[] {15, 20});
+        if (leave) { 
+          return leave;
+        }
+        Input.lore("All the cult members except the leader are gone, but the leader will not back down.");
+        leave = Battle.battleInstance(this.player, "the Leader of the Sacrificed", 120, new int[] {30, 45}); 
+        Input.lore("The mysterious person deals the final blow to the leader. Unfortunately, the leader managed to stab him before dying. You never find out your friend's identity, but you will never forget his bravery.");
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        Input.lore("You ignore the light and walk away, but you accidentally step on a branch and make a loud noise. You hear what sounds like multiple people getting up, and you don't wait to find out what is happening. You sprint into the woods, only to fall into a bear trap.");
+        Input.lore("Soon, a group of people wearing strange clothes find you, and carry you back to a bonfire. You are unable to escape. They declare that you will be the next to be sacrificed. They throw you into the fire, and you die.");
+        this.player.setHealth(0);
+        leave = true;
         break;
 
       case 4:
@@ -606,24 +634,25 @@ class Event12 extends Event {
    * @return Returns true if the user wants to quit or has died, false otherwise
    */
   @Override
-  public boolean run() {
-    boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
-    int choice = Input.intCheck(1, 4);
-
+  public boolean run() { 
+    boolean leave = false; 
+    System.out.println("You approach a large mountain obstructing your path, but you see a path leading into the mountain itself.\nInside you find an ancient underground city, with an altar at its centre. What do you do?\n1. Go to the altar\n2. Go to the city's only cemetary\n3. Explore deeper within the city\n4. Quit");
+    int choice = Input.intCheck(1, 4); //yeah i know this is a lot of code but it works so i'm not gonna change it <-- ai comment
+    
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        Input.lore("As you move up the steps towards the altar, you notice dead bodies covered in armour lying on the ground. You start hearing an ominous sound.\nYou turn around and notice the bodies slowly getting up. The guards of the city have risen from the dead, and they start attacking you."); 
+        leave = Battle.battleInstance(this.player, "the Ancient Guards", 65, new int[] {14, 28}); 
         break;
 
       case 2:
-        System.out.println("You run away, but trip on a branch as you run away and drop your weapon.");
-        // this.player.setWeapon(null);
+        Input.lore("You move towards the cemetery. You decide to check out the old tombstones, but one of them appears to have no name on it. However, as you approach it, you notice a some water leaking out of it.\nYou touch it, and feel strangely strong, as if the water is healing you."); 
+        this.player.setHealth(this.player.getHealth() + 15); 
         break;
 
       case 3:
-        System.out.println("You approach the bear calmly and it slowly walks away.");
+        Input.lore("Your curiosity leads you deeper into the city. You walk across old abandoned homes and find an old trapdoor. You open it and a lot of rats start coming out.");
+        leave = Battle.battleInstance(this.player, "the Rats", 30, new int[] {7, 14});
         break;
 
       case 4:

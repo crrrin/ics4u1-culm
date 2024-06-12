@@ -44,6 +44,7 @@ class Data {
    */
   public static void loadData() {
     Scanner databaseReader = null; //initialize outside try/catch
+    
     try {
       databaseReader = new Scanner(new BufferedReader(new FileReader("Database.txt")));
       while (databaseReader.hasNext()) {
@@ -123,6 +124,24 @@ class Data {
     System.out.println("Leaderboard:");
     for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE - 1; i++) {
       System.out.println((i + 1) + ". " + players.get(i).getUsername() + " - " + players.get(i).getGamesWon() + " wins");
+    }
+  }
+
+  public static void personalStats() {
+    loadData();
+    System.out.println("Please enter the username you want to see the stats of.");
+    String username = Input.strIn();
+    boolean exists = false;
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getUsername().equals(username)) {
+        System.out.println("Playthroughs: " + players.get(i).getPlaythroughs());
+        System.out.println("Games won: " + players.get(i).getGamesWon());
+        exists = true;
+        i = players.size();
+      }
+    }
+    if(!exists) {
+      System.out.println("Player not found. Returning to main menu.");
     }
   }
   /**

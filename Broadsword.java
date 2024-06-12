@@ -22,8 +22,13 @@
       System.out.println("You swing your broadsword.");
   
       Sleep.wait(Sleep.LONG_DELAY);
-      
-      return this.DAMAGE;
+
+      if (Math.random() > ENEMY_BONUS_ODDS){
+        return this.DAMAGE;
+      }
+
+      System.out.println("Your enemy dodged your attack, and you left yourself open to a deadly attack!");
+      return 0;
       
     }
   
@@ -51,4 +56,13 @@
     public double getEvasionOdds(){
       return EVASION_ODDS;
     }
+
+   /** 
+    * Returns the odds of enemy landing bonus damage
+    * @return A double with the odds of enemy bonus damage
+    */
+   @Override
+   public double getEnemyBonus(){
+     return EVASION_ODDS;
+   }
   }

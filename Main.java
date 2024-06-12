@@ -9,10 +9,21 @@ class Main {
   public static void mainMenu() {
     boolean stay = true;
 
+    System.out.println( "Welcome to" + "\n" +
+      " ____             _      ____  _          _ _     " + "\n" +
+      "|  _ \\  __ _ _ __| | __ / ___|| | ___   _| | |___ " + "\n" + 
+      "| | | |/ _` | '__| |/ / \\___ \\| |/ / | | | | / __|" + "\n" + //immortal quest??????????
+      "| |_| | (_| | |  |   <   ___) |   <| |_| | | \\__ \\" + "\n" +
+      "|____/ \\__,_|_|  |_|\\_\\ |____/|_|\\_\\\\__,_|_|_|___/"
+    );
+    
+    Input.lore("A text-based adventure game where you must survive a dangerous journey to retrieve an invaluable artifact.");
+    
+    Input.clearConsole();
+    
     while (stay) {
-      Input.lore("Welcome to Blackjack! A text-based adventure game where you must survive a dangerous journey to retrieve an invaluable artifact.");
-      System.out.println("Select an option:\n1. Play game\n2. Leaderboard\n3. Quit");
-      int choice = Input.intCheck(1, 3);
+      System.out.println("Select an option:\n1. Play game\n2. Leaderboard\n3. Personal Statistics\n4. Quit");
+      int choice = Input.intCheck(1, 4);
       System.out.println();
 
       switch (choice) {
@@ -27,6 +38,9 @@ class Main {
           Player player = null;
           if (gameChoice == 1) {
             player = new Player(username);
+
+          Input.clearConsole(); 
+            
             Game game = new Game(player);
             game.play();
           }
@@ -38,8 +52,11 @@ class Main {
                 i = Data.players.size();
               }
             }
-            if (player == null) {
+            if (player == null || player.getEventsPassed() == 0) {
               System.out.println("\nYou do not have an existing game. Returning to main menu.\n");
+              
+              Sleep.wait(Sleep.LONG_DELAY);
+              Input.clearConsole();
             }
             else {
               Game game = new Game(player);
@@ -52,7 +69,11 @@ class Main {
           Data.leaderboard();
           break;
 
-        case 3: //quit
+        case 3:
+          Data.personalStats();
+          break;
+          
+        case 4: //quit
           System.out.println("Thanks for playing!");
           stay = false;
           // TODO potentially make stay global?

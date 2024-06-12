@@ -42,11 +42,26 @@ class Input {
     return in;
   }
 
+  /**
+   * This method prints the text for the player to read character by character smoothly
+   * @param prompt The text to be displayed to the user
+   */
   public static void lore(String prompt) {
-    System.out.println(prompt);
-    System.out.print("Press ENTER to continue: ");
+    
+    System.out.println("\n");
+    
+    // for (int i = 0; i < prompt.length(); i++) {
+    //   System.out.print(prompt.charAt(i));
+    //   Sleep.wait(Sleep.TINY_DELAY); 
+    // }
+
+    System.out.print(prompt);
+    
+    System.out.println("\n");
+    System.out.print("\nPress ENTER to continue: ");
     sc.nextLine();
-    System.out.println();
+    
+    System.out.println("\n");
   }
 
   public static int intCheck(int minValue, int maxValue) {
@@ -54,7 +69,19 @@ class Input {
     while (choice > maxValue || choice < minValue) {
       choice = Input.intIn();
     }
-    return choice;
+    return choice; // WE NEED A FLUSH METHOD AND SPACING THERE AFTER WELCOME TO THE GAME.
+    //
   }
+  //clearing console is inherently an os thing
+  public static void clearConsole()  { //TODO UNIX FLUSH ASK KALISH ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing)
+    String flushString = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; 
+    System.out.print(flushString + flushString + flushString + flushString); 
+  }  
+
+  public static void miniClear()  { //TODO UNIX FLUSH ASK KALISH ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing) ---> (pointing)
+    String flushString = "\n\n\n\n\n\n"; 
+    System.out.print(flushString); 
+  }  
+
   
 }
