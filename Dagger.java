@@ -47,8 +47,8 @@ class Dagger implements Weapon {
   /**
    * Contains the description about the dagger 
    */
-  public static void description() {
-    System.out.println("Used by assassins and the like, the dagger is a small, simple and agile weapon yet a deadly weapon.\nDeals the lowest damage of the weapons at a measly 5 damage, but has 50% chance to land an extra hit, up to a maximum of 5 extra hits.\nThis is the starter weapon."); // TODO dedscription
+  public static String description() {
+    return "Used by assassins and the like, the dagger is a small, simple and agile weapon yet a deadly weapon.\nDeals the lowest damage of the weapons at a measly 5 damage, but has 50% chance to land an extra hit, up to a maximum of 5 extra hits.\nThis is the starter weapon.";
   }
 
   /** 

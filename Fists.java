@@ -23,9 +23,8 @@ class Fists implements Weapon {
   /**
    * Contains the description about the dagger 
    */
-  @Override
-  public void description() {
-    System.out.println("Deals 3 damage, but enemies have a 50% chance to miss their attacks on you.");
+  public static String description() {
+    return "Deals 3 damage, but enemies have a 50% chance to miss their attacks on you.";
   }
 
   /** 

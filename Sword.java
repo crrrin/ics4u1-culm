@@ -40,10 +40,10 @@ class Sword implements Weapon {
   /**
    * Contains the description about the sword
    */
-  public static void description() {
-    System.out.println("Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a humble 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.");
+  public static String description() {
+    return "Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a humble 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.";
   }
-
+  
   /** 
    * Returns the name of the weapon
    * @return A string with the weapon name
