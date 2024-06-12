@@ -1,7 +1,15 @@
-every new game run add player
-- reset stats if exist
-- if new player add as new player
+finish events
 
-every time plyaer data loaded from prev game load data
+fix whitespacing in code
+       and when running
 
-one save slot: reset if they hit new game
+javadocs and commenting
+
+stresstest
+
+
+
+
+
+
+simplify logic if easy

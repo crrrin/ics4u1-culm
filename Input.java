@@ -44,7 +44,17 @@ class Input {
 
   public static void lore(String prompt) {
     System.out.println(prompt);
-    System.out.print("Press enter to continue: ");
+    System.out.print("Press ENTER to continue: ");
     sc.nextLine();
+    System.out.println();
   }
+
+  public static int intCheck(int minValue, int maxValue) {
+    int choice = -1;
+    while (choice > maxValue || choice < minValue) {
+      choice = Input.intIn();
+    }
+    return choice;
+  }
+  
 }

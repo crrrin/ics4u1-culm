@@ -20,12 +20,12 @@ class Data {
     PrintWriter databaseWriter = null; //initialize outside of try/catch
     try {
       databaseWriter = new PrintWriter(new BufferedWriter(new FileWriter("Database.txt", false)));
-      for(int i = 0; i < players.size(); i++) {
+      for (int i = 0; i < players.size(); i++) {
         databaseWriter.println(players.get(i).getUsername() + " " + players.get(i).getHealth() + " " + players.get(i).getEventsPassed() + " " + players.get(i).getMoney() + " " + players.get(i).getSmallHeals() + " " + players.get(i).getBigHeals() + " " + players.get(i).getWeapon().toString() + " " + players.get(i).getPlaythroughs() + " " + players.get(i).getGamesWon());
-        for(int j = 0; j < players.get(i).getEventNumbers().size(); j++) {
+        for (int j = 0; j < players.get(i).getEventNumbers().size(); j++) {
           databaseWriter.print(players.get(i).getEventNumbers().get(j) + " ");
         }
-        if(i != players.size() - 1)
+        if (i != players.size() - 1)
         {
           databaseWriter.println();
         }
@@ -75,7 +75,7 @@ class Data {
         } //TODO if more weapons added
 
         ArrayList<Integer> eventNumbers = new ArrayList<Integer>();
-        for(int i = 0; i < eventNames.length; i++) {
+        for (int i = 0; i < eventNames.length; i++) {
           eventNumbers.add(Integer.parseInt(eventNames[i]));
         }
         
@@ -184,7 +184,7 @@ class Data {
     int rightIndex = 0;
     int ogIndex = 0;
 
-    while(leftIndex < left.size() && rightIndex < right.size()) {
+    while (leftIndex < left.size() && rightIndex < right.size()) {
       if (left.get(leftIndex).compareTo(right.get(rightIndex)) > 0) {
         og.set(ogIndex, left.get(leftIndex++));
       }
@@ -194,11 +194,11 @@ class Data {
       ogIndex++;
     }
 
-    while(leftIndex < left.size()) {
+    while (leftIndex < left.size()) {
       og.set(ogIndex++, left.get(leftIndex++));
     }
 
-    while(rightIndex < right.size()) {
+    while (rightIndex < right.size()) {
       og.set(ogIndex++, right.get(rightIndex++));
     }	
   }
