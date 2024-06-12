@@ -357,7 +357,7 @@ class Event7 extends Event {
 
     switch (choice) {
       case 1:
-        Input.lore("You approach the monks, and they welcome you with open arms. However, they seem overly friendly, and as they lead you into the monastery, you realize that you have been led into a trap! You must now fight them.");
+        Input.lore("You approach the monks, and they welcome you with open arms. As you talk with them, they convince you to forget about your quest and your other worldly concerns, and to become ");
         leave = Battle.battleInstance(this.player, "the Monks", 40, new int[] {10, 30});
         break;
 
@@ -465,7 +465,8 @@ class Event9 extends Event {
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "Bear", 20, new int[] {3, 10});
+        System.out.println("You call out to her, but she doesn't respond.");
+        System.out.println("You begin to approach her, repeatedly calling out to her");
         break;
 
       case 2:
