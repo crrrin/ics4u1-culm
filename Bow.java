@@ -36,8 +36,7 @@ class Bow implements Weapon {
   /**
    * Contains the description about the dagger 
    */
-  @Override
-  public void description() {
+  public static void description() {
     System.out.println("Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 20% chance to miss."); // TODO ENEMY MISS BASED ON PLAYER WEAPON?
   }
 
