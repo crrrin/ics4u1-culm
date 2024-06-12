@@ -21,7 +21,7 @@
       
       System.out.println("You swing your broadsword.");
   
-      Sleep.waitLong();
+      Sleep.wait(Sleep.LONG_DELAY);
       
       return this.DAMAGE;
       

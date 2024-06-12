@@ -21,13 +21,13 @@ class Bow implements Weapon {
 
     System.out.println("You draw your bow... and fire!");
     
-    Sleep.waitShort();
+    Sleep.wait(Sleep.SHORT_DELAY);
     System.out.println(".");
-    Sleep.waitShort();
+    Sleep.wait(Sleep.SHORT_DELAY);
     System.out.println("..");
-    Sleep.waitShort();
+    Sleep.wait(Sleep.SHORT_DELAY);
     System.out.println("...");
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
 
     System.out.println("And release!");
 

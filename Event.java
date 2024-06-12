@@ -364,9 +364,12 @@ class Event7 extends Event {
       case 2:
         System.out.println("You sneak past the monks in the shadows and enter the monastery. You find a room filled with broadswords, and you could take one if you want to. " + Broadsword.description() + "\nDo you take the sword? (y/n)");
         String pickup = "";
-        while (!pickup.toLowerCase().equals("y") && !pickup.toLowerCase().equals("n"))
-        
-        // this.player.setWeapon(null);
+        while (!pickup.toLowerCase().equals("y") && !pickup.toLowerCase().equals("n")) {
+          pickup = Input.strIn();
+        }
+        if (pickup.toLowerCase().equals("y")) {
+          this.player.setWeapon(new Broadsword());
+        }
         break;
 
       case 3:
@@ -456,8 +459,8 @@ class Event9 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("");
-    System.out.println("Select an option:\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("You find a cave and you enter it. Inside is a mysterious woman.");
+    System.out.println("Select an option:\n1. Call out to her\n2. Sneakily approach her\n3. Attack her\n4. Quit");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {

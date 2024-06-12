@@ -1,20 +1,11 @@
 public class Sleep {
   
-  public static void waitShort() {
-    try {
-      Thread.sleep(300);
-    } 
-    catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
-    finally {
-      System.out.println();
-    }
-  }
+  public static final int LONG_DELAY = 750;
+  public static final int SHORT_DELAY = 300;
 
-  public static void waitLong() {
+  public static void wait(int millis) {
     try {
-      Thread.sleep(750);
+      Thread.sleep(millis);
     } 
     catch (InterruptedException e) {
       Thread.currentThread().interrupt();

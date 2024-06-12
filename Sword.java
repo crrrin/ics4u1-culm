@@ -24,7 +24,7 @@ class Sword implements Weapon {
     
     System.out.println("You swing your sword.");
 
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
     
     if (crit) {
 // TODO make the crit bonus slightly random

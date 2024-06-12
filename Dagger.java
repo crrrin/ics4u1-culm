@@ -25,7 +25,7 @@ class Dagger implements Weapon {
     
     System.out.println("You strike with your dagger.");
     
-    Sleep.waitLong();
+    Sleep.wait(Sleep.LONG_DELAY);
 
     for (Double i = Math.random(); i < MULTIHIT_ODDS && bonusDamageInstances <= MAX_BONUS_STRIKES; i = Math.random()){
       bonusDamageInstances++;
@@ -33,13 +33,13 @@ class Dagger implements Weapon {
       if (bonusDamageInstances == 1){
         System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hit!");
 
-        Sleep.waitShort();
+        Sleep.wait(Sleep.SHORT_DELAY);
 
       } else if (bonusDamageInstances > 1) {
         System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hits!");
       }
       
-      Sleep.waitShort();
+      Sleep.wait(Sleep.SHORT_DELAY);
     }
     
     return this.DAMAGE + bonusDamageInstances * this.DAMAGE;
