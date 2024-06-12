@@ -1,11 +1,20 @@
 public class Sleep {
-
-  protected static final int GENERIC_LONG_DELAY_MS = 750;
-  protected static final int GENERIC_SHORT_DELAY_MS = 350;
-  protected static final int GENERIC_TINY_DELAY_MS = 100;
-  public static void wait(int timeMilli) {
+  
+  public static void waitShort() {
     try {
-      Thread.sleep(timeMilli);
+      Thread.sleep(300);
+    } 
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    finally {
+      System.out.println();
+    }
+  }
+
+  public static void waitLong() {
+    try {
+      Thread.sleep(750);
     } 
     catch (InterruptedException e) {
       Thread.currentThread().interrupt();

@@ -8,7 +8,7 @@
 class Bow implements Weapon {
   
   protected final int BASE_DAMAGE = 5;
-  protected final double EVASION_ODDS = 0.3;
+  protected final double EVASION_ODDS = 0.6;
 
   /**
    * Uses the bow
@@ -20,13 +20,13 @@ class Bow implements Weapon {
 
     System.out.println("You draw your bow...");
     
-    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
+    Sleep.waitShort();
     System.out.println(".");
-    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
+    Sleep.waitShort();
     System.out.println("..");
-    Sleep.wait(Sleep.GENERIC_SHORT_DELAY_MS);
+    Sleep.waitShort();
     System.out.println("...");
-    Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
+    Sleep.waitLong();
 
     System.out.println("And release!");
 
@@ -37,7 +37,7 @@ class Bow implements Weapon {
    * Contains the description about the dagger 
    */
   public static String description() {
-    return "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 30% chance to miss.";
+    return "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 60% chance to miss.";
   }
 
   /** 

@@ -7,8 +7,8 @@
 
 class Fists implements Weapon {
 
-  protected final int BASE_DAMAGE = 3;
-  protected final double EVASION_ODDS = 0.5;
+  protected final int BASE_DAMAGE = 5;
+  protected final double EVASION_ODDS = 0.3;
 
   /**
    * Uses fists
@@ -24,7 +24,7 @@ class Fists implements Weapon {
    * Contains the description about the dagger 
    */
   public static String description() {
-    return "Deals 3 damage, but enemies have a 50% chance to miss their attacks on you.";
+    return "Deals 3 damage, but enemies have a 30% chance to miss their attacks on you.";
   }
 
   /** 
