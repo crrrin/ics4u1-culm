@@ -36,6 +36,7 @@ class Game {
   public void play() {
     Sleep.wait(Sleep.GENERIC_LONG_DELAY_MS);
     Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortal potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, 2 basic potions, and $1000."); //TODO Finish lore
+    Input.lore(Sword.description());
     this.player.setMoney(1000);
     this.player.setSmallHeals(2);
     gameLoop();
@@ -217,7 +218,7 @@ class Game {
 
   public boolean shop() {
     boolean leave = false;
-    String[] shopItems = {"1. Dagger: $" + WEAPON_PRICE, "2. Sword: $" + WEAPON_PRICE, "3. Bow: $" + WEAPON_PRICE, "4. Small Heal: $" + SMALL_PRICE, "5. Big Heal: $" + BIG_PRICE};
+    String[] shopItems = {"1. Dagger - " + Dagger.description() + ": $" + WEAPON_PRICE, "2. Sword - " + Sword.description() + ": $" + WEAPON_PRICE, "3. Bow - " + Bow.description() + ": $" + WEAPON_PRICE, "4. Small Heal: $" + SMALL_PRICE, "5. Big Heal: $" + BIG_PRICE};
     System.out.println("Welcome to the shop!\n1. View inventory\n2. View shop\n3. Leave");
     int choice = Input.intCheck(1, 3);
     
