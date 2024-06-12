@@ -23,7 +23,7 @@ class Battle {
     boolean healCancel = true;
     String enemyNameStartSentence = enemyName.substring(0,1).toUpperCase() + enemyName.substring(1);
 
-    while (enemyHP > 0 && player.getHealth() > 0) {
+    while (player.getHealth() > 0) {
 
       turnCycle++;
       
@@ -89,7 +89,7 @@ class Battle {
       if (enemyHP <= 0){
               System.out.println("You defeated " + enemyName + "!");
               return false;
-      } 
+      }
 
       boolean enemyLandsHit = Math.random() > player.weapon.getEvasionOdds();
       
@@ -112,16 +112,7 @@ class Battle {
       }
     }
     
-    if (player.getHealth() == 0){
-      System.out.println("You died!");
-      return true;
-    } 
-      
-    else {
-      
-    }
-  
-  }
-
+    System.out.println("You died!");
+    return true;
   }
 }
