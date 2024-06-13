@@ -134,7 +134,8 @@ class Battle {
         }
       }
     }
-    
+
+    System.out.println();
     System.out.println("You died!");
     return true;
   }

@@ -38,18 +38,20 @@ class Event1 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are walking through a forest and you see a wild bear. What do you do?\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit");
+    System.out.println("You are walking through a forest and you see a wild bear. What do you do?\n\n1. Attack the bear\n2. Run away\n3. Calmly approach the bear\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "the Bear", 30, new int[] {5, 10});
+        leave = Battle.battleInstance(this.player, Enemy.BEAR[0], Integer.parseInt(Enemy.BEAR[1]), new int[] {Integer.parseInt(Enemy.BEAR[2]), Integer.parseInt(Enemy.BEAR[3])});
         break;
 
       case 2:
         Input.lore("You run away, but trip on a branch as you run away and drop your weapon.");
-        Input.lore("You can now only use your fists. " + Fists.description());
+        Input.lore("You can now only use your fists. ");
         this.player.setWeapon(new Fists());
+        Fists.description();
+        Input.lore("You continue on your journey.");
         break;
 
       case 3:
@@ -88,12 +90,12 @@ class Event2 extends Event {
   @Override
   public boolean run() {
     boolean leave = false; //bandits WE SHOULD CHANGE THE JAVADOCS FOR EACH EVENT TO ACTUALLY DESCRIBE THE EVENT
-    System.out.println("You were navigating the rivers but a group of bandits spot you, demanding your money. What do you do?\n1. Fight the bandits\n2. Run away\n3. Give the bandits your money\n4. Quit");
+    System.out.println("You were navigating the rivers but a group of bandits spot you, demanding your money. What do you do?\n\n1. Fight the bandits\n2. Run away\n3. Give the bandits your money\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, "the Bandits", 35, new int[] {6, 10});
+        leave = Battle.battleInstance(this.player, Enemy.BANDITS[0], Integer.parseInt(Enemy.BANDITS[1]), new int[] {Integer.parseInt(Enemy.BANDITS[2]), Integer.parseInt(Enemy.BANDITS[3])});
         break;
 
       case 2:
@@ -137,13 +139,13 @@ class Event3 extends Event {
   @Override
   public boolean run() {
     boolean leave = false; //VILLAGE SCENARIO
-    System.out.println("It is the evening, you are tired. You find a small village and move towards it. What do you do?\n1. Sneak in and scavenge for food\n2. Ask a villager to let you stay the night\n3. Ignore the village and walk away.\n4. Quit");
+    System.out.println("It is the evening, you are tired. You find a small village and move towards it. What do you do?\n\n1. Sneak in and scavenge for food\n2. Ask a villager to let you stay the night\n3. Ignore the village and walk away.\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
         Input.lore("You got caught by one of the guards! They attack you.");
-        leave = Battle.battleInstance(this.player, "the Villager Guard", 350, new int[] {7, 14}); 
+        leave = Battle.battleInstance(this.player, Enemy.VILLAGE_GUARD[0], Integer.parseInt(Enemy.VILLAGE_GUARD[1]), new int[] {Integer.parseInt(Enemy.VILLAGE_GUARD[2]), Integer.parseInt(Enemy.VILLAGE_GUARD[3])});
         break;
 
       case 2:
@@ -190,7 +192,7 @@ class Event4 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You are famished, you find yourself in front of a mysterious, lone house. The homeowner greets you and introduces himself. His name is Damien Bartholomew Burnell-Jones Burthwright. He invites you to have a meal with him. What do you do?\n1. Accept his offer\n2. Run away\n3. Insult him\n4. Quit");
+    System.out.println("You are famished, you find yourself in front of a mysterious, lone house. The homeowner greets you and introduces himself. His name is Damien Bartholomew Burnell-Jones Burthwright. He invites you to have a meal with him. What do you do?\n\n1. Accept his offer\n2. Run away\n3. Insult him\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -206,19 +208,19 @@ class Event4 extends Event {
         Input.lore("Damien: Looks like I will be eating good tonight");
         Input.lore("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your items.\nYou prepare yourself to fight to the death.");
         
-        leave = Battle.battleInstance(this.player, "Damien", 60, new int[] {13, 25});
+        leave = Battle.battleInstance(this.player, Enemy.DAMIEN[0], Integer.parseInt(Enemy.DAMIEN[1]), new int[] {Integer.parseInt(Enemy.DAMIEN[2]), Integer.parseInt(Enemy.DAMIEN[3])});
         break;
 
       case 2:
         Input.lore("You run away, he starts chasing you with a cleaver. He manages to catch up to you. You must fight him.");
-         leave = Battle.battleInstance(this.player, "Damien", 60, new int[] {13, 25});
+         leave = Battle.battleInstance(this.player, Enemy.DAMIEN[0], Integer.parseInt(Enemy.DAMIEN[1]), new int[] {Integer.parseInt(Enemy.DAMIEN[2]), Integer.parseInt(Enemy.DAMIEN[3])});
         break;
 
       case 3:
         Input.lore("Damien: Hello sir, would you be interested in my food?");
         Input.lore("You: No, I don't want your crusty, goopy, pizza sub. Eating your \"food\" is an insult to my stomach.");
         Input.lore("Damien is taken aback. He gets enraged and charges at you.");
-        leave = Battle.battleInstance(this.player, "Enraged Damien", 150, new int[] {22, 50});
+        leave = Battle.battleInstance(this.player, Enemy.ENRAGED_DAMIEN[0], Integer.parseInt(Enemy.ENRAGED_DAMIEN[1]), new int[] {Integer.parseInt(Enemy.ENRAGED_DAMIEN[2]), Integer.parseInt(Enemy.ENRAGED_DAMIEN[3])});
         break;
 
       case 4:
@@ -252,7 +254,7 @@ class Event5 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You walk into a village and find yourself in front of a wishing well. What do you do?\n1. Offer all your money\n2. Ignore the well\n3. Throw your garbage in\n4. Quit");
+    System.out.println("You walk into a village and find yourself in front of a wishing well. What do you do?\n\n1. Offer all your money\n2. Ignore the well\n3. Throw your garbage in\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -268,7 +270,7 @@ class Event5 extends Event {
 
       case 3:
         Input.lore("You throw a rotten piece of meat in the well. An enraged Poseidon comes flying out of the well and attacks you.");
-        Battle.battleInstance(this.player, "Enraged Poseidon", 175, new int[] {12, 40});
+        leave = Battle.battleInstance(this.player, Enemy.POSEIDON[0], Integer.parseInt(Enemy.POSEIDON[1]), new int[] {Integer.parseInt(Enemy.POSEIDON[2]), Integer.parseInt(Enemy.POSEIDON[3])});
         break;
 
       case 4:
@@ -303,13 +305,13 @@ class Event6 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find a strange looking statue, it reads \"The One Who Sacrificed\". The ground seems soft. You suspect there is hidden treasure under the statue. What do you do?\n1. Dig up the ground\n2. Worship the statue\n3. Leave money at the statue and walk away\n4. Quit");
+    System.out.println("You find a strange looking statue, it reads \"The One Who Sacrificed\". The ground seems soft. You suspect there is hidden treasure under the statue. What do you do?\n\n1. Dig up the ground\n2. Worship the statue\n3. Leave money at the statue and walk away\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
       case 1:
         Input.lore("You dig up the ground in search for treasure. You find a wooden box and open it. Inside is a spirit of the Sacrificed, he is enraged that his rest has been disturbed. He flails at you, but phases through you. You decide to fight it.");
-        leave = Battle.battleInstance(this.player, "Spirit", 70, new int[] {0, 0});
+        leave = Battle.battleInstance(this.player, Enemy.SPIRIT[0], Integer.parseInt(Enemy.SPIRIT[1]), new int[] {Integer.parseInt(Enemy.SPIRIT[2]), Integer.parseInt(Enemy.SPIRIT[3])});
         break;
 
       case 2:
@@ -353,7 +355,7 @@ class Event7 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("After a long trek in the wilderness, you discover a hidden monastery. What do you do?\n1. Talk to the monks\n2. Sneak into the monastery\n3. Walk around it\n4. Quit");
+    System.out.println("After a long trek in the wilderness, you discover a hidden monastery. What do you do?\n\n1. Talk to the monks\n2. Sneak into the monastery\n3. Walk around it\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -373,7 +375,7 @@ class Event7 extends Event {
 
       case 3:
         Input.lore("You walk around the monastery, and you run into a monk. However, he does not look like the other monks. Quickly, you realize that he is not really a monk, but rather an impostor, trying to blend in. You call him out; furious, he attacks you.");
-        leave = Battle.battleInstance(this.player, "the Impostor", 100, new int[] {3, 5});
+        leave = Battle.battleInstance(this.player, Enemy.SUSSY[0], Integer.parseInt(Enemy.SUSSY[1]), new int[] {Integer.parseInt(Enemy.SUSSY[2]), Integer.parseInt(Enemy.SUSSY[3])});
         break;
 
       case 4:
@@ -408,7 +410,7 @@ class Event8 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find an abandoned church, you go inside and find a fountain running with a red liquid. What do you do?\n1. Drink a little bit of it\n2. Drink a lot of it\n3. Ignore the fountain\n4. Quit");
+    System.out.println("You find an abandoned church, you go inside and find a fountain running with a red liquid. What do you do?\n\n1. Drink a little bit of it\n2. Drink a lot of it\n3. Ignore the fountain\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -458,7 +460,7 @@ class Event9 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find a cave and you enter it. Inside is a mysterious woman. What do you do?\n1. Call out to her\n2. Sneakily approach her\n3. Attack her\n4. Quit");
+    System.out.println("You find a cave and you enter it. Inside is a mysterious woman. What do you do?\n\n1. Call out to her\n2. Sneakily approach her\n3. Attack her\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -508,7 +510,7 @@ class Event10 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("You find yourself in a castle of an allied kingdom. What do you do?\n1. Visit the restaurant\n2. Go to the tavern\n3. Go to the town square\n4. Quit");
+    System.out.println("You find yourself in a castle of an allied kingdom. What do you do?\n\n1. Visit the restaurant\n2. Go to the tavern\n3. Go to the town square\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -566,7 +568,7 @@ class Event11 extends Event {
   @Override
   public boolean run() {
     boolean leave = false;
-    System.out.println("It is night time, you see a mysterious light in the distance. What do you do?\n1. Go to the light\n2. Sneak around and investigate\n3. Ignore the light\n4. Quit");
+    System.out.println("It is night time, you see a mysterious light in the distance. What do you do?\n\n1. Go to the light\n2. Sneak around and investigate\n3. Ignore the light\n4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
     switch (choice) {
@@ -636,13 +638,13 @@ class Event12 extends Event {
   @Override
   public boolean run() { 
     boolean leave = false; 
-    System.out.println("You approach a large mountain obstructing your path, but you see a path leading into the mountain itself.\nInside you find an ancient underground city, with an altar at its centre. What do you do?\n1. Go to the altar\n2. Go to the city's only cemetary\n3. Explore deeper within the city\n4. Quit");
-    int choice = Input.intCheck(1, 4); //yeah i know this is a lot of code but it works so i'm not gonna change it <-- ai comment
+    System.out.println("You approach a large mountain obstructing your path, but you see a path leading into the mountain itself.\nInside you find an ancient underground city, with an altar at its centre. What do you do?\n\n1. Go to the altar\n2. Go to the city's only cemetary\n3. Explore deeper within the city\n4. Quit\n");
+    int choice = Input.intCheck(1, 4);
     
     switch (choice) {
       case 1:
         Input.lore("As you move up the steps towards the altar, you notice dead bodies covered in armour lying on the ground. You start hearing an ominous sound.\nYou turn around and notice the bodies slowly getting up. The guards of the city have risen from the dead, and they start attacking you."); 
-        leave = Battle.battleInstance(this.player, "the Ancient Guards", 65, new int[] {14, 28}); 
+        leave = Battle.battleInstance(this.player, "the Ancient Guards", 65, new int[] {14, 28}); //TODO CHANGE TO DEFENCE OF THE ANCIENTS
         break;
 
       case 2:

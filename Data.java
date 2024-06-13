@@ -122,7 +122,7 @@ class Data {
     loadData();
     sortByWins();
     System.out.println("Leaderboard:");
-    for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE - 1; i++) {
+    for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE; i++) {
       System.out.println((i + 1) + ". " + players.get(i).getUsername() + " - " + players.get(i).getGamesWon() + " wins");
     }
   }
@@ -144,8 +144,9 @@ class Data {
       System.out.println("Player not found. Returning to main menu.");
     }
   }
+  
   /**
-   * Sorts the databse by number of wins from greatest to least
+   * Sorts the database by number of wins from greatest to least
    */
   public static void sortByWins() {
     mergeSort(players);
@@ -159,7 +160,10 @@ class Data {
 
     //base case
 
-    if (arr.size() < 2) {
+    if (arr.size() < 2) { //only hits base case twice why????
+      for(int i = 0; i < arr.size(); i++) {
+        System.out.println(arr.get(i).getUsername()); //doesn't print anything sooo array is empty?
+      }
       return;
     }
 
@@ -202,7 +206,7 @@ class Data {
     int ogIndex = 0;
 
     while (leftIndex < left.size() && rightIndex < right.size()) {
-      if (left.get(leftIndex).compareTo(right.get(rightIndex)) > 0) {
+      if (left.get(leftIndex).getGamesWon() - right.get(rightIndex).getGamesWon() > 0) {
         og.set(ogIndex, left.get(leftIndex++));
       }
       else {

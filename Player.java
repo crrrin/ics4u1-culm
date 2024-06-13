@@ -168,7 +168,7 @@ class Player implements Comparable<Player> {
    * @param money The amount of money to be set to the player
    */
   public void setMoney(int money) {
-    if(this.money - money < 0) {
+    if(money < 0) {
       money = 0;
     }
     this.money = money;
@@ -256,6 +256,6 @@ class Player implements Comparable<Player> {
    */
   @Override
   public int compareTo(Player player) {
-    return this.gamesWon - player.getGamesWon();
+    return this.getGamesWon() - player.getGamesWon();
   }
 }

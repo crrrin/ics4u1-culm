@@ -13,14 +13,17 @@ class Enemy {
   {"Damien", "60", "13", "25"};
 
   public static final String[] ENRAGED_DAMIEN =
-  {"Enraged Damien", "150", "22", "50"};
+  {"enraged Damien", "150", "22", "50"};
 
   public static final String[] POSEIDON =
-  {"Enraged Poseidon", "175", "12", "40"};
+  {"enraged Poseidon", "175", "12", "40"};
 
   public static final String[] SPIRIT =
   {"the Spirit", "70", "0", "0"};
 
   public static final String[] SUSSY =
   {"the Impostor", "70", "10", "15"};
+
+  public static final String[] DRAGON =
+  {"the Dragon", "150", "17", "60"};
 }

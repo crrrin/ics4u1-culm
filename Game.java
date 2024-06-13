@@ -40,7 +40,8 @@ class Game {
     this.player.setMoney(1000);
     this.player.setSmallHeals(2);
     gameLoop();
-    System.out.println("Returning to main menu");
+    System.out.println();
+    System.out.println("Returning to main menu...");
   }
   
   /**
@@ -69,11 +70,14 @@ class Game {
    */
   public boolean runRandomEvent() {
     Sleep.wait(Sleep.LONG_DELAY);
-    int randomEvent = (int) (Math.round(Math.random() * (this.player.getEventNumbers().size() - 1)) + 1);
+    int randomEvent = -1;
+    while (!this.player.getEventNumbers().contains(randomEvent)) {
+      randomEvent = (int) (Math.round(Math.random() * (11)) + 1);
+    }
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
     if (!leave) {
-      this.player.getEventNumbers().remove(randomEvent - 1);
+      this.player.getEventNumbers().remove(this.player.getEventNumbers().indexOf(randomEvent));
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
       return leave;
     }
@@ -85,7 +89,7 @@ class Game {
       quitGame();
     }
 
-    Input.clearConsole();
+   // Input.clearConsole();
     return leave;
   }
 
@@ -178,7 +182,7 @@ class Game {
 
   public void gameLoss() {
     Sleep.wait(Sleep.LONG_DELAY);
-    System.out.println("You have lost the game.");
+    System.out.println("GAME OVER!");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
   }
@@ -233,7 +237,7 @@ class Game {
           System.out.print(shopItems[i]);
           System.out.println();
         }
-        System.out.println("Enter the number of the item you would like to buy, or enter 0 to exit the shop.");
+        System.out.println("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop."); //TODO MAKE ZERO EXIT TO MENU INSTEAD OF SHOP COMPLETELY
         int itemChoice = Input.intCheck(0, 5);
         
         switch (itemChoice) {

@@ -7,7 +7,7 @@
 
 class Sword implements Weapon {
 
-  protected final int DAMAGE = 8;
+  protected final int DAMAGE = 800;
   protected final double CRIT_ODDS = 0.3;
   protected int critDamage;
   protected final double EVASION_ODDS = 0;
