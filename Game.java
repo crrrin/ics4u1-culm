@@ -38,20 +38,26 @@ class Game {
    * Starts the game
    */
   public void play() {
+    
+    gameLoop();
+    
+    System.out.println("Returning to main menu...");
+  }
+
+  public void firstPlay(){
     Sleep.wait(Sleep.LONG_DELAY);
     Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + "."); //TODO Finish lore
     Input.lore(Sword.description());
     this.player.setMoney(STARTING_MONEY);
     this.player.setSmallHeals(STARTING_SMALL_POTS);
-    gameLoop();
-    System.out.println();
-    System.out.println("Returning to main menu...");
   }
 
   /**
    * The main game
    */
   public void gameLoop() {
+    
+    
     Sleep.wait(Sleep.LONG_DELAY);
     while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != SCRIPTED_CYCLE - 1) {
@@ -76,7 +82,7 @@ class Game {
     Sleep.wait(Sleep.LONG_DELAY);
     int randomEvent = -1;
     while (!this.player.getEventNumbers().contains(randomEvent)) {
-      randomEvent = (int) (Math.round(Math.random() * (11)) + 1);
+      randomEvent = (int) (Math.round(Math.random() * (11)) + 1); //gets a random event from index 1 - 12
     }
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();

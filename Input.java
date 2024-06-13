@@ -46,14 +46,22 @@ class Input {
    * This method prints the text for the player to read character by character smoothly
    * @param prompt The text to be displayed to the user
    */
-  public static void lore(String prompt) {
-    
+  public static void dialogue(String prompt) {
+
     for (int i = 0; i < prompt.length(); i++) {
       System.out.print(prompt.charAt(i));
       Sleep.wait(Sleep.TINY_DELAY); 
     }
 
-    //System.out.print(prompt);
+  }
+  
+  /**
+   * This method prints the text for the player to read character by character smoothly, and waits for the player to hit enter afterwards
+   * @param prompt The text to be displayed to the user
+   */
+  public static void lore(String prompt) {
+    
+    dialogue(prompt);
     
     System.out.println("\n");
     System.out.print("Press ENTER to continue: ");

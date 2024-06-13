@@ -42,6 +42,10 @@ class Main {
           Input.clearConsole(); 
             
             Game game = new Game(player);
+            game.firstPlay();
+
+            Input.clearConsole();
+            
             game.play();
           }
           else {
@@ -60,7 +64,7 @@ class Main {
             }
             else {
               Game game = new Game(player);
-              game.gameLoop();
+              game.play();
             }
           }
           break;
