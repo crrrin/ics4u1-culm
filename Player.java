@@ -100,7 +100,7 @@ class Player implements Comparable<Player> {
     if (health > MAX_HEALTH) {
       health = MAX_HEALTH;
     }
-    else if (this.health - health < 0) {
+    else if (health < 0) {
       health = 0;
     }
     this.health = health;

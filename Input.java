@@ -58,7 +58,7 @@ class Input {
     System.out.print(prompt);
     
     System.out.println("\n");
-    System.out.print("\nPress ENTER to continue: ");
+    System.out.print("Press ENTER to continue: ");
     sc.nextLine();
     
     System.out.println("\n");

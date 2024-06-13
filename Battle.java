@@ -26,11 +26,8 @@ class Battle {
     while (player.getHealth() > 0) {
 
       loopBack = true;
-
       turnCycle++;
       
-
-
       while (loopBack) {
         System.out.println();
         System.out.println("You have " + player.getHealth() + " HP left.");
@@ -40,35 +37,42 @@ class Battle {
         System.out.print("1. Attack   ");
         System.out.println("2. Heal");
         System.out.println();
-        
         choice = Input.intCheck(1, 2);
+        System.out.println();
           
-        switch(choice) {
+        switch (choice) {
           case 1:
             damage = player.weapon.use();
             enemyHP -= damage;
+            System.out.println();
             System.out.println("You dealt " + damage + " damage to " + enemyName + "!");
+            System.out.println();
             loopBack = false;
             break;
   
           case 2:
+            System.out.println();
             System.out.println("You have " + player.getSmallHeals() + " basic potions left, and have " + player.getBigHeals() + " super potions left.");
+            System.out.println();
             System.out.println("Which potion would you like to use?");
             System.out.println("1. Basic Potion   2. Super Potion   3. Cancel");
+            System.out.println();
   
             potChoice = Input.intCheck(1, 3);
   
-            switch(potChoice) {
+            switch (potChoice) {
   
               case 1:
                 if (player.getSmallHeals() > 0){
                   player.setSmallHeals(player.getSmallHeals() - 1);
                   player.setHealth(player.getHealth() + 20);
                   System.out.println("You used a basic potion and healed 20 HP!");
+                  System.out.println();
                   loopBack = false;
                 } 
                 else {
                   System.out.println("You don't have any basic potions left!");
+                  System.out.println();
                   loopBack = true;
                 }
                 break;
@@ -97,6 +101,7 @@ class Battle {
 
       if (enemyHP <= 0){
               System.out.println("You defeated " + enemyName + "!");
+              System.out.println("\n");
               return false;
       }
 
@@ -106,7 +111,7 @@ class Battle {
 
       double enemyMultiplier = 1.00; // base enemy damage multiplier 
       
-      if (damage != 0) { // if the broadsword attack missed, the enemy deals bonus damage
+      if (damage == 0) { // if the broadsword attack missed, the enemy deals bonus damage
         enemyMultiplier = 1.75;
       }
       
@@ -118,14 +123,14 @@ class Battle {
       else if (enemyLandsHit) { //TODO remove nesting somehow (invert logic?)
         
         if (enemyAttackIsCharged) { //TODO suggest inversion logic //powerful hit
-            System.out.println(enemyNameStartSentence + " unleashes a powerful attack!\nIt deals " + ((int) enemyDamage[1] * enemyMultiplier) + " damage to you!");
-            player.setHealth(player.getHealth() - ((int) (enemyDamage[1] * enemyMultiplier)));
+            System.out.println(enemyNameStartSentence + " unleashes a powerful attack!\nIt deals " + (int) (enemyDamage[1] * enemyMultiplier) + " damage to you!");
+            player.setHealth(player.getHealth() - (int) (enemyDamage[1] * enemyMultiplier));
             enemyAttackIsCharged = false;
         }
 
         else { //normal hit
-          System.out.println(enemyNameStartSentence + " attacks you, and deals " + (int) enemyDamage[0]*enemyMultiplier + " damage to you!");
-          player.setHealth(player.getHealth() - ((int) (enemyDamage[0] * enemyMultiplier)));
+          System.out.println(enemyNameStartSentence + " attacks you, and deals " + (int) (enemyDamage[0] * enemyMultiplier) + " damage to you!");
+          player.setHealth(player.getHealth() - (int) (enemyDamage[0] * enemyMultiplier));
         }
       }
     }

@@ -84,6 +84,8 @@ class Game {
     else {
       quitGame();
     }
+
+    Input.clearConsole();
     return leave;
   }
 
@@ -138,6 +140,8 @@ class Game {
         return death;
     }
     boolean exit = false;
+
+    Input.clearConsole();
     while (!exit) {
       exit = shop();
     }
@@ -252,6 +256,7 @@ class Game {
         leave = true;
         break;
     }
+    Input.clearConsole();
     return leave;
   }
 

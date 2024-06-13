@@ -201,7 +201,7 @@ class Event4 extends Event {
         Input.lore("You: You have to tell me how to make it sir.");
         Input.lore("Damien: You would like to know? Well, I am running low on meat.");
         Input.lore("Damien leads you into a room, and you leave your equipment outside. It smells horrible in there.");
-        Input.lore("Damien: Sit down, I will show you the meat I use");
+        Input.lore("Damien: Sit down, I will show you the meat I use.");
         Input.lore("You sit down and Damien gets his cleaver. Instead of going to his storage, he motions towards you. You begin to realize what meat you just ate. He smiles and chuckles.");
         Input.lore("Damien: Looks like I will be eating good tonight");
         Input.lore("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your items.\nYou prepare yourself to fight to the death.");
