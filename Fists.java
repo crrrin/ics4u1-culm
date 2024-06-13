@@ -2,7 +2,7 @@
  * This class contains actions of the player's fists in the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 
 class Fists implements Weapon {
@@ -45,14 +45,4 @@ class Fists implements Weapon {
   public double getEvasionOdds(){
     return EVASION_ODDS;
   }
-
-  /** 
-   * Returns the odds of enemy landing bonus damage
-   * @return A double with the odds of enemy bonus damage
-   */
-  @Override
-  public double getEnemyBonus(){
-    return EVASION_ODDS;
-  }
-
 }

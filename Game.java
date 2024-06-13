@@ -3,13 +3,17 @@ import java.util.*;
  * Creates the game for the player to play
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 
 class Game {
   protected Player player;
   public final int SCRIPTED_CYCLE = 3;
   protected HashMap<Integer, Event> eventMap = new HashMap<Integer, Event>();
+  
+  public final int STARTING_MONEY = 150;
+  public final int STARTING_SMALL_POTS = 3;
+  
   public final int WEAPON_PRICE = 100;
   public final int SMALL_PRICE = 50;
   public final int BIG_PRICE = 125;
@@ -35,15 +39,15 @@ class Game {
    */
   public void play() {
     Sleep.wait(Sleep.LONG_DELAY);
-    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, 2 basic potions, and $1000."); //TODO Finish lore
+    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + "."); //TODO Finish lore
     Input.lore(Sword.description());
-    this.player.setMoney(1000);
-    this.player.setSmallHeals(2);
+    this.player.setMoney(STARTING_MONEY);
+    this.player.setSmallHeals(STARTING_SMALL_POTS);
     gameLoop();
     System.out.println();
     System.out.println("Returning to main menu...");
   }
-  
+
   /**
    * The main game
    */
@@ -79,9 +83,12 @@ class Game {
     if (!leave) {
       this.player.getEventNumbers().remove(this.player.getEventNumbers().indexOf(randomEvent));
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
+      Input.lore(
+        "Money: $" + this.player.getMoney() + "\n" +
+        "HP: " + this.player.getHealth());
       return leave;
     }
-    
+
     if (this.player.getHealth() == 0) {
       gameLoss();
     }
@@ -103,7 +110,7 @@ class Game {
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
       case 1:
         Input.lore("You walk into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
-        death = Battle.battleInstance(this.player, "the Dragon", 150, new int[] {15, 40});
+        death = Battle.battleInstance(this.player, Enemy.DRAGON);
         if (death) {
           gameLoss();
           return death;
@@ -112,7 +119,7 @@ class Game {
         break;
       case 2:
         Input.lore("You wander into a town at night... but nobody is outside. You notice people inside their houses as you walk past them. But things seem off. These people are hiding behind furniture, and they seem terrified. As you enter the town square, you see why. There are 5 fully armed soldiers demolishing the buildings there. They turn around and see you, attacking without hesitation. You have no choice but to fight.");
-        death = Battle.battleInstance(this.player, "the Soldiers", 200, new int[] {20, 50});
+        death = Battle.battleInstance(this.player, Enemy.SOLDIERS);
         if (death) {
           gameLoss();
           return death;
@@ -121,7 +128,7 @@ class Game {
         break;
       case 3:
         Input.lore("After a long day of travel, you find a cave to sleep in for the night. However, you hear a strange noise coming from deeper inside the cave. You decide to investigate. As you head deeper though, you start to notice an unnatural amount of cobwebs. Eventually, you find a group of people huddled in a corner, and they are cowering in fear. You turn around, and realize that there are dozens of giant spiders behind you! Before you know it, you are surrounded on all sides, and have to fight your way out.");
-        death = Battle.battleInstance(this.player, "the Spiders", 300, new int[] {30, 60});
+        death = Battle.battleInstance(this.player, Enemy.SPIDERS);
         if (death) {
           gameLoss();
           return death;
@@ -137,7 +144,7 @@ class Game {
         Input.lore("Damien: The arrogant fools gave me the immortality potion. They thought I would use it to protect them from outsiders. They were wrong.");
         Input.lore("You: They gave YOU the ... wait a second. 'The'? You mean there's only one?");
         Input.lore("Damien: That's right. Now, there is no one left who can create another one. I'm the only immortal person in the world! You, a mere mortal, are no match for me! AND NOW, I SHALL HAVE MY REVENGE! MWAHAHAHAHA");
-        death = Battle.battleInstance(this.player, "Immortal Damien", 500, new int[] {40, 95});
+        death = Battle.battleInstance(this.player, Enemy.IMMORTAL);
         if (death) {
           gameLoss();
         }
@@ -189,7 +196,7 @@ class Game {
 
   public void gameOver() {
     this.player = new Player(this.player.getUsername(), this.player.getPlaythroughs(), this.player.getGamesWon());
-    
+
     if (Data.players.size() == 0) {
       Data.loadData();
     }
@@ -197,8 +204,8 @@ class Game {
     Data.addPlayer(this.player);
     Data.saveData();
   }
-  
-  
+
+
   public String[][] inventory() {
     String[][] inventory = {
       {"Weapon: ", this.player.getWeapon().toString()}, //weapon
@@ -212,6 +219,8 @@ class Game {
   public String viewInventory() {
     String[][] inventory = inventory();
     String invUI = "";
+    // System.out.println("INVENTORY");
+    // System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
     for (int i = 0; i < inventory.length; i++) {
       for (int j = 0; j < inventory[i].length; j++) {
         invUI += inventory[i][j];
@@ -221,41 +230,64 @@ class Game {
     return invUI;
   }
 
-  public boolean shop() {
+  public boolean shop() { //TODO make format weapon to Name: $Cost \nDescription
     boolean leave = false;
-    String[] shopItems = {"1. Dagger: " + Dagger.description() + "\n$" + WEAPON_PRICE, "2. Sword: " + Sword.description() + "\n$" + WEAPON_PRICE, "3. Bow: " + Bow.description() + "\n$" + WEAPON_PRICE, "4. Small Heal: $" + SMALL_PRICE, "5. Big Heal: $" + BIG_PRICE};
+    String[] shopItems = {
+      "SHOP",
+      "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n",
+      "1. Dagger: $" + WEAPON_PRICE + "\n" + Dagger.description() + "\n", 
+      "2. Sword: $" + WEAPON_PRICE + "\n" + Sword.description() + "\n", 
+      "3. Bow: $" + WEAPON_PRICE + "\n" + Bow.description() + "\n", 
+      "4. Small Heal: $" + SMALL_PRICE + "\n", 
+      "5. Big Heal: $" + BIG_PRICE + "\n",
+      "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n"
+    };
     System.out.println("Welcome to the shop!\n1. View inventory\n2. View shop\n3. Leave");
     int choice = Input.intCheck(1, 3);
-    
+
     switch (choice) {
       case 1:
-        Input.lore(viewInventory());
+        Input.lore(
+          "INVENTORY" +                 
+          "\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n" + 
+          viewInventory() +     
+          "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
         break;
+
       case 2:
         System.out.println("Your money: " + this.player.getMoney());
+        System.out.println();
+
         for (int i = 0; i < shopItems.length; i++) {
           System.out.print(shopItems[i]);
           System.out.println();
         }
+
         System.out.println("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop."); //TODO MAKE ZERO EXIT TO MENU INSTEAD OF SHOP COMPLETELY
         int itemChoice = Input.intCheck(0, 5);
-        
+
         switch (itemChoice) {
           case 0:
-            leave = true;
             break;
+
           case 1:
             buyWeapon(new Dagger());
+            break;
           case 2:
             buyWeapon(new Sword());
+            break;
           case 3:
             buyWeapon(new Bow());
+            break;
           case 4:
             buyHeals(SMALL_PRICE);
+            break;
           case 5:
             buyHeals(BIG_PRICE);
+            break;
         }
         break;
+
       case 3: 
         leave = true;
         break;

@@ -2,7 +2,7 @@
  * This class contains events that will happen during the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 
 public abstract class Event {
@@ -19,7 +19,7 @@ public abstract class Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event1 extends Event {          
 
@@ -43,7 +43,7 @@ class Event1 extends Event {
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, Enemy.BEAR[0], Integer.parseInt(Enemy.BEAR[1]), new int[] {Integer.parseInt(Enemy.BEAR[2]), Integer.parseInt(Enemy.BEAR[3])});
+        leave = Battle.battleInstance(this.player, Enemy.BEAR);
         break;
 
       case 2:
@@ -71,7 +71,7 @@ class Event1 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event2 extends Event {
 
@@ -95,7 +95,7 @@ class Event2 extends Event {
 
     switch (choice) {
       case 1:
-        leave = Battle.battleInstance(this.player, Enemy.BANDITS[0], Integer.parseInt(Enemy.BANDITS[1]), new int[] {Integer.parseInt(Enemy.BANDITS[2]), Integer.parseInt(Enemy.BANDITS[3])});
+        leave = Battle.battleInstance(this.player, Enemy.BANDITS);
         break;
 
       case 2:
@@ -120,7 +120,7 @@ class Event2 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event3 extends Event {
 
@@ -145,7 +145,7 @@ class Event3 extends Event {
     switch (choice) {
       case 1:
         Input.lore("You got caught by one of the guards! They attack you.");
-        leave = Battle.battleInstance(this.player, Enemy.VILLAGE_GUARD[0], Integer.parseInt(Enemy.VILLAGE_GUARD[1]), new int[] {Integer.parseInt(Enemy.VILLAGE_GUARD[2]), Integer.parseInt(Enemy.VILLAGE_GUARD[3])});
+        leave = Battle.battleInstance(this.player, Enemy.VILLAGE_GUARD);
         break;
 
       case 2:
@@ -173,7 +173,7 @@ class Event3 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event4 extends Event {
 
@@ -208,19 +208,19 @@ class Event4 extends Event {
         Input.lore("Damien: Looks like I will be eating good tonight");
         Input.lore("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your items.\nYou prepare yourself to fight to the death.");
         
-        leave = Battle.battleInstance(this.player, Enemy.DAMIEN[0], Integer.parseInt(Enemy.DAMIEN[1]), new int[] {Integer.parseInt(Enemy.DAMIEN[2]), Integer.parseInt(Enemy.DAMIEN[3])});
+        leave = Battle.battleInstance(this.player, Enemy.DAMIEN);
         break;
 
       case 2:
         Input.lore("You run away, he starts chasing you with a cleaver. He manages to catch up to you. You must fight him.");
-         leave = Battle.battleInstance(this.player, Enemy.DAMIEN[0], Integer.parseInt(Enemy.DAMIEN[1]), new int[] {Integer.parseInt(Enemy.DAMIEN[2]), Integer.parseInt(Enemy.DAMIEN[3])});
+         leave = Battle.battleInstance(this.player, Enemy.DAMIEN);
         break;
 
       case 3:
         Input.lore("Damien: Hello sir, would you be interested in my food?");
         Input.lore("You: No, I don't want your crusty, goopy, pizza sub. Eating your \"food\" is an insult to my stomach.");
         Input.lore("Damien is taken aback. He gets enraged and charges at you.");
-        leave = Battle.battleInstance(this.player, Enemy.ENRAGED_DAMIEN[0], Integer.parseInt(Enemy.ENRAGED_DAMIEN[1]), new int[] {Integer.parseInt(Enemy.ENRAGED_DAMIEN[2]), Integer.parseInt(Enemy.ENRAGED_DAMIEN[3])});
+        leave = Battle.battleInstance(this.player, Enemy.ENRAGED_DAMIEN);
         break;
 
       case 4:
@@ -235,7 +235,7 @@ class Event4 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event5 extends Event {
 
@@ -270,7 +270,7 @@ class Event5 extends Event {
 
       case 3:
         Input.lore("You throw a rotten piece of meat in the well. An enraged Poseidon comes flying out of the well and attacks you.");
-        leave = Battle.battleInstance(this.player, Enemy.POSEIDON[0], Integer.parseInt(Enemy.POSEIDON[1]), new int[] {Integer.parseInt(Enemy.POSEIDON[2]), Integer.parseInt(Enemy.POSEIDON[3])});
+        leave = Battle.battleInstance(this.player, Enemy.POSEIDON);
         break;
 
       case 4:
@@ -285,7 +285,7 @@ class Event5 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event6 extends Event {
 
@@ -311,11 +311,11 @@ class Event6 extends Event {
     switch (choice) {
       case 1:
         Input.lore("You dig up the ground in search for treasure. You find a wooden box and open it. Inside is a spirit of the Sacrificed, he is enraged that his rest has been disturbed. He flails at you, but phases through you. You decide to fight it.");
-        leave = Battle.battleInstance(this.player, Enemy.SPIRIT[0], Integer.parseInt(Enemy.SPIRIT[1]), new int[] {Integer.parseInt(Enemy.SPIRIT[2]), Integer.parseInt(Enemy.SPIRIT[3])});
+        leave = Battle.battleInstance(this.player, Enemy.SPIRIT);
         break;
 
       case 2:
-        Input.lore("You bow down and worship the statue. Money comes flying out of the statue's mouth");
+        Input.lore("You bow down and worship the statue. Money comes flying out of the statue's mouth.");
         this.player.setMoney(this.player.getMoney() + 200);
         break;
 
@@ -336,7 +336,7 @@ class Event6 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event7 extends Event {
 
@@ -375,7 +375,7 @@ class Event7 extends Event {
 
       case 3:
         Input.lore("You walk around the monastery, and you run into a monk. However, he does not look like the other monks. Quickly, you realize that he is not really a monk, but rather an impostor, trying to blend in. You call him out; furious, he attacks you.");
-        leave = Battle.battleInstance(this.player, Enemy.SUSSY[0], Integer.parseInt(Enemy.SUSSY[1]), new int[] {Integer.parseInt(Enemy.SUSSY[2]), Integer.parseInt(Enemy.SUSSY[3])});
+        leave = Battle.battleInstance(this.player, Enemy.SUSSY);
         break;
 
       case 4:
@@ -390,7 +390,7 @@ class Event7 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event8 extends Event {
 
@@ -441,7 +441,7 @@ class Event8 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event9 extends Event {
 
@@ -491,7 +491,7 @@ class Event9 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event10 extends Event {
   /**
@@ -549,7 +549,7 @@ class Event10 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event11 extends Event {
 
@@ -574,7 +574,7 @@ class Event11 extends Event {
     switch (choice) {
       case 1:
         Input.lore("You go to the light. You see a big bonfire and a group of people doing a ritual. They sacrifice a person into the fire. They spot you and run towards you. They are yelling that you are the next to be sacrificed.");
-        leave = Battle.battleInstance(this.player, "the Cult of the Sacrified", 150, new int[] {20, 30});
+        leave = Battle.battleInstance(this.player, Enemy.CULT);
         break;
 
       case 2:
@@ -586,16 +586,16 @@ class Event11 extends Event {
         Input.lore("Mysterious person (quiet voice): I am here to take down the leader, they sacrificed my entire family. I must take revenge.");
         Input.lore("You (quiet voice): What are you waiting for then? Let's go!");
         Input.lore("Mysterious person (quiet voice): Not right now. \nI have this feeling they know we are here, we have to relocate.");
-        Input.lore("You and the mysterious person quietly move on top of a hill, gaining the high ground. The mysterious person hands you an his spare crossbow."); 
+        Input.lore("You and the mysterious person quietly move on top of a hill, gaining the high ground. The mysterious person hands you his spare crossbow."); 
         Input.lore("You and the mysterious person take aim, trying to shoot the leader, however both of you miss and accidently shoot some cult members.\nThe cult members are alarmed and begin to look out for where the bolts are coming from, they quickly spot you."); 
         Input.lore("Mysterious person: SHOOT! They've spotted us! MOVE! MOVE! MOVE!"); 
         Input.lore("You panic and drop the crossbow, but there's no time to pick it up. The cult members sprint towards you. You ready yourself to fight."); 
-        leave = Battle.battleInstance(this.player, "the Cult of the Sacrificed", 90, new int[] {15, 20});
+        leave = Battle.battleInstance(this.player, Enemy.CULT);
         if (leave) { 
           return leave;
         }
         Input.lore("All the cult members except the leader are gone, but the leader will not back down.");
-        leave = Battle.battleInstance(this.player, "the Leader of the Sacrificed", 120, new int[] {30, 45}); 
+        leave = Battle.battleInstance(this.player, Enemy.CULT);
         Input.lore("The mysterious person deals the final blow to the leader. Unfortunately, the leader managed to stab him before dying. You never find out your friend's identity, but you will never forget his bravery.");
         break;
 
@@ -618,7 +618,7 @@ class Event11 extends Event {
  * This class contains the one of the events of the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Event12 extends Event {
 
@@ -644,7 +644,7 @@ class Event12 extends Event {
     switch (choice) {
       case 1:
         Input.lore("As you move up the steps towards the altar, you notice dead bodies covered in armour lying on the ground. You start hearing an ominous sound.\nYou turn around and notice the bodies slowly getting up. The guards of the city have risen from the dead, and they start attacking you."); 
-        leave = Battle.battleInstance(this.player, "the Ancient Guards", 65, new int[] {14, 28}); //TODO CHANGE TO DEFENCE OF THE ANCIENTS
+        leave = Battle.battleInstance(this.player, Enemy.ANCIENT_GUARDS);
         break;
 
       case 2:
@@ -654,7 +654,7 @@ class Event12 extends Event {
 
       case 3:
         Input.lore("Your curiosity leads you deeper into the city. You walk across old abandoned homes and find an old trapdoor. You open it and a lot of rats start coming out.");
-        leave = Battle.battleInstance(this.player, "the Rats", 30, new int[] {7, 14});
+        leave = Battle.battleInstance(this.player, Enemy.RATS);
         break;
 
       case 4:

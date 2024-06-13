@@ -2,7 +2,7 @@
  * This class contains actions of a dagger in the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 
 // TODO change javadocs to match use
@@ -67,15 +67,6 @@ class Dagger implements Weapon {
    */        
   @Override
   public double getEvasionOdds(){
-    return EVASION_ODDS;
-  }
-
-  /** 
-   * Returns the odds of enemy landing bonus damage
-   * @return A double with the odds of enemy bonus damage
-   */
-  @Override
-  public double getEnemyBonus(){
     return EVASION_ODDS;
   }
 }

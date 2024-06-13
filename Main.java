@@ -28,7 +28,7 @@ class Main {
 
       switch (choice) {
         case 1: 
-          System.out.println("Please enter your username (any spaces will be removed)");
+          System.out.println("Please enter your username (case sensitive, any spaces will be removed)");
           String username = "";
           while (username.equals("")) {
             username = Input.strIn().replaceAll(" ", "");

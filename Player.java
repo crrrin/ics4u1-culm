@@ -3,7 +3,7 @@
  * Creates an object Player containing data of a player.
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 import java.util.*;
 class Player implements Comparable<Player> {

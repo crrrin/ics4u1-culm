@@ -2,43 +2,46 @@
  * This class contains actions of a bow in the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 
 class Bow implements Weapon {
   
   protected final int BASE_DAMAGE = 5;
-  protected final double EVASION_ODDS = 0.6;
+  protected final double EVASION_ODDS = 0.5;
   protected final double ENEMY_BONUS_ODDS = 0;
+  protected final int MAX_DAMAGE = 15;
+  protected final int CHARGE_LENGTH = 3;
 
   /**
    * Uses the bow
+   * @return The damage dealt by the bow
    */
   @Override
   public int use() {
 
-    int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * 10));
-
-    System.out.println("You draw your bow... and fire!");
+    int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * (MAX_DAMAGE - BASE_DAMAGE))); //makes damage a random number between base damage and max damage
     
-    Sleep.wait(Sleep.SHORT_DELAY);
-    System.out.println(".");
-    Sleep.wait(Sleep.SHORT_DELAY);
-    System.out.println("..");
-    Sleep.wait(Sleep.SHORT_DELAY);
-    System.out.println("...");
-    Sleep.wait(Sleep.LONG_DELAY);
+    System.out.print("You draw your bow");
 
-    System.out.println("And release!");
+    //charging loop
+    for (int i = 0; i < CHARGE_LENGTH; i++) {
+      Sleep.wait(Sleep.SHORT_DELAY); 
+      System.out.print(".");
+    }
+
+    Sleep.wait(Sleep.LONG_DELAY);
+    System.out.println(" and release!");
 
     return damage;
   }
 
   /**
-   * Contains the description about the dagger 
+   * Contains a description of the bow 
+   * @return A string with the description of the bow
    */
   public static String description() {
-    return "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 60% chance to miss.";
+    return "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 50% chance to miss.";
   }
 
   /** 
@@ -56,15 +59,6 @@ class Bow implements Weapon {
    */
   @Override
   public double getEvasionOdds(){
-    return EVASION_ODDS;
-  }
-
-  /** 
-   * Returns the odds of enemy landing bonus damage
-   * @return A double with the odds of enemy bonus damage
-   */
-  @Override
-  public double getEnemyBonus(){
     return EVASION_ODDS;
   }
 

@@ -6,7 +6,7 @@ import java.util.*;
  * The class to store data of the player
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
- * @since 2024/06/12
+ * @since 2024/06/14
  */
 class Data {
 
@@ -119,20 +119,53 @@ class Data {
   }
 
   public static void leaderboard() {
+
+    int displayScore = 1; 
+    
     loadData();
     sortByWins();
-    System.out.println("Leaderboard:");
-    for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE; i++) {
-      System.out.println((i + 1) + ". " + players.get(i).getUsername() + " - " + players.get(i).getGamesWon() + " wins");
+
+    System.out.println(
+      "LEADERBOARD" +                 
+      "\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+   
+    
+
+    for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE; i++) { // go through array until reach leaderboard size users or end of array
+
+    try {
+
+        //first user will always simply be 1.
+        if (i == 0) {System.out.println(displayScore + ". " + players.get(i).getUsername() + ": " + players.get(i).getGamesWon());}
+
+        // users after have the chance of tying with previous user; if tied, dont increment their rank
+        // only increment rank once there is a user who is NOT tied with previous user(s)
+        if (i > 0) {
+            if (players.get(i).getGamesWon() == players.get(i-1).getGamesWon()){ // case for if tied
+              System.out.println(displayScore + ". " + players.get(i).getUsername() + ": " + players.get(i).getGamesWon());
+            } else { // case for if not tied
+                displayScore = i + 1;
+                  System.out.println(displayScore + ". " + players.get(i).getUsername() + ": " + players.get(i).getGamesWon());
+            }
+        }
+
+    } catch (Exception e) {}
+
+
     }
+     
+System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
   }
+  
 
   public static void personalStats() {
     loadData();
     System.out.println("Please enter the username you want to see the stats of.");
     String username = Input.strIn();
     boolean exists = false;
+    
     for (int i = 0; i < players.size(); i++) {
+      
       if (players.get(i).getUsername().equals(username)) {
         System.out.println("Playthroughs: " + players.get(i).getPlaythroughs());
         System.out.println("Games won: " + players.get(i).getGamesWon());
@@ -140,9 +173,11 @@ class Data {
         i = players.size();
       }
     }
+    
     if(!exists) {
       System.out.println("Player not found. Returning to main menu.");
     }
+    
   }
   
   /**
@@ -161,9 +196,6 @@ class Data {
     //base case
 
     if (arr.size() < 2) { //only hits base case twice why????
-      for(int i = 0; i < arr.size(); i++) {
-        System.out.println(arr.get(i).getUsername()); //doesn't print anything sooo array is empty?
-      }
       return;
     }
 
@@ -177,13 +209,13 @@ class Data {
     ArrayList<Player> right = new ArrayList<Player>(arr.size() - mid);
 
     //left array
-    for (int i = 0; i < left.size(); i++) {
-      left.set(i, arr.get(i));
+    for (int i = 0; i < mid; i++) {
+      left.add(arr.get(i));
     }
 
     //right array
-    for (int i = 0; i < right.size(); i++) {
-      right.set(i, arr.get(i + mid));
+    for (int i = 0; i < arr.size()-mid; i++) {
+      right.add(arr.get(i + mid));
     }
 
     mergeSort(left); //sort left
@@ -206,7 +238,7 @@ class Data {
     int ogIndex = 0;
 
     while (leftIndex < left.size() && rightIndex < right.size()) {
-      if (left.get(leftIndex).getGamesWon() - right.get(rightIndex).getGamesWon() > 0) {
+      if (left.get(leftIndex).getGamesWon() > right.get(rightIndex).getGamesWon()) {
         og.set(ogIndex, left.get(leftIndex++));
       }
       else {

@@ -1,18 +1,3 @@
 {
-  "files": {
-    "Game.java": [
-      {
-        "id": "b7c7907c-8a68-4682-8075-df590fe0f337",
-        "line": 50,
-        "version": 15198,
-        "index": 1783
-      },
-      {
-        "id": "edc7569d-f5b1-46c2-8b70-054222b0164b",
-        "line": 51,
-        "version": 15198,
-        "index": 1810
-      }
-    ]
-  }
+  "files": {}
 }

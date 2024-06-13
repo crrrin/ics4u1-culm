@@ -1,3 +1,4 @@
+08/kban/gothic/georgia11(best) font for ascii art
 finish events
 
 fix whitespacing in code
@@ -13,4 +14,3 @@ stresstest
 
 
 simplify logic if easy
-FIX LEADERBOARD
