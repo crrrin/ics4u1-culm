@@ -1,1 +1,0 @@
-username(String) eventsPassed(int) money(int) playthroughs(int) gamesWon(int)
