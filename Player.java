@@ -1,4 +1,3 @@
-//TODO change event names to numbers
 /**
  * Creates an object Player containing data of a player.
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam

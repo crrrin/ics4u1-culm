@@ -46,7 +46,7 @@ class Game {
 
   public void firstPlay(){
     Sleep.wait(Sleep.LONG_DELAY);
-    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + "."); //TODO Finish lore
+    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + ".");
     Input.lore(Sword.description());
     this.player.setMoney(STARTING_MONEY);
     this.player.setSmallHeals(STARTING_SMALL_POTS);
@@ -219,7 +219,7 @@ class Game {
     String[][] inventory = {
       {"Weapon: ", this.player.getWeapon().toString()}, //weapon
       {"Healing: ", "Basic Potions: " + this.player.getSmallHeals() + " | ", "Super Potions: " + this.player.getBigHeals()}, //healing
-      {"Money: " + this.player.getMoney()/*, RELIC_ID, LOOT_ID*/} //misc TODO more loot
+      {"Money: " + this.player.getMoney()/*, RELIC_ID, LOOT_ID*/}
     };
 
     return inventory;
@@ -239,7 +239,7 @@ class Game {
     return invUI;
   }
 
-  public boolean shop() { //TODO make format weapon to Name: $Cost \nDescription
+  public boolean shop() {
     boolean leave = false;
     String[] shopItems = {
       "SHOP",
@@ -273,7 +273,7 @@ class Game {
           System.out.println();
         }
 
-        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop."); //TODO MAKE ZERO EXIT TO MENU INSTEAD OF SHOP COMPLETELY
+        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop.");
         int itemChoice = Input.intCheck(0, 5);
 
         switch (itemChoice) {

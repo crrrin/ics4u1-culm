@@ -128,7 +128,6 @@ class Input {
         case 4: //quit
           Input.dialogueln("Thanks for playing!");
           stay = false;
-          // TODO potentially make stay global?
           break;
       }
       System.out.println();

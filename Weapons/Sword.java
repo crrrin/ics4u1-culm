@@ -28,7 +28,6 @@ class Sword implements Weapon {
     Sleep.wait(Sleep.LONG_DELAY);
     
     if (crit) {
-// TODO make the crit bonus slightly random
       this.critDamage = (int) Math.round(this.DAMAGE * (Math.random() * 0.5 + 1.5));
       Input.dialogueln("CRITICAL HIT!"); 
 
