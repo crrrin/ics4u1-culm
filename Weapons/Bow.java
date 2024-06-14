@@ -1,5 +1,5 @@
 /**
- * This class contains actions of a bow in the game
+ * Object containing actions of a bow in the game
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/14
@@ -7,10 +7,10 @@
 
 class Bow implements Weapon {
   
-  protected final int BASE_DAMAGE = 5;
+  protected final int BASE_DAMAGE = 15;
   protected final double EVASION_ODDS = 0.5;
   protected final double ENEMY_BONUS_ODDS = 0;
-  protected final int MAX_DAMAGE = 15;
+  protected final int MAX_DAMAGE = 25;
   protected final int CHARGE_LENGTH = 3;
 
   /**
@@ -22,7 +22,7 @@ class Bow implements Weapon {
 
     int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * (MAX_DAMAGE - BASE_DAMAGE))); //makes damage a random number between base damage and max damage
     
-    System.out.print("You draw your bow");
+    Input.dialogue("You draw your bow");
 
     //charging loop
     for (int i = 0; i < CHARGE_LENGTH; i++) {
@@ -31,7 +31,7 @@ class Bow implements Weapon {
     }
 
     Sleep.wait(Sleep.LONG_DELAY);
-    System.out.println(" and release!");
+    Input.dialogue(" and release!");
 
     return damage;
   }

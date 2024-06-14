@@ -7,7 +7,7 @@
 
 class Sword implements Weapon {
 
-  protected final int DAMAGE = 800;
+  protected final int DAMAGE = 20;
   protected final double CRIT_ODDS = 0.3;
   protected int critDamage;
   protected final double EVASION_ODDS = 0;
@@ -16,20 +16,21 @@ class Sword implements Weapon {
   
   
   /**
-   * Uses the sword
+   * Uses the sword weapon and returns the damage after crit hit calculations, if the weapon landed the crit
+   * @return returns the damage value
    */
   @Override
   public int use() {
     boolean crit = Math.random() < CRIT_ODDS;
     
-    System.out.println("You swing your sword.");
+    Input.dialogueln("You swing your sword.");
 
     Sleep.wait(Sleep.LONG_DELAY);
     
     if (crit) {
 // TODO make the crit bonus slightly random
       this.critDamage = (int) Math.round(this.DAMAGE * (Math.random() * 0.5 + 1.5));
-      System.out.println("CRITICAL HIT!"); 
+      Input.dialogueln("CRITICAL HIT!"); 
 
       return this.critDamage;
     } else {
@@ -40,6 +41,7 @@ class Sword implements Weapon {
 
   /**
    * Contains the description about the sword
+   * @return returns the description of the sword
    */
   public static String description() {
     return "Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a humble 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.";

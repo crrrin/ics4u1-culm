@@ -41,7 +41,7 @@ class Game {
     
     gameLoop();
     
-    System.out.println("Returning to main menu...");
+    Input.dialogueln("Returning to main menu...");
   }
 
   public void firstPlay(){
@@ -60,17 +60,19 @@ class Game {
     
     Sleep.wait(Sleep.LONG_DELAY);
     while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
-      while (this.player.getEventsPassed() % SCRIPTED_CYCLE != SCRIPTED_CYCLE - 1) {
+      
+      do {
         if (runRandomEvent()) {
           return;
         }
+        Input.clearConsole();
       }
-      if (runRandomEvent()) {
-        return;
-      }
+      while (this.player.getEventsPassed() % SCRIPTED_CYCLE != 0);
+      
       if (runSpecialEvent()) {
         return;
       }
+      Input.clearConsole();
     }
     gameWin();
   }
@@ -90,6 +92,7 @@ class Game {
       this.player.getEventNumbers().remove(this.player.getEventNumbers().indexOf(randomEvent));
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
       Input.lore(
+        "\n" +
         "Money: $" + this.player.getMoney() + "\n" +
         "HP: " + this.player.getHealth());
       return leave;
@@ -167,7 +170,7 @@ class Game {
 
   public void quitGame() {
     Sleep.wait(Sleep.LONG_DELAY);
-    System.out.println("Would you like to save your game? (y/n)");
+    Input.dialogueln("Would you like to save your game? (y/n)");
     String save = "";
     while (!save.equals("y") && !save.equals("n")) {
       save = Input.strIn().toLowerCase();
@@ -187,7 +190,7 @@ class Game {
   public void gameWin() {
     Sleep.wait(Sleep.LONG_DELAY);
     Input.lore("You did it. You defeated an immortal, and you have avenged the ancient village. Now, you must journey home. You have no immortal potion to show for your efforts, but perhaps that's for the better. You have made the world a safer place, and the king will surely reward you for your efforts.");
-    System.out.println("Congratulations! You have won the game!");
+    Input.dialogueln("Congratulations! You have won the game!");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     this.player.setGamesWon(this.player.getGamesWon() + 1);
     gameOver();
@@ -195,7 +198,7 @@ class Game {
 
   public void gameLoss() {
     Sleep.wait(Sleep.LONG_DELAY);
-    System.out.println("GAME OVER!");
+    Input.dialogueln("GAME OVER!");
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
   }
@@ -253,15 +256,16 @@ class Game {
 
     switch (choice) {
       case 1:
-        Input.lore(
+        System.out.print(
           "INVENTORY" +                 
           "\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n" + 
           viewInventory() +     
           "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+        Input.lore("");
         break;
 
       case 2:
-        System.out.println("Your money: " + this.player.getMoney());
+        Input.dialogueln("Your money: " + this.player.getMoney());
         System.out.println();
 
         for (int i = 0; i < shopItems.length; i++) {
@@ -269,7 +273,7 @@ class Game {
           System.out.println();
         }
 
-        System.out.println("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop."); //TODO MAKE ZERO EXIT TO MENU INSTEAD OF SHOP COMPLETELY
+        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop."); //TODO MAKE ZERO EXIT TO MENU INSTEAD OF SHOP COMPLETELY
         int itemChoice = Input.intCheck(0, 5);
 
         switch (itemChoice) {
@@ -304,21 +308,37 @@ class Game {
 
   public void buyWeapon(Weapon weapon) {
     if (this.player.getMoney() < WEAPON_PRICE) {
+      
       this.player.setMoney(0);
-      Input.lore("You did not have enough money to buy this weapon. The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
-      return;
+      
+      Input.lore("You do not have enough money to buy this weapon. ");
+      
+      if (this.player.getMoney() == 0) {
+        Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
+      }
+      
+      return;  
     }
+    
     this.player.setMoney(this.player.getMoney() - 100);
     this.player.setWeapon(weapon);
-    Input.lore(weapon.toString() + " purchased!");
+    Input.dialogue(weapon.toString() + " purchased!");
   }
 
   public void buyHeals(int healPrice) {
     if (this.player.getMoney() < healPrice) {
+
       this.player.setMoney(0);
-      Input.lore("You did not have enough money to buy this heal. The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
-      return;
+
+      Input.lore("You do not have enough money to buy this potion. ");
+
+      if (this.player.getMoney() == 0) {
+        Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
+      }
+
+      return;  
     }
+    
     this.player.setMoney(this.player.getMoney() - healPrice);
     switch (healPrice) {
       case SMALL_PRICE:
@@ -328,8 +348,10 @@ class Game {
         this.player.setBigHeals(this.player.getBigHeals() + 1);
         break;
     }
-    Input.lore("Heal purchased!");
+    
+    Input.dialogue("Heal purchased!");
   }
+  
 }
 
 

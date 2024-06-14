@@ -1,5 +1,5 @@
 /**
- * This class contains actions of a battle
+ * Utility class containing actions of a battle
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/14
@@ -10,12 +10,12 @@ class Battle {
   /**
    * Runs a battle instance and returns whether or not the player dies
    * @param player The player that is fighting
-   * @param enemyName The name of the enemy being fought
-   * @param enemyHP The total health of the enemy
-   * @param enemyDamage Array containing possible amounts of damage the enemy does - the first index contains their normal damage, while the second index contains their damage after a charged attack
+   * @param enemy An array containing set stats of an enemy
    * @return Returns true if the player dies, false otherwise
    */
   public static boolean battleInstance(Player player, String[] enemy) {
+
+    //sets up different values of the enemy from the given array
     String enemyName = enemy[0];
     int enemyHP = Integer.parseInt(enemy[1]);
     int enemyBasicDamage = Integer.parseInt(enemy[2]);
@@ -28,8 +28,11 @@ class Battle {
     boolean enemyAttackIsCharged = false;
     boolean loopBack;
 
+    final double MIN_MONEY_MULTIPLIER = 0.8;
+    final double MAX_MONEY_MULTIPLIER = 1.2;
+
     // the money the enemy drops ranges from 80-120 percent of the base drop amount
-    int moneyDropped = (int) ((enemyBaseDrop * 0.8) + (Math.random() * 0.4));
+    int moneyDropped = (int) ((enemyBaseDrop * MIN_MONEY_MULTIPLIER) + (Math.random() * (MAX_MONEY_MULTIPLIER - MIN_MONEY_MULTIPLIER)));
     
     String enemyNameStartSentence = enemyName.substring(0,1).toUpperCase() + enemyName.substring(1); //capitalizes first letter, used when sentence starts with enemy name
 
@@ -57,8 +60,9 @@ class Battle {
           case 1:
             damage = player.weapon.use(); //gets damage dealt by weapon
             enemyHP -= damage;
-            
-            Input.lore("You dealt " + damage + " damage to " + enemyName + "!");
+
+            System.out.println();
+            Input.dialogueln("You dealt " + damage + " damage to " + enemyName + "!");
             
             loopBack = false; //exits player's turn
             break;
@@ -66,12 +70,11 @@ class Battle {
           //heal menu
           case 2:
             System.out.println(
-              "\nYou have " + player.getSmallHeals() + " basic potions left, and have " + player.getBigHeals() + " super potions left.\n" + 
+              "You have " + player.getSmallHeals() + " basic potions left, and have " + player.getBigHeals() + " super potions left.\n" + 
               "Which potion would you like to use?\n" + 
               "1. Basic Potion   2. Super Potion   3. Cancel\n");
   
             potChoice = Input.intCheck(1, 3); //gets input between 1 and 3
-            System.out.println();
 
             //if player chooses to use basic or super potion, uses the potion if they have any left, otherwise loops back to start of player's turn
             switch (potChoice) {
@@ -83,14 +86,14 @@ class Battle {
                 if (player.getSmallHeals() > 0) {
                   player.setSmallHeals(player.getSmallHeals() - 1);
                   player.setHealth(player.getHealth() + 20);
-                  Input.lore("You used a basic potion and healed 20 HP!");
+                  Input.dialogueln("You used a basic potion and healed 20 HP!");
                   damage = -1;
                   loopBack = false; //exits player's turn
                 } 
 
                 //player has no basic potions left
                 else {
-                  Input.lore("You don't have any basic potions left!");
+                  Input.dialogueln("You don't have any basic potions left!");
                   loopBack = true; //loops back to start of player's turn
                 }
               break;
@@ -102,14 +105,14 @@ class Battle {
               if (player.getBigHeals() > 0) {
                 player.setBigHeals(player.getBigHeals() - 1);
                 player.setHealth(player.getHealth() + 45);
-                Input.lore("You used a super potion and healed 45 HP!");
+                Input.dialogueln("You used a super potion and healed 45 HP!");
                 damage = -1;
                 loopBack = false;
               } 
 
               //player has no super potions left
               else {
-                Input.lore("You don't have any super potions left!");
+                Input.dialogueln("You don't have any super potions left!");
                 loopBack = true;
               }
               break;
@@ -125,10 +128,12 @@ class Battle {
       
       //checks if enemy is dead after attack
       if (enemyHP <= 0) {
-        Input.lore("You defeated " + enemyName + "!");
-
-        Input.lore("The enemy dropped " +  "You gained $" + moneyDropped + "!");
+        System.out.println();
+        Input.dialogueln("You defeated " + enemyName + "!");
+        Input.dialogueln("The enemy dropped $" + moneyDropped + "!");
+        
         player.setMoney(player.getMoney() + moneyDropped);
+        
         return false; //exits battle
       }
 
@@ -142,7 +147,7 @@ class Battle {
 
       //on every 4th turn, enemy doesn't attack, and charges a powerful attack instead
       if (turnCycle % 4 == 0) {
-        System.out.println(enemyNameStartSentence + " is charging up a powerful attack...");
+        Input.dialogueln(enemyNameStartSentence + " is charging up a powerful attack...");
         enemyAttackIsCharged = true;
       }
 
@@ -151,7 +156,8 @@ class Battle {
 
         //charged attack
         if (enemyAttackIsCharged) {
-          System.out.println(enemyNameStartSentence + " unleashes a powerful attack!\nIt deals " + (int) (enemyEnhancedDamage * enemyMultiplier) + " damage to you!");
+            Input.dialogueln(enemyNameStartSentence + " unleashes a powerful attack!");
+          Input.dialogueln("It deals " + (int) (enemyEnhancedDamage * enemyMultiplier) + " damage to you!");
           player.setHealth(player.getHealth() - (int) (enemyEnhancedDamage * enemyMultiplier));
           enemyAttackIsCharged = false;
         }
@@ -167,6 +173,9 @@ class Battle {
         System.out.println(enemyNameStartSentence + " missed their attack!");
         
       }
+
+      System.out.println();
+      
     }
     
     //if while loop ends, player has 0 HP, so player dies

@@ -13,6 +13,7 @@ class Player implements Comparable<Player> {
   protected final int MAX_HEALTH = 100;
   protected final int TOTAL_EVENTS = 12;
   protected ArrayList<Integer> eventNumbers;
+  
   /** 
    * Creates a player with the specified information if the player already exists
    * @param username The username of the player

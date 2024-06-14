@@ -1,5 +1,9 @@
 /**
- * This class contains information about enemies, the format for the array of the enemies is the name, health, standard attack damage, charged attack damage, and money dropped by the enemy.
+ * This class contains information about enemies, formatted as:
+ * enemy name
+ * enemy max health
+ * enemy basic damage, enemy enhanced damage
+ * enemy average money dropped upon defeat
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/14
@@ -11,8 +15,7 @@ class Enemy {
     "the Bear", 
     "30", 
     "5", "10", 
-    "10",
-    "false"
+    "10"
   };
 
   public static final String[] BANDITS = {
@@ -87,29 +90,29 @@ class Enemy {
 
   public static final String[] DRAGON = {
     "the Dragon", 
-    "150",
-    "17", "60",
-    "160"
+    "110",
+    "12", "30",
+    "220"
   };
 
   public static final String[] SOLDIERS = {
     "the group of Soldiers", 
-    "200", 
+    "150", 
     "13", "25",
-    "140"
+    "260"
     };
 
   public static final String[] SPIDERS = {
-    "the group of Spiders", 
-    "300", 
+    "the group of Giant Spiders", 
+    "220", 
     "20", "40",
-    "110"
+    "320"
     };
 
   public static final String[] IMMORTAL = {
     "immortal Damien", 
-    "500",
-    "30", "85",
+    "375",
+    "24", "45",
     "0" // no money because he is the final boss- we cant continue this save file after defeating the final boss
     };
   
