@@ -112,14 +112,14 @@ class Enemy {
   public static final String[] SPIDERS = {
     "the group of Giant Spiders", 
     "220", 
-    "20", "40",
+    "15", "25",
     "320"
     };
 
   public static final String[] IMMORTAL = {
     "immortal Damien", 
     "375",
-    "24", "45",
+    "24", "36",
     "0" // no money because he is the final boss- we cant continue this save file after defeating the final boss
     };
   

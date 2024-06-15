@@ -51,7 +51,7 @@ class Battle {
           "What will you do?\n" +
           "1. Attack   2. Heal\n");
         
-        choice = Input.intCheck(1, 2); //gets input between 1 and 2
+        choice = GameIO.intCheck(1, 2); //gets input between 1 and 2
 
         //damages enemy if player chooses to attack, gives player choices to heal if they choose to heal
         switch (choice) {
@@ -62,7 +62,7 @@ class Battle {
             enemyHP -= damage;
 
             System.out.println();
-            Input.dialogueln("You dealt " + damage + " damage to " + enemyName + "!");
+            GameIO.dialogueln("You dealt " + damage + " damage to " + enemyName + "!");
             
             loopBack = false; //exits player's turn
             break;
@@ -74,7 +74,7 @@ class Battle {
               "Which potion would you like to use?\n" + 
               "1. Basic Potion   2. Super Potion   3. Cancel\n");
   
-            potChoice = Input.intCheck(1, 3); //gets input between 1 and 3
+            potChoice = GameIO.intCheck(1, 3); //gets input between 1 and 3
 
             //if player chooses to use basic or super potion, uses the potion if they have any left, otherwise loops back to start of player's turn
             switch (potChoice) {
@@ -86,14 +86,14 @@ class Battle {
                 if (player.getSmallHeals() > 0) {
                   player.setSmallHeals(player.getSmallHeals() - 1);
                   player.setHealth(player.getHealth() + 20);
-                  Input.dialogueln("You used a basic potion and healed 20 HP!");
+                  GameIO.dialogueln("You used a basic potion and healed 20 HP!");
                   damage = -1;
                   loopBack = false; //exits player's turn
                 } 
 
                 //player has no basic potions left
                 else {
-                  Input.dialogueln("You don't have any basic potions left!");
+                  GameIO.dialogueln("You don't have any basic potions left!");
                   loopBack = true; //loops back to start of player's turn
                 }
               break;
@@ -105,14 +105,14 @@ class Battle {
               if (player.getBigHeals() > 0) {
                 player.setBigHeals(player.getBigHeals() - 1);
                 player.setHealth(player.getHealth() + 45);
-                Input.dialogueln("You used a super potion and healed 45 HP!");
+                GameIO.dialogueln("You used a super potion and healed 45 HP!");
                 damage = -1;
                 loopBack = false;
               } 
 
               //player has no super potions left
               else {
-                Input.dialogueln("You don't have any super potions left!");
+                GameIO.dialogueln("You don't have any super potions left!");
                 loopBack = true;
               }
               break;
@@ -129,8 +129,8 @@ class Battle {
       //checks if enemy is dead after attack
       if (enemyHP <= 0) {
         System.out.println();
-        Input.dialogueln("You defeated " + enemyName + "!");
-        Input.dialogueln("The enemy dropped $" + moneyDropped + "!");
+        GameIO.dialogueln("You defeated " + enemyName + "!");
+        GameIO.dialogueln("The enemy dropped $" + moneyDropped + "!");
         
         player.setMoney(player.getMoney() + moneyDropped);
         
@@ -142,12 +142,12 @@ class Battle {
 
       //checks if player landed their hit (broadsword attack can miss), in which case enemy does more damage
       if (damage == 0) {
-        enemyMultiplier = 1.75;
+        enemyMultiplier = Weapon.ENEMY_MULTIPLIER;
       }
 
       //on every 4th turn, enemy doesn't attack, and charges a powerful attack instead
       if (turnCycle % 4 == 0) {
-        Input.dialogueln(enemyNameStartSentence + " is charging up a powerful attack...");
+        GameIO.dialogueln(enemyNameStartSentence + " is charging up a powerful attack...");
         enemyAttackIsCharged = true;
       }
 
@@ -156,8 +156,8 @@ class Battle {
 
         //charged attack
         if (enemyAttackIsCharged) {
-            Input.dialogueln(enemyNameStartSentence + " unleashes a powerful attack!");
-          Input.dialogueln("It deals " + (int) (enemyEnhancedDamage * enemyMultiplier) + " damage to you!");
+            GameIO.dialogueln(enemyNameStartSentence + " unleashes a powerful attack!");
+          GameIO.dialogueln("It deals " + (int) (enemyEnhancedDamage * enemyMultiplier) + " damage to you!");
           player.setHealth(player.getHealth() - (int) (enemyEnhancedDamage * enemyMultiplier));
           enemyAttackIsCharged = false;
         }
@@ -179,7 +179,7 @@ class Battle {
     }
     
     //if while loop ends, player has 0 HP, so player dies
-    Input.lore("\nYou died!");
+    GameIO.lore("\nYou died!");
     return true;
   }
 }

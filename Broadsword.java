@@ -5,11 +5,11 @@
  * @since 2024/06/14
  */
 
- class Broadsword implements Weapon {
+class Broadsword implements Weapon {
 
-  protected final int DAMAGE = 50;
+  protected static final int DAMAGE = 50;
   protected final double EVASION_ODDS = 0;
-  protected final double MISS_ODDS = 0.1;
+  protected static final double MISS_ODDS = 0.2;
     
   /**
    * Uses the broadsword
@@ -18,17 +18,17 @@
   @Override
   public int use() {
       
-    Input.dialogueln("You swing your broadsword.");
+    GameIO.dialogueln("You swing your broadsword.");
   
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
 
     //if broadsword does not miss
     if (Math.random() > MISS_ODDS){
-      return this.DAMAGE;
+      return DAMAGE;
     }
 
     //broadsword misses
-    Input.dialogueln("Your enemy dodged your attack, and you left yourself open to a deadly attack!");
+    GameIO.dialogueln("Your enemy dodged your attack, and you left yourself open to a deadly attack!");
     return 0;
       
   }
@@ -38,7 +38,10 @@
    * @return A string with a description of the broadsword
    */
   public static String description() {
-    return "Forged by skilled blacksmiths, the sword is a long and deadly weapon.\nDeals a humble 8 damage, but has a 30% chance to deal a critial hit.\nCritical hits deal +150-200% damage.\nFavoured by renowned knights of the kingdom, it is the weapon that the king has graced you with as you set out on this journey.";
+    return 
+      "Mastered by the monks, the broadsword is a powerful weapon that greatly rewards skill. It is a high risk but a high reward weapon.\n" + 
+      "Deals a heavy " + DAMAGE + " damage, but improper usage leaves one vulnerable. There is a " + (int) (Math.round(100 * MISS_ODDS)) + "% chance to miss an attack, putting you into the Vulnerable state.\n" + 
+      "When in the vulnerable state, take " + (int) (Math.round(100 * ENEMY_MULTIPLIER)) + "% damage from the enemy.";
   }
     
   /** 
@@ -56,6 +59,6 @@
    */
   @Override
   public double getEvasionOdds() {
-    return EVASION_ODDS;
+    return this.EVASION_ODDS;
   }
 }

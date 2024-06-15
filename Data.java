@@ -211,8 +211,8 @@ class Data {
   public static void personalStats() {
     loadData(); //loads current player data from file
     
-    Input.dialogueln("Please enter the username you want to see the stats of.");
-    String username = Input.strIn();
+    GameIO.dialogueln("Please enter the username you want to see the stats of.");
+    String username = GameIO.strIn();
     boolean exists = false;
 
     //sequentially searches for player in database
@@ -220,8 +220,8 @@ class Data {
 
       //if player exists, prints out their stats
       if (players.get(i).getUsername().equals(username)) {
-        Input.dialogueln("Playthroughs: " + players.get(i).getPlaythroughs());
-        Input.dialogueln("Games won: " + players.get(i).getGamesWon());
+        GameIO.dialogueln("Playthroughs: " + players.get(i).getPlaythroughs());
+        GameIO.dialogueln("Games won: " + players.get(i).getGamesWon());
         exists = true;
         i = players.size(); //exits for loop
       }
@@ -229,10 +229,10 @@ class Data {
 
     //if player doesn't exist, prints error message
     if(!exists) {
-      Input.dialogueln("Player not found. Returning to main menu.");
+      GameIO.dialogueln("Player not found. Returning to main menu.");
     }
 
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
   }
   
   /**

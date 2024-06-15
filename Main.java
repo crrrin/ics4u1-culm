@@ -11,6 +11,6 @@ class Main {
    * @param args The arguments passed to the program
    */
   public static void main(String[] args) {
-    Input.mainMenu();
+    GameIO.mainMenu();
   }
 }

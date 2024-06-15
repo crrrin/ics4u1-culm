@@ -7,10 +7,11 @@
 
 class Dagger implements Weapon {
   
-  protected final int DAMAGE = 12;
-  protected final int MAX_BONUS_STRIKES = 5;
-  protected final double MULTIHIT_ODDS = 0.5;
+  protected static final int DAMAGE = 10;
+  protected static final int MAX_BONUS_STRIKES = 5;
+  protected static final double MULTIHIT_ODDS = 0.5;
   protected final double EVASION_ODDS = 0;
+  protected static final int PRICE = 170;
   
   /**
    * Uses the dagger
@@ -21,9 +22,9 @@ class Dagger implements Weapon {
 
     int bonusDamageInstances = 0;
     
-    Input.dialogueln("You strike with your dagger.");
+    GameIO.dialogueln("You strike with your dagger.");
     
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
 
     //decides number of additional hits, runs until multihit odds are not met or maximum bonus strikes are reached
     for (double i = Math.random(); i < MULTIHIT_ODDS && bonusDamageInstances <= MAX_BONUS_STRIKES; i = Math.random()) {
@@ -32,21 +33,21 @@ class Dagger implements Weapon {
 
       //1 extra hit
       if (bonusDamageInstances == 1) {
-        Input.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hit!");
+        GameIO.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hit!");
 
-        Sleep.wait(Sleep.SHORT_DELAY);
+        GameIO.wait(GameIO.SHORT_DELAY);
 
       }
 
       //more than 1 extra hit
       else if (bonusDamageInstances > 1) {
-        Input.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hits!");
+        GameIO.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hits!");
       }
       
-      Sleep.wait(Sleep.SHORT_DELAY);
+      GameIO.wait(GameIO.SHORT_DELAY);
     }
     
-    return this.DAMAGE + bonusDamageInstances * this.DAMAGE;
+    return DAMAGE + bonusDamageInstances * DAMAGE;
     
   }
   
@@ -55,7 +56,9 @@ class Dagger implements Weapon {
    * @return A string with the description of the dagger
    */
   public static String description() {
-    return "Used by assassins and the like, the dagger is a small, simple and agile weapon, yet a deadly one.\nDeals the lowest damage of the weapons at a measly 5 damage, but has a 50% chance to land an extra hit, up to a maximum of 5 extra hits.";
+    return 
+      "Used by assassins and the like, the dagger is a small, simple and agile weapon, yet a deadly one.\n" + 
+      "Deals the lowest damage of the weapons at a measly " + DAMAGE + " damage, but has a " + (int) (Math.round(100 * MULTIHIT_ODDS)) + "% chance to land an extra hit, up to a maximum of " + MAX_BONUS_STRIKES + " extra hits.";
   }
 
   /** 
@@ -74,5 +77,13 @@ class Dagger implements Weapon {
   @Override
   public double getEvasionOdds() {
     return EVASION_ODDS;
+  }
+
+  /** 
+   * Returns the price of the weapon
+   * @return An int with the price of the weapon
+   */
+  public static int getPrice() {
+    return PRICE;
   }
 }

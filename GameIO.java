@@ -6,15 +6,21 @@ import java.util.Scanner;
  * @version 17.0.5
  * @since 2024/06/14
  */
-class Input {
+class GameIO {
   static Scanner sc = new Scanner(System.in);
+  
+  // Constants for the wait() method
+  public static final int LONG_DELAY = 750;
+  public static final int SHORT_DELAY = 300;
+  public static final int TINY_DELAY = 15;
+
 
   /**
    * Takes in a string input from the player
    * @return The string input from the player
    */
   public static String strIn() {
-    Input.dialogue("Enter a valid string: ");
+    GameIO.dialogue("Enter a valid string: ");
     String str = sc.nextLine();
     return str;
   }
@@ -29,7 +35,7 @@ class Input {
 
     //loop until valid input is given
     while (!valid) {
-      Input.dialogue("Enter a valid integer: ");
+      GameIO.dialogue("Enter a valid integer: ");
 
       //try-catch block to catch invalid inputs
       try {
@@ -38,7 +44,7 @@ class Input {
       }
         
       catch (Exception e) {
-        Input.dialogueln("Invalid input");
+        GameIO.dialogueln("Invalid input");
       }  
 
       //clears scanner
@@ -68,7 +74,8 @@ class Input {
       "                                                                                           `bood\'" + "\n" +
       "`'-.,_,.-'``'-.,_,.='``'-.,_,.-'``'-.,_,.='``'-.,_,.-'``'-.,_,.='``'-.,_,.-'``'-.,_,.='``'-.,_,.-'``'-.,_,.='``'-.,_,.-'``'-.,_,.='`";
 
-    System.out.println("\n" + NAME_ASCII_ART + "\n");
+    GameIO.lore("Fullscreen is recommended for best playing experience.");
+    System.out.println(NAME_ASCII_ART + "\n");
 
     lore("Welcome to the text-based adventure game, 'Immortal Quest', where you must survive a dangerous journey to retrieve an invaluable artifact.");
     clearConsole();
@@ -90,7 +97,7 @@ class Input {
           Player player = null;
           Game game = null;
           
-          Input.dialogueln("Please enter your username (case sensitive, any spaces will be removed)");
+          GameIO.dialogueln("Please enter your username (case sensitive, any spaces will be removed)");
           String username = "";
 
           //loops until a username with valid characters is given
@@ -133,18 +140,18 @@ class Input {
             if (player == null || player.getEventsPassed() == 0) {
               System.out.println("\nYou do not have an existing game. Returning to main menu.\n");
 
-              Sleep.wait(Sleep.LONG_DELAY);
+              GameIO.wait(GameIO.LONG_DELAY);
               clearConsole();
             }
 
             //game loaded
             else {
               game = new Game(player);
-            }
-            
-            game.play();
-            dialogueln("Returning to main menu...");
+            }  
           }
+          
+          game.play();
+          dialogueln("Returning to main menu...");
           break;
 
         case 2: 
@@ -173,7 +180,7 @@ class Input {
     //iterates through prompt to print 1 character at a time
     for (int i = 0; i < prompt.length(); i++) {
       System.out.print(prompt.charAt(i));
-      Sleep.wait(Sleep.TINY_DELAY); 
+      GameIO.wait(GameIO.TINY_DELAY); 
     }
   }
 
@@ -193,7 +200,7 @@ class Input {
   public static void lore(String prompt) {
     dialogueln(prompt);
     System.out.println();
-    Input.dialogue("Press ENTER to continue: ");
+    GameIO.dialogue("Press ENTER to continue: ");
     
     sc.nextLine(); //enter check
     System.out.println();
@@ -209,7 +216,7 @@ class Input {
 
     //loops until a valid input is given
     while (choice > maxValue || choice < minValue) {
-      choice = Input.intIn();
+      choice = GameIO.intIn();
     }
     System.out.println();
     
@@ -222,5 +229,21 @@ class Input {
   public static void clearConsole() {
     System.out.print("\033[H\033[2J");  
     System.out.flush(); 
+  }
+  
+  /** 
+   * Delays the program for the provided amount of time, in milliseconds.
+   * @param millis The amount of time to delay in milliseconds
+   */
+  public static void wait(int millis) {
+
+    //try-catch block to catch any interruptions to the sleeping process
+    try {
+      Thread.sleep(millis);
+    } 
+
+    catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
   }
 }

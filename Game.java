@@ -15,7 +15,6 @@ class Game {
   protected final int STARTING_MONEY = 150;
   protected final int STARTING_SMALL_POTS = 3;
   
-  protected final int WEAPON_PRICE = 100;
   protected final int SMALL_PRICE = 50;
   protected final int BIG_PRICE = 125;
 
@@ -43,11 +42,11 @@ class Game {
    * Provides information and starting items for a new game
    */
   public void firstPlay() {
-    Sleep.wait(Sleep.LONG_DELAY);
-    Input.lore(
+    GameIO.wait(GameIO.LONG_DELAY);
+    GameIO.lore(
       "Welcome to the game!\n" + 
       "You are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + ".");
-    Input.lore(Sword.description());
+    GameIO.lore(Sword.description());
 
     this.player.setWeapon(new Sword());
     this.player.setMoney(STARTING_MONEY);
@@ -58,7 +57,7 @@ class Game {
    * Contains the main game loop
    */
   public void play() {
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
 
     //runs the game until the player plays every event or dies
     while (this.player.getEventsPassed() < this.TOTAL_EVENTS) {
@@ -71,7 +70,7 @@ class Game {
           return;
         }
         
-        Input.clearConsole();
+        GameIO.clearConsole();
       }
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != 0);
 
@@ -80,7 +79,7 @@ class Game {
         return;
       }
       
-      Input.clearConsole();
+      GameIO.clearConsole();
     }
     gameWin(); //if player has passed all events, they win
   }
@@ -90,7 +89,7 @@ class Game {
    * @return Returns true if the player died or wants to leave, false otherwise
    */
   public boolean runRandomEvent() {
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
     int randomEvent = -1;
 
     //runs until a random event that has not been played is found
@@ -107,7 +106,7 @@ class Game {
       this.player.getEventNumbers().remove(this.player.getEventNumbers().indexOf(randomEvent));
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
       
-      Input.lore("\n" +
+      GameIO.lore("\n" +
         "Money: $" + this.player.getMoney() + "\n" +
         "HP: " + this.player.getHealth());
       return leave;
@@ -131,7 +130,7 @@ class Game {
    * @return Returns true if the player died or wants to leave, false otherwise
    */
   public boolean runSpecialEvent() {
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
     boolean death = false;
 
     //runs a scripted event depending on how many events the player has passed
@@ -139,7 +138,7 @@ class Game {
 
       //first scripted event - player encounters a dragon
       case 1:
-        Input.lore("You walk into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
+        GameIO.lore("You walk into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
         
         death = Battle.battleInstance(this.player, Enemy.DRAGON);
 
@@ -149,12 +148,12 @@ class Game {
           return death;
         }
         
-        Input.lore("By defeating the dragon, you have saved the shopkeeper's life! The shopkeeper is thankful, and is willing to sell you his items right now, despite the trauma he has just experienced.");
+        GameIO.lore("By defeating the dragon, you have saved the shopkeeper's life! The shopkeeper is thankful, and is willing to sell you his items right now, despite the trauma he has just experienced.");
         break;
 
       //second scripted event - player encounters some soldiers
       case 2:
-        Input.lore("You wander into a town at night... but nobody is outside. You notice people inside their houses as you walk past them. But things seem off. These people are hiding behind furniture, and they seem terrified. As you enter the town square, you see why. There are 5 fully armed soldiers demolishing the buildings there. They turn around and see you, attacking without hesitation. You have no choice but to fight.");
+        GameIO.lore("You wander into a town at night... but nobody is outside. You notice people inside their houses as you walk past them. But things seem off. These people are hiding behind furniture, and they seem terrified. As you enter the town square, you see why. There are 5 fully armed soldiers demolishing the buildings there. They turn around and see you, attacking without hesitation. You have no choice but to fight.");
         
         death = Battle.battleInstance(this.player, Enemy.SOLDIERS);
         
@@ -164,12 +163,12 @@ class Game {
           return death;
         }
         
-        Input.lore("The town is extremely grateful to you for defeating the rogue soldiers that were terrorizing the town. They allow you to rest in their town overnight. You wake up feeling refreshed the next morning, and head to the town square to visit the shop.");
+        GameIO.lore("The town is extremely grateful to you for defeating the rogue soldiers that were terrorizing the town. They allow you to rest in their town overnight. You wake up feeling refreshed the next morning, and head to the town square to visit the shop.");
         break;
       
       //third scripted event - player encounters some giant spiders
       case 3:
-        Input.lore("After a long day of travel, you find a cave to sleep in for the night. However, you hear a strange noise coming from deeper inside the cave. You decide to investigate. As you head deeper though, you start to notice an unnatural amount of cobwebs. Eventually, you find a group of people huddled in a corner, and they are cowering in fear. You turn around, and realize that there are dozens of giant spiders behind you! Before you know it, you are surrounded on all sides, and have to fight your way out.");
+        GameIO.lore("After a long day of travel, you find a cave to sleep in for the night. However, you hear a strange noise coming from deeper inside the cave. You decide to investigate. As you head deeper though, you start to notice an unnatural amount of cobwebs. Eventually, you find a group of people huddled in a corner, and they are cowering in fear. You turn around, and realize that there are dozens of giant spiders behind you! Before you know it, you are surrounded on all sides, and have to fight your way out.");
         
         death = Battle.battleInstance(this.player, Enemy.SPIDERS);
         
@@ -179,19 +178,19 @@ class Game {
           return death;
         }
         
-        Input.lore("Having defeated the spiders, you tend to the others' wounds and then rest for the night. The next morning, they thank you for your help, and offer to sell you some of their items to help you on your journey.");
+        GameIO.lore("Having defeated the spiders, you tend to the others' wounds and then rest for the night. The next morning, they thank you for your help, and offer to sell you some of their items to help you on your journey.");
         break;
       
       //fourth scripted event - player encounters an immortal man named Damien
       case 4:
-        Input.lore("Your long journey appears to finally be at its end. After all the trials you have faced, you have reached the ancient village. However, you are shocked to find that the village is in ruins. In the middle of it all stands none other than Damien Bartholomew Burnell-Jones Burthwright.");
-        Input.lore("Damien: So, it's you again. Excellent. I've been waiting for a chance at revenge.");
-        Input.lore("You: But how are you here? Nobody has found this village in centuries! And ... were you the one who caused all this ruin?");
-        Input.lore("Damien: Well, to get my revenge, I decided to follow you. However, one day, I lost track of where you were. Completely lost, I accidentally wandered into this village. Nobody was guarding the place - they were so arrogant, to think nobody could find them. Let's just say, they would regret their arrogance. MWAHAHAHAHA");
-        Input.lore("You: You ... how could you? This is unacceptable! How were you even able to cause so much damage???");
-        Input.lore("Damien: The arrogant fools gave me the immortality potion. They thought I would use it to protect them from outsiders. They were wrong.");
-        Input.lore("You: They gave YOU the ... wait a second. 'The'? You mean there's only one?");
-        Input.lore("Damien: That's right. Now, there is no one left who can create another one. I'm the only immortal person in the world! You, a mere mortal, are no match for me! AND NOW, I SHALL HAVE MY REVENGE! MWAHAHAHAHA");
+        GameIO.lore("Your long journey appears to finally be at its end. After all the trials you have faced, you have reached the ancient village. However, you are shocked to find that the village is in ruins. In the middle of it all stands none other than Damien Bartholomew Burnell-Jones Burthwright.");
+        GameIO.lore("Damien: So, it's you again. Excellent. I've been waiting for a chance at revenge.");
+        GameIO.lore("You: But how are you here? Nobody has found this village in centuries! And ... were you the one who caused all this ruin?");
+        GameIO.lore("Damien: Well, to get my revenge, I decided to follow you. However, one day, I lost track of where you were. Completely lost, I accidentally wandered into this village. Nobody was guarding the place - they were so arrogant, to think nobody could find them. Let's just say, they would regret their arrogance. MWAHAHAHAHA");
+        GameIO.lore("You: You ... how could you? This is unacceptable! How were you even able to cause so much damage???");
+        GameIO.lore("Damien: The arrogant fools gave me the immortality potion. They thought I would use it to protect them from outsiders. They were wrong.");
+        GameIO.lore("You: They gave YOU the ... wait a second. 'The'? You mean there's only one?");
+        GameIO.lore("Damien: That's right. Now, there is no one left who can create another one. I'm the only immortal person in the world! You, a mere mortal, are no match for me! AND NOW, I SHALL HAVE MY REVENGE! MWAHAHAHAHA");
         
         death = Battle.battleInstance(this.player, Enemy.IMMORTAL);
         
@@ -204,7 +203,7 @@ class Game {
     }
     
     boolean exit = false;
-    Input.clearConsole();
+    GameIO.clearConsole();
 
     //runs shop until player chooses to leave
     while (!exit) {
@@ -217,13 +216,13 @@ class Game {
    * Allows player to quit in the middle of a game, and choose if they wish to save their data
    */
   public void quitGame() {
-    Sleep.wait(Sleep.LONG_DELAY);
-    Input.dialogueln("Would you like to save your game? (y/n) (not case sensitive)");
+    GameIO.wait(GameIO.LONG_DELAY);
+    GameIO.dialogueln("Would you like to save your game? (y/n) (not case sensitive)");
     String save = "";
 
     //runs until player chooses to save or not
     while (!save.equals("y") && !save.equals("n")) {
-      save = Input.strIn().toLowerCase();
+      save = GameIO.strIn().toLowerCase();
     }
 
     //if player chooses not to save, exits game loop
@@ -249,10 +248,10 @@ class Game {
    * Updates related information and prints a win message after the player wins
    */
   public void gameWin() {
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
     
-    Input.lore("You did it. You defeated an immortal, and you have avenged the ancient village. Now, you must journey home. You have no immortal potion to show for your efforts, but perhaps that's for the better. You have made the world a safer place, and the king will surely reward you for your efforts.");
-    Input.dialogueln("Congratulations! You have won the game!");
+    GameIO.lore("You did it. You defeated an immortal, and you have avenged the ancient village. Now, you must journey home. You have no immortal potion to show for your efforts, but perhaps that's for the better. You have made the world a safer place, and the king will surely reward you for your efforts.");
+    GameIO.dialogueln("Congratulations! You have won the game!");
     
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     this.player.setGamesWon(this.player.getGamesWon() + 1);
@@ -263,9 +262,9 @@ class Game {
    * Updates related information and prints a loss message after the player loses
    */
   public void gameLoss() {
-    Sleep.wait(Sleep.LONG_DELAY);
+    GameIO.wait(GameIO.LONG_DELAY);
     
-    Input.dialogueln("GAME OVER! You have lost this time, but you can always try again!");
+    GameIO.dialogueln("GAME OVER! You have lost this time, but you can always try again!");
     
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
@@ -328,9 +327,9 @@ class Game {
     String[] shopItems = {
       "SHOP",
       "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n",
-      "1. Dagger: $" + WEAPON_PRICE + "\n" + Dagger.description() + "\n", 
-      "2. Sword: $" + WEAPON_PRICE + "\n" + Sword.description() + "\n", 
-      "3. Bow: $" + WEAPON_PRICE + "\n" + Bow.description() + "\n", 
+      "1. Dagger: $" + Dagger.getPrice() + "\n" + Dagger.description() + "\n", 
+      "2. Sword: $" + Sword.getPrice() + "\n" + Sword.description() + "\n", 
+      "3. Bow: $" + Bow.getPrice() + "\n" + Bow.description() + "\n", 
       "4. Small Heal: $" + SMALL_PRICE + "\n", 
       "5. Big Heal: $" + BIG_PRICE + "\n",
       "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n"
@@ -341,7 +340,7 @@ class Game {
       "1. View inventory\n" + 
       "2. View shop\n" + 
       "3. Leave");
-    int choice = Input.intCheck(1, 3);
+    int choice = GameIO.intCheck(1, 3);
 
     //runs the player's choice
     switch (choice) {
@@ -352,11 +351,11 @@ class Game {
           viewInventory() +     
           "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
         
-        Input.lore(""); //enter check
+        GameIO.lore(""); //enter check
         break;
 
       case 2:
-        Input.dialogueln("Your money: " + this.player.getMoney());
+        GameIO.dialogueln("Your money: " + this.player.getMoney());
         System.out.println();
 
         //prints shop items
@@ -365,8 +364,8 @@ class Game {
           System.out.println();
         }
 
-        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 if you don't want to buy anything right now.");
-        int itemChoice = Input.intCheck(0, 5);
+        GameIO.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 if you don't want to buy anything right now.");
+        int itemChoice = GameIO.intCheck(0, 5);
 
         //runs the player's shop choice
         switch (itemChoice) {
@@ -374,15 +373,15 @@ class Game {
             break;
           
           case 1: 
-            buyWeapon(new Dagger());
+            buyWeapon(new Dagger(), Dagger.getPrice());
             break;
           
           case 2:
-            buyWeapon(new Sword());
+            buyWeapon(new Sword(), Sword.getPrice());
             break;
           
           case 3:
-            buyWeapon(new Bow());
+            buyWeapon(new Bow(), Bow.getPrice());
             break;
           
           case 4:
@@ -400,23 +399,24 @@ class Game {
         break;
     }
     
-    Input.clearConsole();
+    GameIO.clearConsole();
     return leave;
   }
 
   /**
    * Has the player purchase a given weapon if they have enough money
    * @param weapon The weapon the player wants to buy
+   * @param price The price of the weapon
    */
-  public void buyWeapon(Weapon weapon) {
+  public void buyWeapon(Weapon weapon, int price) {
 
     //if player doesn't have enough money to buy, steals any money they have instead
-    if (this.player.getMoney() < WEAPON_PRICE) {
-      Input.lore("You do not have enough money to buy this weapon.");
+    if (this.player.getMoney() < price) {
+      GameIO.lore("You do not have enough money to buy this weapon.");
       
       //prints a special message if the player has money that is about to be stolen
       if (this.player.getMoney() != 0) {
-        Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
+        GameIO.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
       }
       
       this.player.setMoney(0);
@@ -424,9 +424,9 @@ class Game {
     }
 
     //purchases weapon
-    this.player.setMoney(this.player.getMoney() - 100);
+    this.player.setMoney(this.player.getMoney() - price);
     this.player.setWeapon(weapon);
-    Input.dialogue(weapon.toString() + " purchased!");
+    GameIO.lore(weapon.toString() + " purchased!");
   }
 
   /**
@@ -437,11 +437,11 @@ class Game {
 
     //if player doesn't have enough money to buy, steals any money they have instead
     if (this.player.getMoney() < healPrice) {
-      Input.lore("You do not have enough money to buy this potion.");
+      GameIO.lore("You do not have enough money to buy this potion.");
 
       //prints a special message if the player has money that is about to be stolen
       if (this.player.getMoney() != 0) {
-        Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
+        GameIO.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
       }
 
       this.player.setMoney(0);
@@ -462,7 +462,6 @@ class Game {
         break;
     }
     
-    Input.dialogue("Heal purchased!");
+    GameIO.lore("Heal purchased!");
   }
-  
 }

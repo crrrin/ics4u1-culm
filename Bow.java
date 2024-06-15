@@ -7,10 +7,11 @@
 
 class Bow implements Weapon {
   
-  protected final int BASE_DAMAGE = 15;
-  protected final double EVASION_ODDS = 0.5;
-  protected final int MAX_DAMAGE = 25;
+  protected static final int BASE_DAMAGE = 15;
+  protected static final double EVASION_ODDS = 0.5;
+  protected static final int MAX_DAMAGE = 25;
   protected final int CHARGE_LENGTH = 3;
+  protected static final int PRICE = 220;
 
   /**
    * Uses the bow
@@ -20,16 +21,16 @@ class Bow implements Weapon {
   public int use() {
     int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * (MAX_DAMAGE - BASE_DAMAGE))); //makes damage a random number between base damage and max damage
     
-    Input.dialogue("You draw your bow");
+    GameIO.dialogue("You draw your bow");
 
     //charging loop
     for (int i = 0; i < CHARGE_LENGTH; i++) {
-      Sleep.wait(Sleep.SHORT_DELAY); 
+      GameIO.wait(GameIO.SHORT_DELAY); 
       System.out.print(".");
     }
 
-    Sleep.wait(Sleep.LONG_DELAY);
-    Input.dialogue(" and release!");
+    GameIO.wait(GameIO.LONG_DELAY);
+    GameIO.dialogue(" and release!");
 
     return damage;
   }
@@ -39,7 +40,9 @@ class Bow implements Weapon {
    * @return A string with the description of the bow
    */
   public static String description() {
-    return "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\nDeals 5-15 damage to enemies, and enemy attacks have a 50% chance to miss.";
+    return 
+      "Commonly used by archers, the bow is a ranged weapon used to safely deal damage from a distance.\n" + 
+      "Deals "+ BASE_DAMAGE + "-" + MAX_DAMAGE + " damage to enemies, and enemy attacks have a " + (int) (Math.round(100 * EVASION_ODDS)) + "% chance to miss.";
   }
 
   /** 
@@ -56,7 +59,15 @@ class Bow implements Weapon {
    * @return A double with the odds of evasion
    */
   @Override
-  public double getEvasionOdds(){
+  public double getEvasionOdds() {
     return EVASION_ODDS;
+  }
+
+  /** 
+   * Returns the price of the weapon
+   * @return An int with the price of the weapon
+   */
+  public static int getPrice() {
+    return PRICE;
   }
 }

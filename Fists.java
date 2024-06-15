@@ -7,8 +7,8 @@
 
 class Fists implements Weapon {
 
-  protected final int BASE_DAMAGE = 10;
-  protected final double EVASION_ODDS = 0.3;
+  protected static final int BASE_DAMAGE = 7;
+  protected static final double EVASION_ODDS = 0.3;
 
   /**
    * Uses fists
@@ -17,8 +17,8 @@ class Fists implements Weapon {
   @Override
   public int use() {
 
-    Input.dialogueln("You swing your fist.");
-    return this.BASE_DAMAGE;
+    GameIO.dialogueln("You swing your fist.");
+    return BASE_DAMAGE;
   }
 
   /**
@@ -26,7 +26,7 @@ class Fists implements Weapon {
    * @return A string with the description of fists
    */
   public static String description() {
-    return "Deals 3 damage, but enemies have a 30% chance to miss their attacks on you.";
+    return "Deals " + BASE_DAMAGE + " damage, but enemies have a " + (int) (Math.round(EVASION_ODDS * 100)) + "% chance to miss their attacks on you.";
   }
 
   /** 
@@ -43,7 +43,7 @@ class Fists implements Weapon {
    * @return A double with the odds of evasion
    */
   @Override
-  public double getEvasionOdds(){
+  public double getEvasionOdds() {
     return EVASION_ODDS;
   }
 }
