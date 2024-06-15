@@ -74,6 +74,13 @@ class Enemy {
     "190"
   };
 
+  public static final String[] CULT_LEADER = {
+    "the Cult Leader", 
+    "50",
+    "10", "19",
+    "300"
+  };
+
   public static final String[] ANCIENT_GUARDS = {
     "the Defenders of the Ancient", // :P
     "140",

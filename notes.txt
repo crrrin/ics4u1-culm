@@ -1,17 +1,12 @@
-08/kban/gothic/georgia11(best) font for ascii art
-finish events
-
 fix whitespacing in code
        and when running
 
-javadocs and commenting
+stresstest + finalize values
 
-stresstest
-
+clear database before submitting
 
 
 
 
 
 simplify logic if easy
-

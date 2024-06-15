@@ -9,17 +9,15 @@ class Bow implements Weapon {
   
   protected final int BASE_DAMAGE = 15;
   protected final double EVASION_ODDS = 0.5;
-  protected final double ENEMY_BONUS_ODDS = 0;
   protected final int MAX_DAMAGE = 25;
   protected final int CHARGE_LENGTH = 3;
 
   /**
    * Uses the bow
-   * @return The damage dealt by the bow
+   * @return The damage value after calculations
    */
   @Override
   public int use() {
-
     int damage = BASE_DAMAGE + (int)(Math.round(Math.random() * (MAX_DAMAGE - BASE_DAMAGE))); //makes damage a random number between base damage and max damage
     
     Input.dialogue("You draw your bow");
@@ -61,5 +59,4 @@ class Bow implements Weapon {
   public double getEvasionOdds(){
     return EVASION_ODDS;
   }
-
 }

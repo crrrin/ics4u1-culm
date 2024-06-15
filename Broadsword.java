@@ -18,7 +18,7 @@
   @Override
   public int use() {
       
-    System.out.println("You swing your broadsword.");
+    Input.dialogueln("You swing your broadsword.");
   
     Sleep.wait(Sleep.LONG_DELAY);
 
@@ -28,7 +28,7 @@
     }
 
     //broadsword misses
-    System.out.println("Your enemy dodged your attack, and you left yourself open to a deadly attack!");
+    Input.dialogueln("Your enemy dodged your attack, and you left yourself open to a deadly attack!");
     return 0;
       
   }

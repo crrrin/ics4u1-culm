@@ -9,7 +9,7 @@ public abstract class Event {
 
   /**
    * Creates an event for a given player
-   * @param player The player to be used
+   * @param player The player playing the game
    */
   public Event(Player player) {
     this.player = player;
@@ -17,7 +17,7 @@ public abstract class Event {
 
   /**
    * Executes an event
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   public abstract boolean run();
 }
@@ -39,8 +39,8 @@ class Event1 extends Event {
   }
 
   /**
-   * Executes an event where the user encounters a bear
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player encounters a bear
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -100,8 +100,8 @@ class Event2 extends Event {
   }
 
   /**
-   * Executes an event where the user encounters bandits
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player encounters bandits
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -157,8 +157,8 @@ class Event3 extends Event {
   }
 
   /**
-   * Executes an event where the user reaches a village
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player reaches a village
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -221,8 +221,8 @@ class Event4 extends Event {
   }
 
   /**
-   * Executes an event where the user discovers a lone house and meets a man named Damien
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player discovers a lone house and meets a man named Damien
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -247,7 +247,9 @@ class Event4 extends Event {
         Input.lore("Damien: Sit down, I will show you the meat I use.");
         Input.lore("You sit down and Damien gets his cleaver. Instead of going to his storage, he motions towards you. You begin to realize what meat you just ate. He smiles and chuckles.");
         Input.lore("Damien: Looks like I will be eating good tonight");
-        Input.lore("You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your items.\nYou prepare yourself to fight to the death.");
+        Input.lore(
+          "You're not ready to die. You quickly get up from the chair and kick him, sending him into the wall. He drops his cleaver. You make a dash out the door and grab your items.\n" + 
+          "You prepare yourself to fight to the death.");
         
         leave = Battle.battleInstance(this.player, Enemy.DAMIEN);
         break;
@@ -291,8 +293,8 @@ class Event5 extends Event {
   }
 
   /**
-   * Executes an event where the user encounters a wishing well
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player encounters a wishing well
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -350,8 +352,8 @@ class Event6 extends Event {
   }
 
   /**
-   * Executes an event where the user encounters a strange statue
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player encounters a strange statue
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -409,8 +411,8 @@ class Event7 extends Event {
   }
 
   /**
-   * Executes an event where the user finds a monastery
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player finds a monastery
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -440,7 +442,7 @@ class Event7 extends Event {
           "2. No");
         int pickup = Input.intCheck(1, 2);
 
-        //user wants broadsword
+        //player wants broadsword
         if (pickup == 1) {
           this.player.setWeapon(new Broadsword());
         }
@@ -477,8 +479,8 @@ class Event8 extends Event {
   }
 
   /**
-   * Executes an event where the user finds a fountain in an abandoned church
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player finds a fountain in an abandoned church
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -546,8 +548,8 @@ class Event9 extends Event {
   }
 
   /**
-   * Executes an event where the user finds a woman in a cave
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player finds a woman in a cave
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -613,6 +615,7 @@ class Event9 extends Event {
  * @since 2024/06/14
  */
 class Event10 extends Event {
+  
   /**
    * Creates an event for a given player
    * @param player The player to be used
@@ -622,8 +625,8 @@ class Event10 extends Event {
   }
 
   /**
-   * Executes an event where the user encounters an allied kingdom
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player encounters an allied kingdom
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -657,14 +660,20 @@ class Event10 extends Event {
         break;
 
       case 3:
-        Input.lore("You go to the town square. The villagers recognize you as the most famous knight in the land, sent on a dangerous mission.\nThey celebrate your visit and shower you with money and some potions.");
+        Input.lore(
+          "You go to the town square. The villagers recognize you as the most famous knight in the land, sent on a dangerous mission.\n" + 
+          "They celebrate your visit and shower you with money and some potions.");
+        
         this.player.setMoney(this.player.getMoney() + 175);
         this.player.setSmallHeals(this.player.getSmallHeals() + 1);
         this.player.setBigHeals(this.player.getBigHeals() + 1);
-        
+
+        //if the player has no weapon, the player gets a sword
         if (this.player.getWeapon().toString().equals("Fists")) {
           Input.lore("They see you are missing a weapon and give you a new sword forged by their finest blacksmiths");
+          
           this.player.setWeapon(new Sword());
+          
           Input.lore(Sword.description());
         }
         break;
@@ -694,8 +703,8 @@ class Event11 extends Event {
   }
 
   /**
-   * Executes an event where the user sees a mysterious light
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * Executes an event where the player sees a mysterious light
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() {
@@ -708,9 +717,11 @@ class Event11 extends Event {
       "4. Quit\n");
     int choice = Input.intCheck(1, 4);
 
+    //runs choice
     switch (choice) {
       case 1:
         Input.lore("You go to the light. You see a big bonfire and a group of people doing a ritual. They sacrifice a person into the fire. They spot you and run towards you. They are yelling that you are the next to be sacrificed.");
+        
         leave = Battle.battleInstance(this.player, Enemy.CULT);
         break;
 
@@ -722,23 +733,39 @@ class Event11 extends Event {
         Input.lore("You (quiet voice): So who are you?");
         Input.lore("Mysterious person (quiet voice): I am here to take down the leader, they sacrificed my entire family. I must take revenge.");
         Input.lore("You (quiet voice): What are you waiting for then? Let's go!");
-        Input.lore("Mysterious person (quiet voice): Not right now. \nI have this feeling they know we are here, we have to relocate.");
+        Input.lore(
+          "Mysterious person (quiet voice): Not right now.\n" + 
+          "I have this feeling they know we are here, we have to relocate.");
         Input.lore("You and the mysterious person quietly move on top of a hill, gaining the high ground. The mysterious person hands you his spare crossbow."); 
-        Input.lore("You and the mysterious person take aim, trying to shoot the leader, however both of you miss and accidently shoot some cult members.\nThe cult members are alarmed and begin to look out for where the bolts are coming from, they quickly spot you."); 
+        Input.lore(
+          "You and the mysterious person take aim, trying to shoot the leader, however both of you miss and accidently shoot some cult members instead.\n" + 
+          "The cult members are alarmed and begin to look out for where the bolts are coming from, they quickly spot you."); 
         Input.lore("Mysterious person: SHOOT! They've spotted us! MOVE! MOVE! MOVE!"); 
         Input.lore("You panic and drop the crossbow, but there's no time to pick it up. The cult members sprint towards you. You ready yourself to fight."); 
-        leave = Battle.battleInstance(this.player, Enemy.CULT);
+        
+        leave = Battle.battleInstance(this.player, Enemy.CULT); //first half of battle
+
+        //if player dies in first battle, immediately returns
         if (leave) { 
           return leave;
         }
+        
         Input.lore("All the cult members except the leader are gone, but the leader will not back down.");
-        leave = Battle.battleInstance(this.player, Enemy.CULT);
+        
+        leave = Battle.battleInstance(this.player, Enemy.CULT_LEADER); //second half of battle
+
+        //if player dies in second battle, immediately returns
+        if (leave) { 
+          return leave;
+        }
+        
         Input.lore("The mysterious person deals the final blow to the leader. Unfortunately, the leader managed to stab him before dying. You never find out your friend's identity, but you will never forget his bravery.");
         break;
 
       case 3:
         Input.lore("You ignore the light and walk away, but you accidentally step on a branch and make a loud noise. You hear what sounds like multiple people getting up, and you don't wait to find out what is happening. You sprint into the woods, only to fall into a bear trap.");
         Input.lore("Soon, a group of people wearing strange clothes find you, and carry you back to a bonfire. You are unable to escape. They declare that you will be the next to be sacrificed. They throw you into the fire, and you die.");
+        
         this.player.setHealth(0);
         leave = true;
         break;
@@ -769,7 +796,7 @@ class Event12 extends Event {
 
   /**
    * Executes the event where the player discovers an ancient underground city
-   * @return Returns true if the user wants to quit or has died, false otherwise
+   * @return Returns true if the player wants to quit or has died, false otherwise
    */
   @Override
   public boolean run() { 
@@ -782,20 +809,28 @@ class Event12 extends Event {
       "3. Explore deeper within the city\n" + 
       "4. Quit\n");
     int choice = Input.intCheck(1, 4);
-    
+
+    //runs choice
     switch (choice) {
       case 1:
-        Input.lore("As you move up the steps towards the altar, you notice dead bodies covered in armour lying on the ground. You start hearing an ominous sound.\nYou turn around and notice the bodies slowly getting up. The guards of the city have risen from the dead, and they start attacking you."); 
+        Input.lore(
+          "As you move up the steps towards the altar, you notice dead bodies covered in armour lying on the ground. You start hearing an ominous sound.\n" + 
+          "You turn around and notice the bodies slowly getting up. The guards of the city have risen from the dead, and they start attacking you."); 
+        
         leave = Battle.battleInstance(this.player, Enemy.ANCIENT_GUARDS);
         break;
 
       case 2:
-        Input.lore("You move towards the cemetery. You decide to check out the old tombstones, but one of them appears to have no name on it. However, as you approach it, you notice a some water leaking out of it.\nYou touch it, and feel strangely strong, as if the water is healing you."); 
+        Input.lore(
+          "You move towards the cemetery. You decide to check out the old tombstones, but one of them appears to have no name on it. However, as you approach it, you notice a some water leaking out of it.\n" + 
+          "You touch it, and feel strangely strong, as if the water is healing you."); 
+        
         this.player.setHealth(this.player.getHealth() + 15); 
         break;
 
       case 3:
         Input.lore("Your curiosity leads you deeper into the city. You walk across old abandoned homes and find an old trapdoor. You open it and a lot of rats start coming out.");
+        
         leave = Battle.battleInstance(this.player, Enemy.RATS);
         break;
 

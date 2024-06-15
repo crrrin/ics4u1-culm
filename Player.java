@@ -1,32 +1,32 @@
+import java.util.*;
+
 /**
- * Creates an object Player containing data of a player.
+ * Object containing data of a player.
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/14
  */
-import java.util.*;
 class Player implements Comparable<Player> {
   protected String username;
   protected int health, eventsPassed, money, smallHeals, bigHeals, playthroughs, gamesWon;
   protected Weapon weapon;
   protected final int MAX_HEALTH = 100;
-  protected final int TOTAL_EVENTS = 12;
   protected ArrayList<Integer> eventNumbers;
   
   /** 
-   * Creates a player with the specified information if the player already exists
+   * Creates a player with the given information if the player already exists
    * @param username The username of the player
-   * @param health The health points of the player
-   * @param eventsPassed The number of events the player has passed
-   * @param money The amount of money the player has
-   * @param smallHeals The number of small heals the player has
-   * @param bigHeals The number of big heals the player has
-   * @param weapon The weapon the player has
-   * @param playthroughs The number of playthroughs the player has
-   * @param gamesWon The number of games the player has won
-   * @param eventNumbers An int array list of events that the player hasn't reached yet
+   * @param health The HP of the player in their current game
+   * @param eventsPassed The number of events the player has passed in their current game
+   * @param money The amount of money the player has in their current game
+   * @param smallHeals The number of small heals the player has in their current game
+   * @param bigHeals The number of big heals the player has in their current game
+   * @param weapon The weapon the player has in their current game
+   * @param playthroughs The number of total playthroughs of the game the player has
+   * @param gamesWon The total number of games the player has won
+   * @param eventNumbers An int array list of event numbers that the player hasn't reached yet in their current game
    */
-  public Player(String username, int health, int eventsPassed, int money, int smallHeals, int bigHeals, Weapon weapon, int playthroughs, int gamesWon, ArrayList<Integer> eventNumbers){
+  public Player(String username, int health, int eventsPassed, int money, int smallHeals, int bigHeals, Weapon weapon, int playthroughs, int gamesWon, ArrayList<Integer> eventNumbers) {
     this.username = username;
     this.health = health;
     this.eventsPassed = eventsPassed;
@@ -40,7 +40,7 @@ class Player implements Comparable<Player> {
   }
   
   /** 
-   * Creates a new player with blank stats
+   * Creates a new player with default stats
    * @param username The username of the new player
    */
   public Player(String username) {
@@ -48,7 +48,7 @@ class Player implements Comparable<Player> {
     this.health = this.MAX_HEALTH;
     this.eventsPassed = 0;
     this.money = 0;
-    this.weapon = new Sword();
+    this.weapon = new Fists();
     this.smallHeals = 0;
     this.bigHeals = 0;
     this.playthroughs = 0;
@@ -57,8 +57,8 @@ class Player implements Comparable<Player> {
   }
 
   /** 
-   * Creates a new player with blank game stats, but with given overall stats
-   * @param username The username of the new player
+   * Creates a player with default game stats, but with given overall stats
+   * @param username The username of the player
    * @param playthroughs The number of games the player has played
    * @param gamesWon The number of games the player has won
    */
@@ -67,7 +67,7 @@ class Player implements Comparable<Player> {
     this.health = this.MAX_HEALTH;
     this.eventsPassed = 0;
     this.money = 0;
-    this.weapon = new Sword();
+    this.weapon = new Fists();
     this.smallHeals = 0;
     this.bigHeals = 0;
     this.playthroughs = playthroughs;
@@ -75,9 +75,8 @@ class Player implements Comparable<Player> {
     this.eventNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
   }
 
-  
   /**
-   * Gets the username of a player.
+   * Gets the username of a player
    * @return The username of the player
    */
   public String getUsername() {
@@ -85,21 +84,25 @@ class Player implements Comparable<Player> {
   }
   
   /**
-   * Gets the player's current health.
-   * @return The player's current health
+   * Gets the player's current HP
+   * @return The player's current HP
    */
   public int getHealth() {
     return this.health;
   }
 
   /**
-   * Sets a new value for the player's health.
-   * @param health the player's health to be set
+   * Sets a new value for the player's HP
+   * @param health the player's HP to be set
    */
   public void setHealth(int health) {
+
+    //stops overhealing
     if (health > MAX_HEALTH) {
       health = MAX_HEALTH;
     }
+
+    //stops negative HP value
     else if (health < 0) {
       health = 0;
     }
@@ -107,7 +110,7 @@ class Player implements Comparable<Player> {
   }
   
   /**
-   * Gets the number of events passed by the player.
+   * Gets the number of events passed by the player
    * @return The number of events the player passed
    */
   public int getEventsPassed() {
@@ -115,48 +118,15 @@ class Player implements Comparable<Player> {
   }
 
   /**
-   * Sets the number of events passed by the player.
+   * Sets the number of events passed by the player
    * @param eventsPassed The number of events the player passed to be set
    */
   public void setEventsPassed(int eventsPassed) {
     this.eventsPassed = eventsPassed;
   }
-  
-  /**
-   * Gets the current weapon of the player.
-   * @return The weapon the player possesses
-   */
-  public Weapon getWeapon() {
-    return this.weapon;
-  }
 
   /**
-   * Sets the current weapon of player to a new weapon.
-   * @param weapon The weapon to be set
-   */
-  public void setWeapon(Weapon weapon) {
-    this.weapon = weapon;
-  }
-  
-  /**
-   * Gets the number of playthroughs by the player.
-   * @return The number of playthroughs the player has done
-   */
-  public int getPlaythroughs() {
-    return this.playthroughs;
-  }
-
-  /**
-   * Sets the number of playthroughs by the player.
-   * @param playthroughs The number of playthroughs of the player to be set
-   */
-  public void setPlaythroughs(int playthroughs) {
-    this.playthroughs = playthroughs;
-  }
-
-  
-  /**
-   * Gets the amount of money the player has.
+   * Gets the amount of money the player has
    * @return The amount of money the player has
    */
   public int getMoney() {
@@ -168,14 +138,17 @@ class Player implements Comparable<Player> {
    * @param money The amount of money to be set to the player
    */
   public void setMoney(int money) {
-    if(money < 0) {
+
+    //stops negative money values
+    if (money < 0) {
       money = 0;
     }
+    
     this.money = money;
   }
 
   /**
-   * Gets the amount of small heals the player has.
+   * Gets the amount of small heals the player has
    * @return The amount of small heals the player has
    */
   public int getSmallHeals() {
@@ -191,7 +164,7 @@ class Player implements Comparable<Player> {
   }
 
   /**
-   * Gets the amount of big heals the player has.
+   * Gets the amount of big heals the player has
    * @return The amount of big heals the player has
    */
   public int getBigHeals() {
@@ -204,6 +177,38 @@ class Player implements Comparable<Player> {
    */
   public void setBigHeals(int bigHeals) {
     this.bigHeals = bigHeals;
+  }
+  
+  /**
+   * Gets the current weapon of the player
+   * @return The weapon the player possesses
+   */
+  public Weapon getWeapon() {
+    return this.weapon;
+  }
+
+  /**
+   * Sets the current weapon of player to a new weapon
+   * @param weapon The weapon to be set
+   */
+  public void setWeapon(Weapon weapon) {
+    this.weapon = weapon;
+  }
+  
+  /**
+   * Gets the number of playthroughs by the player
+   * @return The number of playthroughs the player has done
+   */
+  public int getPlaythroughs() {
+    return this.playthroughs;
+  }
+
+  /**
+   * Sets the number of playthroughs by the player
+   * @param playthroughs The number of playthroughs of the player to be set
+   */
+  public void setPlaythroughs(int playthroughs) {
+    this.playthroughs = playthroughs;
   }
   
   /**
@@ -223,16 +228,16 @@ class Player implements Comparable<Player> {
   }
 
   /**
-   * Gets a list of events not yet completed by the player
-   * @return A list of events not yet completed by the player
+   * Gets a list of event numbers not yet completed by the player
+   * @return An integer array list of event numbers not yet completed by the player
    */
   public ArrayList<Integer> getEventNumbers() {
     return this.eventNumbers;
   }
 
   /**
-   * Sets the list of events not yet completed by the player to a given list
-   * @param eventNumbers A list of events not completed to be set to the player
+   * Sets the list of event numbers not yet completed by the player to a given list
+   * @param eventNumbers An int array list of events not completed to be set to the player
    */
   public void setEventNumbers(ArrayList<Integer> eventNumbers) {
     this.eventNumbers = eventNumbers;
@@ -245,14 +250,13 @@ class Player implements Comparable<Player> {
    */
   @Override
   public boolean equals(Object o) {
-    return this.username.equals(((Player)o).getUsername());
+    return this.username.equals(((Player) o).getUsername());
   }
-
 
   /**
    * Compares number of games won of one player to another
    * @param o A given player to be compared
-   * @return Returns an integer of difference of games won; if the player has more games won, returns a positive integer, if the player has less games won, returns a negative integer
+   * @return Returns an integer of difference of games won; if the first player has more games won, returns a positive integer, if the first player has less games won, returns a negative integer
    */
   @Override
   public int compareTo(Player player) {

@@ -1,23 +1,28 @@
 import java.util.*;
+
 /**
- * Creates the game for the player to play
+ * Object containing the game for the player to play
  * @author Shyamal Sriniketh, Ethan Duong, Dhanish Azam
  * @version 17.0.5
  * @since 2024/06/14
  */
-
 class Game {
   protected Player player;
-  public final int SCRIPTED_CYCLE = 3;
+  protected final int SCRIPTED_CYCLE = 3;
+  protected final int TOTAL_EVENTS = 12;
   protected HashMap<Integer, Event> eventMap = new HashMap<Integer, Event>();
   
-  public final int STARTING_MONEY = 150;
-  public final int STARTING_SMALL_POTS = 3;
+  protected final int STARTING_MONEY = 150;
+  protected final int STARTING_SMALL_POTS = 3;
   
-  public final int WEAPON_PRICE = 100;
-  public final int SMALL_PRICE = 50;
-  public final int BIG_PRICE = 125;
+  protected final int WEAPON_PRICE = 100;
+  protected final int SMALL_PRICE = 50;
+  protected final int BIG_PRICE = 125;
 
+  /**
+   * Creates a game for the player to play
+   * @param player The player playing the game
+   */
   public Game(Player player) {
     this.player = player;
     eventMap.put(1, new Event1(player));
@@ -35,115 +40,149 @@ class Game {
   }
 
   /**
-   * Starts the game
+   * Provides information and starting items for a new game
    */
-  public void play() {
-    
-    gameLoop();
-    
-    Input.dialogueln("Returning to main menu...");
-  }
-
-  public void firstPlay(){
+  public void firstPlay() {
     Sleep.wait(Sleep.LONG_DELAY);
-    Input.lore("Welcome to the game!\nYou are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + ".");
+    Input.lore(
+      "Welcome to the game!\n" + 
+      "You are a brave knight who has been tasked by the king with finding an ancient village that nobody has found in centuries. It is rumoured that within the village, a secret recipe exists for an immortality potion. The king wishes for you to find out if the rumours are true, and to retrieve the recipe if they are. To aid you on your mission, you have been given a sword, " + STARTING_SMALL_POTS + " basic potions, and $" + STARTING_MONEY + ".");
     Input.lore(Sword.description());
+
+    this.player.setWeapon(new Sword());
     this.player.setMoney(STARTING_MONEY);
     this.player.setSmallHeals(STARTING_SMALL_POTS);
   }
 
   /**
-   * The main game
+   * Contains the main game loop
    */
-  public void gameLoop() {
-    
-    
+  public void play() {
     Sleep.wait(Sleep.LONG_DELAY);
-    while (this.player.getEventsPassed() < this.player.TOTAL_EVENTS) {
-      
+
+    //runs the game until the player plays every event or dies
+    while (this.player.getEventsPassed() < this.TOTAL_EVENTS) {
+
+      //runs random events until the cycle for a scripted event is met
       do {
+        
+        //runs the event, exits main game loop if player dies or wants to leave
         if (runRandomEvent()) {
           return;
         }
+        
         Input.clearConsole();
       }
       while (this.player.getEventsPassed() % SCRIPTED_CYCLE != 0);
-      
+
+      //runs the scripted event, exits main game loop if player dies or wants to leave
       if (runSpecialEvent()) {
         return;
       }
+      
       Input.clearConsole();
     }
-    gameWin();
+    gameWin(); //if player has passed all events, they win
   }
 
   /**
    * Executes random events
+   * @return Returns true if the player died or wants to leave, false otherwise
    */
   public boolean runRandomEvent() {
     Sleep.wait(Sleep.LONG_DELAY);
     int randomEvent = -1;
+
+    //runs until a random event that has not been played is found
     while (!this.player.getEventNumbers().contains(randomEvent)) {
-      randomEvent = (int) (Math.round(Math.random() * (11)) + 1); //gets a random event from index 1 - 12
+      randomEvent = (int) (Math.round(Math.random() * (this.TOTAL_EVENTS - 1)) + 1); //gets a random event corresponding to a key in eventMap
     }
+
+    //runs the random event
     Event event = this.eventMap.get(randomEvent);
     boolean leave = event.run();
+
+    //updates information and shows the player their current money and HP if they aren't dead or leaving, returns false
     if (!leave) {
       this.player.getEventNumbers().remove(this.player.getEventNumbers().indexOf(randomEvent));
       this.player.setEventsPassed(this.player.getEventsPassed() + 1);
-      Input.lore(
-        "\n" +
+      
+      Input.lore("\n" +
         "Money: $" + this.player.getMoney() + "\n" +
         "HP: " + this.player.getHealth());
       return leave;
     }
 
+    //if the player is dead
     if (this.player.getHealth() == 0) {
       gameLoss();
     }
+
+    //if the player wants to leave
     else {
       quitGame();
     }
-
-   // Input.clearConsole();
-    return leave;
+    
+    return leave; //returns true
   }
 
   /**
    * Executes scripted events
+   * @return Returns true if the player died or wants to leave, false otherwise
    */
   public boolean runSpecialEvent() {
-    // immediate boss battle, harder each time, if they win they get random boss drops? + access to a shop where they can buy stuff so money is actually useful
     Sleep.wait(Sleep.LONG_DELAY);
     boolean death = false;
+
+    //runs a scripted event depending on how many events the player has passed
     switch (this.player.getEventsPassed() / SCRIPTED_CYCLE) {
+
+      //first scripted event - player encounters a dragon
       case 1:
         Input.lore("You walk into a clearing and see a large, black dragon. It is terrorizing a poor shopkeeper. You run to his aid, but now the dragon shifts its attention to you. You have no hope of outrunning it, you must fight!");
+        
         death = Battle.battleInstance(this.player, Enemy.DRAGON);
+
+        //if the player is dead, returns true immediately
         if (death) {
           gameLoss();
           return death;
         }
+        
         Input.lore("By defeating the dragon, you have saved the shopkeeper's life! The shopkeeper is thankful, and is willing to sell you his items right now, despite the trauma he has just experienced.");
         break;
+
+      //second scripted event - player encounters some soldiers
       case 2:
         Input.lore("You wander into a town at night... but nobody is outside. You notice people inside their houses as you walk past them. But things seem off. These people are hiding behind furniture, and they seem terrified. As you enter the town square, you see why. There are 5 fully armed soldiers demolishing the buildings there. They turn around and see you, attacking without hesitation. You have no choice but to fight.");
+        
         death = Battle.battleInstance(this.player, Enemy.SOLDIERS);
+        
+        //if the player is dead, returns true immediately
         if (death) {
           gameLoss();
           return death;
         }
+        
         Input.lore("The town is extremely grateful to you for defeating the rogue soldiers that were terrorizing the town. They allow you to rest in their town overnight. You wake up feeling refreshed the next morning, and head to the town square to visit the shop.");
         break;
+      
+      //third scripted event - player encounters some giant spiders
       case 3:
         Input.lore("After a long day of travel, you find a cave to sleep in for the night. However, you hear a strange noise coming from deeper inside the cave. You decide to investigate. As you head deeper though, you start to notice an unnatural amount of cobwebs. Eventually, you find a group of people huddled in a corner, and they are cowering in fear. You turn around, and realize that there are dozens of giant spiders behind you! Before you know it, you are surrounded on all sides, and have to fight your way out.");
+        
         death = Battle.battleInstance(this.player, Enemy.SPIDERS);
+        
+        //if the player is dead, returns true immediately
         if (death) {
           gameLoss();
           return death;
         }
+        
         Input.lore("Having defeated the spiders, you tend to the others' wounds and then rest for the night. The next morning, they thank you for your help, and offer to sell you some of their items to help you on your journey.");
         break;
+      
+      //fourth scripted event - player encounters an immortal man named Damien
       case 4:
         Input.lore("Your long journey appears to finally be at its end. After all the trials you have faced, you have reached the ancient village. However, you are shocked to find that the village is in ruins. In the middle of it all stands none other than Damien Bartholomew Burnell-Jones Burthwright.");
         Input.lore("Damien: So, it's you again. Excellent. I've been waiting for a chance at revenge.");
@@ -153,59 +192,92 @@ class Game {
         Input.lore("Damien: The arrogant fools gave me the immortality potion. They thought I would use it to protect them from outsiders. They were wrong.");
         Input.lore("You: They gave YOU the ... wait a second. 'The'? You mean there's only one?");
         Input.lore("Damien: That's right. Now, there is no one left who can create another one. I'm the only immortal person in the world! You, a mere mortal, are no match for me! AND NOW, I SHALL HAVE MY REVENGE! MWAHAHAHAHA");
+        
         death = Battle.battleInstance(this.player, Enemy.IMMORTAL);
+        
+        //if the player is dead
         if (death) {
           gameLoss();
         }
-        return death;
+        
+        return death; //always returns after last event
     }
+    
     boolean exit = false;
-
     Input.clearConsole();
+
+    //runs shop until player chooses to leave
     while (!exit) {
       exit = shop();
     }
     return death;
   }
 
+  /**
+   * Allows player to quit in the middle of a game, and choose if they wish to save their data
+   */
   public void quitGame() {
     Sleep.wait(Sleep.LONG_DELAY);
-    Input.dialogueln("Would you like to save your game? (y/n)");
+    Input.dialogueln("Would you like to save your game? (y/n) (not case sensitive)");
     String save = "";
+
+    //runs until player chooses to save or not
     while (!save.equals("y") && !save.equals("n")) {
       save = Input.strIn().toLowerCase();
     }
+
+    //if player chooses not to save, exits game loop
     if (save.equals("n")) {
       gameOver();
+      return;
     }
+
+    //if player chooses to save, saves their progress to file
     else {
+
+      //loads data if not already loaded
       if (Data.players.size() == 0) {
         Data.loadData();
       }
+      
       Data.addPlayer(this.player);
       Data.saveData();
     }
   }
 
+  /**
+   * Updates related information and prints a win message after the player wins
+   */
   public void gameWin() {
     Sleep.wait(Sleep.LONG_DELAY);
+    
     Input.lore("You did it. You defeated an immortal, and you have avenged the ancient village. Now, you must journey home. You have no immortal potion to show for your efforts, but perhaps that's for the better. You have made the world a safer place, and the king will surely reward you for your efforts.");
     Input.dialogueln("Congratulations! You have won the game!");
+    
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     this.player.setGamesWon(this.player.getGamesWon() + 1);
     gameOver();
   }
 
+  /**
+   * Updates related information and prints a loss message after the player loses
+   */
   public void gameLoss() {
     Sleep.wait(Sleep.LONG_DELAY);
-    Input.dialogueln("GAME OVER!");
+    
+    Input.dialogueln("GAME OVER! You have lost this time, but you can always try again!");
+    
     this.player.setPlaythroughs(this.player.getPlaythroughs() + 1);
     gameOver();
   }
 
+  /**
+   * Updates information at the end of any game
+   */
   public void gameOver() {
-    this.player = new Player(this.player.getUsername(), this.player.getPlaythroughs(), this.player.getGamesWon());
+    this.player = new Player(this.player.getUsername(), this.player.getPlaythroughs(), this.player.getGamesWon()); //resets all player data related to the current game
 
+    //loads data if not already loaded
     if (Data.players.size() == 0) {
       Data.loadData();
     }
@@ -214,22 +286,29 @@ class Game {
     Data.saveData();
   }
 
-
+  /**
+   * Collects information about a player's weapon, healing, and money into a 2D String array
+   * @return Returns the player's current inventory in the form of a 2D String array
+   */
   public String[][] inventory() {
     String[][] inventory = {
-      {"Weapon: ", this.player.getWeapon().toString()}, //weapon
-      {"Healing: ", "Basic Potions: " + this.player.getSmallHeals() + " | ", "Super Potions: " + this.player.getBigHeals()}, //healing
-      {"Money: " + this.player.getMoney()/*, RELIC_ID, LOOT_ID*/}
+      {"Weapon: ", this.player.getWeapon().toString()},
+      {"Healing: ", "Basic Potions: " + this.player.getSmallHeals() + " | ", "Super Potions: " + this.player.getBigHeals()},
+      {"Money: " + this.player.getMoney()}
     };
-
+    
     return inventory;
   }
 
+  /**
+   * Shows the player's inventory as a String
+   * @return Returns a String containing the player's inventory
+   */
   public String viewInventory() {
     String[][] inventory = inventory();
     String invUI = "";
-    // System.out.println("INVENTORY");
-    // System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+    
+    //adds each element of the 2D array to the String
     for (int i = 0; i < inventory.length; i++) {
       for (int j = 0; j < inventory[i].length; j++) {
         invUI += inventory[i][j];
@@ -239,8 +318,13 @@ class Game {
     return invUI;
   }
 
+  /**
+   * Runs a shop where the player can buy items during the game
+   * @return Returns true if the player chooses to leave the shop, false otherwise
+   */
   public boolean shop() {
     boolean leave = false;
+    
     String[] shopItems = {
       "SHOP",
       "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n",
@@ -251,99 +335,128 @@ class Game {
       "5. Big Heal: $" + BIG_PRICE + "\n",
       "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n"
     };
-    System.out.println("Welcome to the shop!\n1. View inventory\n2. View shop\n3. Leave");
+    
+    System.out.println(
+      "Welcome to the shop!\n" + 
+      "1. View inventory\n" + 
+      "2. View shop\n" + 
+      "3. Leave");
     int choice = Input.intCheck(1, 3);
 
+    //runs the player's choice
     switch (choice) {
       case 1:
         System.out.print(
-          "INVENTORY" +                 
-          "\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n" + 
+          "INVENTORY\n" +                 
+          "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+\n" + 
           viewInventory() +     
           "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
-        Input.lore("");
+        
+        Input.lore(""); //enter check
         break;
 
       case 2:
         Input.dialogueln("Your money: " + this.player.getMoney());
         System.out.println();
 
+        //prints shop items
         for (int i = 0; i < shopItems.length; i++) {
           System.out.print(shopItems[i]);
           System.out.println();
         }
 
-        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 to exit the shop.");
+        Input.dialogueln("Enter the number corrosponding to the item you would like to buy, or enter 0 if you don't want to buy anything right now.");
         int itemChoice = Input.intCheck(0, 5);
 
+        //runs the player's shop choice
         switch (itemChoice) {
-          case 0:
+          case 0: //back to first switch
             break;
-
-          case 1:
+          
+          case 1: 
             buyWeapon(new Dagger());
             break;
+          
           case 2:
             buyWeapon(new Sword());
             break;
+          
           case 3:
             buyWeapon(new Bow());
             break;
+          
           case 4:
             buyHeals(SMALL_PRICE);
             break;
+          
           case 5:
             buyHeals(BIG_PRICE);
             break;
         }
         break;
 
-      case 3: 
+      case 3: //leaves shop, returns to game loop
         leave = true;
         break;
     }
+    
     Input.clearConsole();
     return leave;
   }
 
+  /**
+   * Has the player purchase a given weapon if they have enough money
+   * @param weapon The weapon the player wants to buy
+   */
   public void buyWeapon(Weapon weapon) {
+
+    //if player doesn't have enough money to buy, steals any money they have instead
     if (this.player.getMoney() < WEAPON_PRICE) {
+      Input.lore("You do not have enough money to buy this weapon.");
       
-      this.player.setMoney(0);
-      
-      Input.lore("You do not have enough money to buy this weapon. ");
-      
-      if (this.player.getMoney() == 0) {
+      //prints a special message if the player has money that is about to be stolen
+      if (this.player.getMoney() != 0) {
         Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
       }
       
+      this.player.setMoney(0);
       return;  
     }
-    
+
+    //purchases weapon
     this.player.setMoney(this.player.getMoney() - 100);
     this.player.setWeapon(weapon);
     Input.dialogue(weapon.toString() + " purchased!");
   }
 
+  /**
+   * Has the player purchase a given potion if they have enough money
+   * @param healPrice The price of the potion the player wants to buy
+   */
   public void buyHeals(int healPrice) {
+
+    //if player doesn't have enough money to buy, steals any money they have instead
     if (this.player.getMoney() < healPrice) {
+      Input.lore("You do not have enough money to buy this potion.");
 
-      this.player.setMoney(0);
-
-      Input.lore("You do not have enough money to buy this potion. ");
-
-      if (this.player.getMoney() == 0) {
+      //prints a special message if the player has money that is about to be stolen
+      if (this.player.getMoney() != 0) {
         Input.lore("The shopkeeper is outraged as he believes you tried to fleece him. He takes all your money.");
       }
 
+      this.player.setMoney(0);
       return;  
     }
-    
+
+    //purchases potion
     this.player.setMoney(this.player.getMoney() - healPrice);
+
+    //determines the potion the player bought, and updates their inventory
     switch (healPrice) {
       case SMALL_PRICE:
         this.player.setSmallHeals(this.player.getSmallHeals() + 1);
         break;
+        
       case BIG_PRICE:
         this.player.setBigHeals(this.player.getBigHeals() + 1);
         break;
@@ -353,18 +466,3 @@ class Game {
   }
   
 }
-
-
-
-
-
-
-// below is for getting the names of events in a class
-// dynamically 
-
-// import java.lang.reflect.Method;
-// Method[] methods = CLASSNAME.getClass().getDeclaredMethods();
-
-// for (int i = 0; i < methods.length; i++){
-//     System.out.println(methods[i].getName);
-// }

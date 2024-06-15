@@ -12,7 +12,7 @@ class Data {
 
   protected static ArrayList<Player> players = new ArrayList<Player>();
   public static final int LEADERBOARD_SIZE = 10;
-  public static final String FILE_NAME = "Utility/Database.txt";
+  public static final String FILE_NAME = "Database.txt";
   
   /**
    * Saves data about all players to a text file.
@@ -91,15 +91,19 @@ class Data {
           case "Dagger":
             weapon = new Dagger();
             break;
+            
           case "Bow":
             weapon = new Bow();
             break;
+            
           case "Sword":
             weapon = new Sword();
             break;
+            
           case "Fists":
             weapon = new Fists();
             break;
+            
           case "Broadsword":
             weapon = new Broadsword();
             break;
@@ -176,13 +180,13 @@ class Data {
     //goes through array until it reaches the leaderboard size or the end of the databse
     for (int i = 0; i < players.size() && i < LEADERBOARD_SIZE; i++) {
 
-      //first user will always simply be 1.
+      //first player will always simply be 1.
       if (i == 0) {
         System.out.println(displayScore + ". " + players.get(i).getUsername() + ": " + players.get(i).getGamesWon() + " wins");
       }
       
-      // users after have the chance of tying in number of wins with previous user; if tied, doesn't increment their rank
-      // only increments rank once there is a user who isn't tied with previous user(s)
+      // users after have the chance of tying in number of wins with previous player; if tied, doesn't increment their rank
+      // only increments rank once there is a player who isn't tied with previous player(s)
       if (i > 0) {
 
         //if users are tied
@@ -202,12 +206,12 @@ class Data {
   }
   
   /**
-   * Displays the user's playthroughs and games won
+   * Displays the player's playthroughs and games won
    */
   public static void personalStats() {
     loadData(); //loads current player data from file
     
-    System.out.println("Please enter the username you want to see the stats of.");
+    Input.dialogueln("Please enter the username you want to see the stats of.");
     String username = Input.strIn();
     boolean exists = false;
 
@@ -216,8 +220,8 @@ class Data {
 
       //if player exists, prints out their stats
       if (players.get(i).getUsername().equals(username)) {
-        System.out.println("Playthroughs: " + players.get(i).getPlaythroughs());
-        System.out.println("Games won: " + players.get(i).getGamesWon());
+        Input.dialogueln("Playthroughs: " + players.get(i).getPlaythroughs());
+        Input.dialogueln("Games won: " + players.get(i).getGamesWon());
         exists = true;
         i = players.size(); //exits for loop
       }
@@ -225,7 +229,7 @@ class Data {
 
     //if player doesn't exist, prints error message
     if(!exists) {
-      System.out.println("Player not found. Returning to main menu.");
+      Input.dialogueln("Player not found. Returning to main menu.");
     }
 
     Sleep.wait(Sleep.LONG_DELAY);
@@ -288,7 +292,7 @@ class Data {
     while (leftIndex < left.size() && rightIndex < right.size()) {
 
       //if left player has more wins, adds left player to original array list
-      if (left.get(leftIndex).getGamesWon() > right.get(rightIndex).getGamesWon()) {
+      if (left.get(leftIndex).compareTo(right.get(rightIndex)) > 0) {
         og.set(ogIndex, left.get(leftIndex++));
       }
 

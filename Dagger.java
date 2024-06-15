@@ -11,18 +11,17 @@ class Dagger implements Weapon {
   protected final int MAX_BONUS_STRIKES = 5;
   protected final double MULTIHIT_ODDS = 0.5;
   protected final double EVASION_ODDS = 0;
-  protected final double ENEMY_BONUS_ODDS = 0;
   
   /**
    * Uses the dagger
-   * @return The damage dealt by the dagger
+   * @return The damage value after nulti hit calculations, if the weapon landed multiple hits
    */
   @Override
   public int use() {
 
     int bonusDamageInstances = 0;
     
-    System.out.println("You strike with your dagger.");
+    Input.dialogueln("You strike with your dagger.");
     
     Sleep.wait(Sleep.LONG_DELAY);
 
@@ -33,7 +32,7 @@ class Dagger implements Weapon {
 
       //1 extra hit
       if (bonusDamageInstances == 1) {
-        System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hit!");
+        Input.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hit!");
 
         Sleep.wait(Sleep.SHORT_DELAY);
 
@@ -41,7 +40,7 @@ class Dagger implements Weapon {
 
       //more than 1 extra hit
       else if (bonusDamageInstances > 1) {
-        System.out.println("MULTIHIT! " + bonusDamageInstances + " extra hits!");
+        Input.dialogueln("MULTIHIT! " + bonusDamageInstances + " extra hits!");
       }
       
       Sleep.wait(Sleep.SHORT_DELAY);
@@ -52,8 +51,8 @@ class Dagger implements Weapon {
   }
   
   /**
-   * Contains the description about the dagger 
-   * @return A string with the description
+   * Contains a description of the dagger 
+   * @return A string with the description of the dagger
    */
   public static String description() {
     return "Used by assassins and the like, the dagger is a small, simple and agile weapon, yet a deadly one.\nDeals the lowest damage of the weapons at a measly 5 damage, but has a 50% chance to land an extra hit, up to a maximum of 5 extra hits.";
